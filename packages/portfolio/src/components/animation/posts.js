@@ -1,78 +1,119 @@
 import gsap from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 import config from "../../styles/config";
 import { bp } from "../../styles/breakpoints";
 import colors from "../../styles/colors";
 import acAnimated from "../../helpers/splitText";
 
+gsap.registerPlugin(ScrollToPlugin);
+
+const tl = gsap.timeline({
+  paused: true,
+  defaults: { duration: 0.5, ease: "power3" },
+});
+
+const addActiveClassSinglePost = (el, currLink) => {
+  const post = [...el.querySelectorAll(".post")];
+
+  post.forEach(single => {
+    if (single.getAttribute("href") == currLink) {
+      single.classList.add("active");
+      tl.clear();
+      buildAnimation(el);
+      tl.progress(1)
+    }
+  })
+}
 
 const addActiveClass = (el) => {
   const post = [...el.querySelectorAll(".post")];
+
   post.forEach((single, index) => {
-    single.addEventListener("click", () => {
+    single.addEventListener("click", (e) => {
+      e.preventDefault();
       post[index].classList.add("active");
+      // build animation after setting active class
+      tl.clear();
+      buildAnimation(el)
     })
   })
 }
 
-
-const postAnimation = (el, currLink) => {
+const buildAnimation = (el) => {
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-image");
   const postActiveH2 = [...el.querySelectorAll(".post.active h2 div")]
+  const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const postActiveDividerSubline = el.querySelector(".post.active .divider-subline");
-  const isHome = currLink == "/";
-  const tl = gsap.timeline({ defaults: { duration: 0.5 } });
 
-  if (isHome) {
-    // set active back to inactive state
-    if (postActive) {
-      tl.fromTo(postActiveImage, {
-        width: "100%"
-      }, {
-        width: "80%",
-        clearProps: "width",
-        onComplete: () => {
-          postActive.classList.remove("active");
-        }
-      })
+  tl.to(postsInActive, {
+    opacity: 0,
+    onReverseComplete: () => {
+      postActive.removeAttribute('aria-disabled');
+      gsap.set(postsInActive, { clearProps: "all" })
+      gsap.set([postActiveH2, postActive], { clearProps: "height" })
+      postActive.classList.remove("active");
     }
-    // reset in active posts 
-    tl.to(postsInActive, {
-      display: window.innerWidth >= bp.tablet ? "flex" : "block",
-      height: `${config.postHeight}`
+  })
+    .to(postsInActive, {
+      height: 0,
+      marginBottom: 0,
+      display: "none",
+      duration: 1
     })
-      .to(postsInActive, {
-        opacity: 1,
-      })
-      .set(postsInActive, { clearProps: "all" })
+    .to(window, {
+      scrollTo: 0,
+      duration: 1
+    }, "-=1")
 
-  } else {
-    tl.to(postsInActive, {
+  if (postActive) {
+    tl.to(postActiveDividerSubline, {
       opacity: 0,
-    })
-      .to(postActiveDividerSubline, {
-        opacity: 0,
-      }, "-=0.5")
-      .to(postsInActive, {
-        height: 0,
-        display: "none",
-      })
+    }, "-=1")
       .fromTo(postActiveImage, {
-        width: "80%"
+        width: "80%",
       }, {
         width: "100%",
-        duration: 1
-      })
-      .to(postActiveH2, {
+        duration: 2
+      }, "-=1")
+
+    if (window.outerWidth > bp.tablet) {
+      tl.to(postActive, {
+        height: "40vh",
+        duration: 2
+      }, "-=2")
+    }
+
+    if (window.outerWidth <= bp.tablet) {
+      tl.to(postActiveTitleLink, {
         height: 0,
-        duration: 1
-      }, "-=1.5")
+        display: "none"
+      }, "-=2")
+    }
+
+    tl.to(postActiveH2, {
+      height: 0,
+      duration: 2,
+      onComplete: () => {
+        postActive.setAttribute('aria-disabled', 'true');
+      }
+    }, "-=2")
+
   }
 }
 
-const postHover = (el) => {
+const playAnimation = (currLink) => {
+  const isHome = currLink == "/";
+  if (isHome) {
+    tl.reverse();
+  } else {
+    tl.play();
+  }
+}
+
+const hoverAnimation = (el) => {
   const post = [...el.querySelectorAll(".post")];
 
   post.forEach((item) => {
@@ -108,12 +149,9 @@ const postHover = (el) => {
         duration: 0.3
       }, "-=0.4")
 
-
     item.addEventListener("mouseenter", () => tl.play())
     item.addEventListener("mouseleave", () => tl.reverse())
   })
 }
 
-
-
-export { addActiveClass, postAnimation, postHover }
+export { addActiveClass, playAnimation, hoverAnimation, addActiveClassSinglePost }

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import { connect, Global, styled } from "frontity";
+import React, { useRef } from "react";
+import { connect, Global, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Cookies from 'universal-cookie';
 
@@ -23,6 +23,11 @@ const Root = ({ state }) => {
   return (
     <div ref={root}>
       <Global styles={GlobalStyles} />
+      <Head>
+        <html lang="en" />
+        <meta name="referrer" content="origin" />
+        <meta name="description" content={state.frontity.description} />
+      </Head>
       <Container>
         <Header />
         <Main>
@@ -36,7 +41,7 @@ const Root = ({ state }) => {
         <Footer>
           <div>
             <InstaLink href="" target="_blank">
-              <img src={Insta} />
+              <img src={Insta} alt="instagram icon" />
             </InstaLink>
             <Link href={"/imprint/"} node={root}>| <strong>Imprint</strong></Link>
           </div>

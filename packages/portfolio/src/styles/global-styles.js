@@ -72,15 +72,16 @@ export const GlobalStyles = css`
     color: #000;
     background: ${colors.primary};
     height: 100%;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3 {
     color: #000;
+    font-family: 'Body Text Medium';
   }
 
-  h2{
-    font-size: clamp(2em, 6.5vw, 6em);
-    font-family: 'Body Text Medium';
+  h1{
+    font-size: clamp(2em, 5.5vw, 4em);
   }
 
   .subline{
@@ -92,9 +93,12 @@ export const GlobalStyles = css`
     color: #000;
   }
 
+  a[aria-disabled="true"] {
+    pointer-events: none;
+  }
+
   strong{
     font-family: 'Body Text Bold'
   }
-
 
 `

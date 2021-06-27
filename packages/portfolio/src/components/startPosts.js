@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { connect, styled } from "frontity";
 
-import { addActiveClass, postAnimation, postHover } from "./animation/posts";
+import { addActiveClass, playAnimation, hoverAnimation, addActiveClassSinglePost } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import ACFMedia from "./images/acf-media";
@@ -18,21 +18,26 @@ const Slider = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-    postHover(el);
-    const title = [...el.querySelectorAll(".post h2")];
-    title.forEach((item) => {
-      acAnimated.Plugins.SplitText(item, { words: 1, chars: 0, spacing: 0 });
-    })
-  }, [])
-
-  useEffect(() => {
-    const el = root.current;
-    addActiveClass(el);
+    addActiveClass(el, currLink);
   })
 
   useEffect(() => {
     const el = root.current;
-    postAnimation(el, currLink)
+
+    // split title in words
+    const title = [...el.querySelectorAll(".post h2")];
+    title.forEach((item) => {
+      acAnimated.Plugins.SplitText(item, { words: 1, chars: 0, spacing: 0 });
+    })
+
+    addActiveClassSinglePost(el, currLink)
+    hoverAnimation(el);
+
+  }, [])
+
+  useEffect(() => {
+    const el = root.current;
+    playAnimation(currLink)
   }, [currLink])
 
 
@@ -67,12 +72,12 @@ const Post = styled(Link)`
   position: relative;
   margin-bottom: 4rem;
   display: block;
-  height: ${config.postHeight};
   > div{
       width: 80%;
     }
 
   ${mq("tablet")}{
+    height: ${config.postHeight};
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -90,6 +95,7 @@ const Post = styled(Link)`
     h2{
       margin-bottom: 1rem;
       line-height: 1.1;
+      font-size: clamp(2em, 6.5vw, 6em);
       div{
         overflow-y: hidden;
         vertical-align: bottom;
@@ -97,16 +103,11 @@ const Post = styled(Link)`
     }
   }
   .post-image{
-    height: 80%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     ${mq("tablet")}{
-      height: 100%;
       margin-right: 0;
-    }
-    div{
-      height: 100%;
-      padding-top: 0;
     }
   }
 `

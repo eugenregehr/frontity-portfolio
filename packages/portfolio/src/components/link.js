@@ -1,6 +1,7 @@
 import React from "react";
 import { connect, styled } from "frontity";
 
+import { Transitions } from "./animation/transitions";
 
 const Link = ({ className, state, href, current, actions, children, node }) => {
   return (
@@ -10,6 +11,7 @@ const Link = ({ className, state, href, current, actions, children, node }) => {
         className={className}
         onClick={e => {
           e.preventDefault();
+          // Transitions()
           actions.router.set(href)
         }}
       >
