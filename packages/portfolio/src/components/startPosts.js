@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { connect, styled } from "frontity";
 
-import { addActiveClass, playAnimation, hoverAnimation, addActiveClassSinglePost } from "./animation/posts";
+import { addActiveClass, playPostsAnimation, hoverAnimation, addActiveClassSinglePost } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import ACFMedia from "./images/acf-media";
@@ -37,7 +37,7 @@ const Slider = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-    playAnimation(currLink)
+    playPostsAnimation(currLink)
   }, [currLink])
 
 

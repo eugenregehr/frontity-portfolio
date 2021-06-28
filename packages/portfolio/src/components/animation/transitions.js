@@ -1,5 +1,6 @@
 
-const Transitions = ({ }) => {
+const Transitions = () => {
+
 
 }
 

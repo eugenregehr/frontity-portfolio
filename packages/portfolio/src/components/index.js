@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { connect, Global, styled, Head } from "frontity";
-import Switch from "@frontity/components/switch";
 import Cookies from 'universal-cookie';
 
 import { GlobalStyles } from '../styles/global-styles';
@@ -15,10 +14,15 @@ import Insta from "../assest/icons/instagram.svg";
 import config from "../styles/config";
 import colors from "../styles/colors";
 
+const history = [];
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const root = useRef(null);
+
+  // save the last two history urls
+  history.push(state.router.link);
+  if (history.length > 2) history.shift();
 
   return (
     <div ref={root}>
@@ -33,10 +37,8 @@ const Root = ({ state }) => {
         <Main>
           <StartPosts />
           {data.isFetching && <Loading />}
-          <Switch>
-            <List when={data.id == 57} category={{ "work": 2 }} />
-            <Post when={data.isPost || data.isPage} />
-          </Switch>
+          <Post history={history} />
+          {data.id == 57 && <List category={{ "work": 2 }} />}
         </Main>
         <Footer>
           <div>

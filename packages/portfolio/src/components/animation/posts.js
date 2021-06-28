@@ -104,7 +104,7 @@ const buildAnimation = (el) => {
   }
 }
 
-const playAnimation = (currLink) => {
+const playPostsAnimation = (currLink) => {
   const isHome = currLink == "/";
   if (isHome) {
     tl.reverse();
@@ -154,4 +154,4 @@ const hoverAnimation = (el) => {
   })
 }
 
-export { addActiveClass, playAnimation, hoverAnimation, addActiveClassSinglePost }
+export { addActiveClass, playPostsAnimation, hoverAnimation, addActiveClassSinglePost }

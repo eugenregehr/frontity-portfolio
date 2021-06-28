@@ -6,8 +6,8 @@ import config from "../../styles/config";
 const Arrow = () => {
   return (
     <ArrowEl className={"arrow-icon"}>
-      <p></p>
-      <p></p>
+      <p className={'first'}></p>
+      <p className={'last'}></p>
     </ArrowEl>
   )
 }
@@ -26,11 +26,11 @@ const ArrowEl = styled.div`
       height: ${config.lineHeight};
       background: ${colors.primary};
       border-radius: 1rem;
-      &:first-child{
+      &.first{
         transform: rotate(35deg);
         top: 0;
       }
-      &:last-child{
+      &.last{
         transform: rotate(-35deg);
         bottom: 0;
       }
