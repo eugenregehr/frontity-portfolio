@@ -1,7 +1,11 @@
 import gsap from "gsap";
 
 const playPostAnimation = (el, currLink) => {
-  if (currLink == "/") {
+  const isHome = currLink == "/";
+  const isProject = currLink.includes("project/");
+  const singlePost = el.querySelector(".single-post");
+
+  if (isHome) {
     gsap.set(el, { overflow: "hidden" })
     gsap.to(el, {
       height: 0,
@@ -12,7 +16,11 @@ const playPostAnimation = (el, currLink) => {
     })
   } else {
     gsap.set(el, { clearProps: "all" })
+    // gsap.set(singlePost, { display: "block" })
   }
+  // if (isProject) {
+  //   gsap.set(singlePost, { display: "block" })
+  // }
 }
 
 export { playPostAnimation }

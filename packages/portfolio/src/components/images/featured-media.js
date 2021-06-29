@@ -3,7 +3,7 @@ import { connect, styled } from "frontity";
 import Image from "./image";
 
 
-const FeaturedMedia = ({ state, id }) => {
+const FeaturedMedia = ({ state, id, className }) => {
 
   const media = state.source.attachment[id];
 

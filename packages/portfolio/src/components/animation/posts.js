@@ -104,13 +104,19 @@ const buildAnimation = (el) => {
   }
 }
 
-const playPostsAnimation = (currLink) => {
+const playPostsAnimation = (el, currLink) => {
   const isHome = currLink == "/";
+  const isProject = currLink.includes("/project/");
   if (isHome) {
+    gsap.set(el, { display: "block" })
     tl.reverse();
-  } else {
+  } else if (isProject) {
+    gsap.set(el, { display: "block" })
     tl.play();
+  } else {
+    gsap.set(el, { display: "none" })
   }
+
 }
 
 const hoverAnimation = (el) => {

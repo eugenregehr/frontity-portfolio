@@ -8,7 +8,7 @@ import ACFMedia from "./images/acf-media";
 import Link from "./link";
 import config from "../styles/config";
 import color from "../styles/colors";
-import Divider from "./partials/divider";
+import Divider from "./modules/partials/divider";
 import acAnimated from "../helpers/splitText";
 
 const Slider = ({ state }) => {
@@ -37,12 +37,12 @@ const Slider = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-    playPostsAnimation(currLink)
+    playPostsAnimation(el, currLink)
   }, [currLink])
 
 
   return (
-    <div ref={root}>
+    <div ref={root} className={"start-posts"}>
       {postsPerCategory.map(({ posts }, index) => (
         <div key={index}>
           {posts.map((post, index) => (
@@ -95,7 +95,7 @@ const Post = styled(Link)`
     h2{
       margin-bottom: 1rem;
       line-height: 1.1;
-      font-size: clamp(2em, 6.5vw, 6em);
+      font-size: clamp(2em, 6.5vw, 5em);
       div{
         overflow-y: hidden;
         vertical-align: bottom;

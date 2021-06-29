@@ -5,7 +5,7 @@ import Colors from "../../styles/colors";
 import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
 
-const Nav = ({ state, node }) => (
+const Nav = ({ state }) => (
   <Navigation>
     {state.theme.menu.map(([name, link]) => {
       // Check if the link matched the current page url
@@ -24,7 +24,7 @@ const Nav = ({ state, node }) => (
               <GithubIcon src={Github} alt="github logo" />
             </a>
           ) :
-            <Link node={node} href={link} current={isCurrentPage ? "page" : undefined}>
+            <Link nav href={link} current={isCurrentPage ? "page" : undefined}>
               {name}
             </Link>}
 
@@ -45,6 +45,8 @@ const GithubIcon = styled.img`
 `
 const Navigation = styled.nav`
   display: flex;
+  position: relative;
+  z-index: 99;
   a{
     padding: 0.25rem;
     margin-left: 0.35rem;

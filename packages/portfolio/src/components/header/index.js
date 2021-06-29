@@ -3,7 +3,7 @@ import { connect, styled } from "frontity";
 import Link from "../link";
 import Nav from "./nav";
 import { mq } from "../../styles/breakpoints";
-import Logo from "../../assest/images/logo.svg"
+import Logo from "../../assest/images/logo-w.svg"
 
 const Header = () => {
 
@@ -12,7 +12,7 @@ const Header = () => {
       <LogoLink href={'/'}>
         <img src={Logo} alt="Logo" />
       </LogoLink>
-      <Nav node={root} />
+      <Nav />
     </Wrapper>
   )
 
@@ -40,5 +40,7 @@ const Wrapper = styled.header`
   margin: auto;
   a{
     display: block;
+    z-index: 999;
+    position: relative;
   }
 `

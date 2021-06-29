@@ -11,7 +11,9 @@ export default {
   },
   state: {
     theme: {
-      isMenuOpen: false
+      isMenuOpen: false,
+      transition: false,
+      href: ""
     },
   },
   actions: {

@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 
 import Title from "./partials/title";

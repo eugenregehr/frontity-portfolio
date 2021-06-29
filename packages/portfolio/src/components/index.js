@@ -8,11 +8,13 @@ import Link from "./link";
 import StartPosts from "./startPosts";
 import List from "./list";
 import Post from "./post";
+import Page from "./page";
 import { mq } from "../styles/breakpoints";
 import Loading from "./loader";
 import Insta from "../assest/icons/instagram.svg";
 import config from "../styles/config";
 import colors from "../styles/colors";
+import TransitionLayer from "./transition";
 
 const history = [];
 
@@ -34,21 +36,26 @@ const Root = ({ state }) => {
       </Head>
       <Container>
         <Header />
+        {state.theme.transition &&
+          <TransitionLayer
+            node={root}
+            loading={data.isFetching} />
+        }
         <Main>
           <StartPosts />
           {data.isFetching && <Loading />}
           <Post history={history} />
-          {data.id == 57 && <List category={{ "work": 2 }} />}
+          <Page />
+          {/* {data.id == 57 && <List category={{ "work": 2 }} />} */}
         </Main>
         <Footer>
           <div>
             <InstaLink href="" target="_blank">
               <img src={Insta} alt="instagram icon" />
             </InstaLink>
-            <Link href={"/imprint/"} node={root}>| <strong>Imprint</strong></Link>
+            <Link href={"/imprint/"} >| <strong>Imprint</strong></Link>
           </div>
         </Footer>
-
       </Container>
     </div>
   );

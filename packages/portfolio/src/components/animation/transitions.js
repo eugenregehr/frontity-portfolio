@@ -1,7 +1,0 @@
-
-const Transitions = () => {
-
-
-}
-
-export { Transitions }

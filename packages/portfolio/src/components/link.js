@@ -1,7 +1,6 @@
-import React from "react";
 import { connect, styled } from "frontity";
 
-const Link = ({ className, state, href, current, actions, children, node }) => {
+const Link = ({ className, state, href, current, actions, children, nav }) => {
   return (
     <>
       <LinkEl href={href}
@@ -9,7 +8,12 @@ const Link = ({ className, state, href, current, actions, children, node }) => {
         className={className}
         onClick={e => {
           e.preventDefault();
-          actions.router.set(href)
+          if (nav) {
+            state.theme.transition = true;
+            state.theme.href = href
+          } else {
+            actions.router.set(href)
+          }
         }}
       >
         {children}

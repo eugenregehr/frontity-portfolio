@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 import gsap from "gsap";
 
-import colors from "../../styles/colors";
+import colors from "../../../styles/colors";
 import Arrow from "./arrow";
-import config from "../../styles/config";
+import config from "../../../styles/config";
 
-const Devider = ({ arrow }) => {
+const Devider = ({ arrow, vertical }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Devider = ({ arrow }) => {
   })
 
   return (
-    <Lines ref={ref} className={"divider"}>
+    <Lines ref={ref} className={vertical ? "divider vertical" : "divider"}>
       <span className={"one"}></span>
       <span className={"two"}></span>
       <span className={"three"}></span>
@@ -45,13 +45,13 @@ const Lines = styled.div`
   width: 100%;
   position: relative;
   align-items: center;
+
   span{
     margin-left: 0.3rem;
     display: block;
     height: ${config.lineHeight};
     background: ${colors.primary};
     border-radius: 1rem;
-
     &.one{
       width: 10%;
       opacity: 0.2;
@@ -68,5 +68,28 @@ const Lines = styled.div`
       width: 55%;
       opacity: 1;
     }
+  }
+
+  &.vertical{
+    height: 4rem;
+    flex-direction: column;
+    span{
+      width: ${config.lineHeight};
+      margin-left: 0;
+      margin-bottom: 0.3rem;
+      &.one{
+        height: 10%;
+      }
+      &.two{
+        height: 20%;
+      }
+      &.three{
+        height: 25%;
+      }
+      &.four{
+        height: 55%;
+      }
+    }
+    
   }
 `

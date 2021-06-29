@@ -1,7 +1,7 @@
 import { connect, styled } from "frontity";
 
-import colors from "../../styles/colors"
-import config from "../../styles/config";
+import colors from "../../../styles/colors"
+import config from "../../../styles/config";
 
 const Arrow = () => {
   return (

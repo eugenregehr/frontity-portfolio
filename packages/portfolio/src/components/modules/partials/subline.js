@@ -1,4 +1,3 @@
-import React, { useRef, useEffect } from "react";
 import { connect, styled } from "frontity";
 
 const Subline = ({ data, className }) => {
