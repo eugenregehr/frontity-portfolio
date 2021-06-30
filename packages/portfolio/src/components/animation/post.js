@@ -16,11 +16,10 @@ const playPostAnimation = (el, currLink) => {
     })
   } else {
     gsap.set(el, { clearProps: "all" })
-    // gsap.set(singlePost, { display: "block" })
   }
-  // if (isProject) {
-  //   gsap.set(singlePost, { display: "block" })
-  // }
+  if (isProject) {
+    gsap.set(singlePost, { clearProps: "all" })
+  }
 }
 
 export { playPostAnimation }
