@@ -20,7 +20,7 @@ const Text = styled.div`
     max-width: 20rem;
     margin: auto;
     display: block;
-    line-height: 1.4;
+    line-height: 1.6;
     ${mq("tablet")}{
       max-width: 25rem;
     }

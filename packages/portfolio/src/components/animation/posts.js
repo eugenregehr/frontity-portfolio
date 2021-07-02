@@ -13,20 +13,20 @@ const tl = gsap.timeline({
   defaults: { duration: 0.5, ease: "power3" },
 });
 
-const addActiveClassSinglePost = (el, currLink) => {
+const addActiveClassSinglePost = ({ el, currLink, state }) => {
   const post = [...el.querySelectorAll(".post")];
 
   post.forEach(single => {
     if (single.getAttribute("href") == currLink) {
       single.classList.add("active");
       tl.clear();
-      buildAnimation(el);
+      buildAnimation({ el, state });
       tl.progress(1)
     }
   })
 }
 
-const addActiveClass = (el) => {
+const addActiveClass = ({ el, state }) => {
   const post = [...el.querySelectorAll(".post")];
 
   post.forEach((single, index) => {
@@ -35,25 +35,26 @@ const addActiveClass = (el) => {
       post[index].classList.add("active");
       // build animation after setting active class
       tl.clear();
-      buildAnimation(el)
+      buildAnimation({ el, state })
     })
   })
 }
 
-const buildAnimation = (el) => {
+const buildAnimation = ({ el, state }) => {
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-image");
   const postActiveH2 = [...el.querySelectorAll(".post.active h2 div")]
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const postActiveDividerSubline = el.querySelector(".post.active .divider-subline");
+  const isProjectPage = state.theme.postCat == "work";
 
   tl.to(postsInActive, {
     opacity: 0,
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
-      gsap.set(postsInActive, { clearProps: "all" })
-      gsap.set([postActiveH2, postActive], { clearProps: "height" })
+      gsap.set([postsInActive, postActive, postActiveImage], { clearProps: "all" })
+      gsap.set(postActiveH2, { clearProps: "height" })
       postActive.classList.remove("active");
     }
   })
@@ -69,15 +70,23 @@ const buildAnimation = (el) => {
     }, "-=1")
 
   if (postActive) {
-    tl.to(postActiveDividerSubline, {
-      opacity: 0,
-    }, "-=1")
-      .fromTo(postActiveImage, {
+
+    if (isProjectPage) {
+      tl.to(postActive, {
+        width: "100%",
+        duration: 1
+      })
+    } else {
+      tl.to(postActiveDividerSubline, {
+        opacity: 0,
+      }, "-=1")
+      tl.fromTo(postActiveImage, {
         width: "80%",
       }, {
         width: "100%",
         duration: 2
       }, "-=1")
+    }
 
     if (window.outerWidth > bp.tablet) {
       tl.to(postActive, {
@@ -104,8 +113,8 @@ const buildAnimation = (el) => {
   }
 }
 
-const playPostsAnimation = (el, currLink) => {
-  const isHome = currLink == "/";
+const playPostsAnimation = ({ el, currLink, state }) => {
+  const isHome = currLink == "/" || currLink == "/projects/";
   const isProject = currLink.includes("/project/");
   if (isHome) {
     gsap.set(el, { display: "block" })
@@ -117,9 +126,13 @@ const playPostsAnimation = (el, currLink) => {
     gsap.set(el, { display: "none" })
   }
 
+  // if (state.theme.href = "/") {
+  //   buildAnimation({ el, state })
+  // }
+
 }
 
-const hoverAnimation = (el) => {
+const hoverAnimation = ({ el }) => {
   const post = [...el.querySelectorAll(".post")];
 
   post.forEach((item) => {

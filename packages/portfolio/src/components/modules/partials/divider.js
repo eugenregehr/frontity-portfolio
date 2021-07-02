@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, css } from "frontity";
 import gsap from "gsap";
 
 import colors from "../../../styles/colors";
 import Arrow from "./arrow";
 import config from "../../../styles/config";
 
-const Devider = ({ arrow, vertical }) => {
+const Devider = ({ arrow, vertical, className = "", color }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -26,7 +26,14 @@ const Devider = ({ arrow, vertical }) => {
   })
 
   return (
-    <Lines ref={ref} className={vertical ? "divider vertical" : "divider"}>
+    <Lines ref={ref}
+      className={`${className} ${vertical ? "divider vertical" : "divider"}`}
+      css={css`
+      span{
+        background: ${color ? color : colors.primary}
+      }
+      `}
+    >
       <span className={"one"}></span>
       <span className={"two"}></span>
       <span className={"three"}></span>
@@ -50,7 +57,6 @@ const Lines = styled.div`
     margin-left: 0.3rem;
     display: block;
     height: ${config.lineHeight};
-    background: ${colors.primary};
     border-radius: 1rem;
     &.one{
       width: 10%;

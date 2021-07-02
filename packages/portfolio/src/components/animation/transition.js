@@ -8,14 +8,13 @@ const tl = gsap.timeline({
 const Transition = ({ node, href, actions, state }) => {
 
   const currSlug = state.router.link;
-  const toProject = currSlug.includes("project")
+  const toProject = currSlug.includes("/project/")
   const isHome = href == "/";
 
-  // if (isProjectGoHome) actions.router.set(href)
-  console.log(toProject, isHome)
 
   if (toProject && isHome) {
-    actions.router.set(href)
+    state.theme.transition = false;
+    actions.router.set(href);
   } else {
 
     const root = node.current;

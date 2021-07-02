@@ -13,7 +13,9 @@ export default {
     theme: {
       isMenuOpen: false,
       transition: false,
-      href: ""
+      href: "",
+      posts: { "slider": 4 },
+      postCat: ""
     },
   },
   actions: {

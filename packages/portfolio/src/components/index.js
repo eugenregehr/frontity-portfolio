@@ -6,7 +6,6 @@ import { GlobalStyles } from '../styles/global-styles';
 import Header from "./header";
 import Link from "./link";
 import StartPosts from "./startPosts";
-import List from "./list";
 import Post from "./post";
 import Page from "./page";
 import { mq } from "../styles/breakpoints";
@@ -16,15 +15,19 @@ import config from "../styles/config";
 import colors from "../styles/colors";
 import TransitionLayer from "./transition";
 
-const history = [];
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const root = useRef(null);
 
-  // save the last two history urls
-  history.push(state.router.link);
-  if (history.length > 2) history.shift();
+  if (state.router.link == "/projects/") {
+    state.theme.posts = { "work": 2 };
+    state.theme.postCat = "work";
+  };
+  if (state.router.link == "/") {
+    state.theme.posts = { "slider": 4 }
+    state.theme.postCat = "slider";
+  };
 
   return (
     <div ref={root}>
@@ -44,7 +47,7 @@ const Root = ({ state }) => {
         <Main>
           <StartPosts />
           {data.isFetching && <Loading />}
-          <Post history={history} />
+          <Post />
           <Page />
           {/* {data.id == 57 && <List category={{ "work": 2 }} />} */}
         </Main>

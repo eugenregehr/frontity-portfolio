@@ -1,5 +1,5 @@
 // import { categoriesWidgetsHome } from '../config'
-const MAXIMUM_POSTS = 5
+const MAXIMUM_POSTS = 10
 
 const getPostsFromCategory = ({ post }, categoryId) =>
   Object.keys(post)

@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { connect, loadable, styled } from "frontity";
 
 import Loading from "./loader";
-import Divider from "./modules/partials/divider";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -15,10 +14,6 @@ const Post = ({ state, history }) => {
     page ? <div ref={root}>
       {data.isFetching && <Loading />}
       <div className={"single-page"} >
-        <H1>{page.title.rendered}</H1>
-        <DividerWrap>
-          <Divider arrow />
-        </DividerWrap>
         {page.acf.module && page.acf.module.length > 0 && page.acf.module.map((item, index) => (
           <div key={index}>
             <Component page={item.acf_fc_layout} acfData={item} />

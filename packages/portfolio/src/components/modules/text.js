@@ -7,7 +7,7 @@ import ContentText from "./partials/content-text";
 const Text = ({ acfData }) => {
 
   return (
-    <ModuleText>
+    <ModuleText className="module">
       <Title data={acfData} />
       <Subline data={acfData} />
       <ContentText data={acfData} className={"content-text"} />

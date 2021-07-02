@@ -78,6 +78,7 @@ export const GlobalStyles = css`
   h1, h2, h3 {
     color: #000;
     font-family: 'Body Text Medium';
+    line-height: 1.2em;
   }
 
   h1{
@@ -99,6 +100,11 @@ export const GlobalStyles = css`
 
   strong{
     font-family: 'Body Text Bold'
+  }
+
+  .module{
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 
 `

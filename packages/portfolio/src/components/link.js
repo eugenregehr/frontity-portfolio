@@ -8,9 +8,9 @@ const Link = ({ className, state, href, current, actions, children, nav }) => {
         className={className}
         onClick={e => {
           e.preventDefault();
+          state.theme.href = href
           if (nav) {
             state.theme.transition = true;
-            state.theme.href = href
           } else {
             actions.router.set(href)
           }

@@ -6,22 +6,29 @@ import Divider from "./modules/partials/divider";
 import { playPostAnimation } from "./animation/post";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
+let history = null;
 
-const Post = ({ state, history }) => {
+const Post = ({ state }) => {
   const [data, setData] = useState(state.source.get(state.router.link));
   const [post, setPost] = useState(state.source.post[data.id]);
   const root = useRef(null);
   const currLink = state.router.link
 
-  useEffect(() => {
-    const el = root.current;
-    let newData = history[0].includes("project") ? state.source.get(history[0]) : state.source.get(state.router.link);
-    let newPost = state.source.post[newData.id] || null;
-    setData(newData);
-    setPost(newPost)
+  if (currLink.includes("/project/")) {
+    history = state.router.link;
+  }
 
-    if (post) {
-      playPostAnimation(el, currLink);
+  useEffect(() => {
+    if (history) {
+      const el = root.current;
+      let newData = state.source.get(history)
+      let newPost = state.source.post[newData.id] || null;
+      setData(newData);
+      setPost(newPost)
+
+      if (post) {
+        playPostAnimation(el, currLink);
+      }
     }
 
   })
