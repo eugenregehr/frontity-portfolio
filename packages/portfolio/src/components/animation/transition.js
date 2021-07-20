@@ -8,27 +8,24 @@ const tl = gsap.timeline({
 const Transition = ({ node, href, actions, state }) => {
 
   const currSlug = state.router.link;
-  const toProject = currSlug.includes("/project/")
-  const isHome = href == "/";
+  const isProject = currSlug.includes("/project/")
+  const toProjectsStartpage = href == "/" && state.theme.postCat == "slider";
 
-
-  if (toProject && isHome) {
+  if (isProject && toProjectsStartpage) {
     state.theme.transition = false;
     actions.router.set(href);
   } else {
-
     const root = node.current;
     const transition = root.querySelector(".transition-layer");
     const cat = root.querySelector(".transition-layer .cat");
     const startPosts = root.querySelector(".start-posts");
-    const singlePost = root.querySelector(".single-post");
 
     tl.to(transition, {
       height: "100%",
       width: "100%",
       x: 0
     })
-      .to([startPosts, singlePost], {
+      .to(startPosts, {
         display: "none",
         onComplete: () => {
           actions.router.set(href)

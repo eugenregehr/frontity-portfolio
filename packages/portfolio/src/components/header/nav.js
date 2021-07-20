@@ -1,7 +1,7 @@
 import { connect, styled } from "frontity";
 import Link from "../link";
 
-import Colors from "../../styles/colors";
+import colors from "../../styles/colors";
 import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
 
@@ -50,16 +50,29 @@ const Navigation = styled.nav`
   a{
     padding: 0.25rem;
     margin-left: 0.35rem;
+    display: inline-block;
     font-size: 0.9em;
     ${mq("tablet")}{
       margin-left: 1rem;
       font-size: 1.2em;
     }
   }
+  a[aria-current=page]{
+    position: relative;
+    &:before{
+      content: "";
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: ${colors.primary};
+    }
+  }
   a:not(a[aria-current=page]){
     /* color: ${Colors.inactive}; */
-    :hover{
-      color: ${Colors.text};
-    }
+    /* :hover{
+      color: ${colors.text};
+    } */
   }
 `

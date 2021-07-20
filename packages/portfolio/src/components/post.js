@@ -1,12 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { connect, loadable, styled } from "frontity";
 
-import Loading from "./loader";
-import Divider from "./modules/partials/divider";
 import { playPostAnimation } from "./animation/post";
+import Loading from "./loader";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
-let history = null;
 
 const Post = ({ state }) => {
   const [data, setData] = useState(state.source.get(state.router.link));
@@ -14,40 +12,31 @@ const Post = ({ state }) => {
   const root = useRef(null);
   const currLink = state.router.link
 
-  if (currLink.includes("/project/")) {
-    history = state.router.link;
-  }
-
   useEffect(() => {
-    if (history) {
-      const el = root.current;
-      let newData = state.source.get(history)
+    if (currLink.includes("/project/")) {
+      let newData = state.source.get(state.router.link)
       let newPost = state.source.post[newData.id] || null;
       setData(newData);
       setPost(newPost)
-
-      if (post) {
-        playPostAnimation(el, currLink);
-      }
     }
-
+    const el = root.current;
+    playPostAnimation({ el, currLink, state });
   })
 
   return (
-    post ? <div ref={root}>
+    <div ref={root}>
       <div className={"single-post"} >
-        <H1>{post.title.rendered}</H1>
-        <DividerWrap>
-          <Divider arrow />
-        </DividerWrap>
-        {post.acf.module && post.acf.module.length > 0 && post.acf.module.map((item, index) => (
-          <div key={index}>
-            <Component page={item.acf_fc_layout} acfData={item} />
-          </div>
-        ))}
+        {data.isFetching && <Loading />}
+        {post &&
+          <>
+            <H1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+            {post.acf.module && post.acf.module.length > 0 && post.acf.module.map((item, index) => (
+              <Component key={index} page={item.acf_fc_layout} acfData={item} />
+            ))}
+          </>
+        }
       </div>
-
-    </div> : null
+    </div>
   )
 }
 

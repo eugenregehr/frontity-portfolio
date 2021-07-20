@@ -1,18 +1,18 @@
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 
-import config from "../../styles/config";
 import { bp } from "../../styles/breakpoints";
-import colors from "../../styles/colors";
 import acAnimated from "../../helpers/splitText";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 const tl = gsap.timeline({
   paused: true,
-  defaults: { duration: 0.5, ease: "power3" },
+  defaults: { duration: 0.5, ease: "power3" }
 });
 
+
+// add active class on reload to single post
 const addActiveClassSinglePost = ({ el, currLink, state }) => {
   const post = [...el.querySelectorAll(".post")];
 
@@ -21,11 +21,12 @@ const addActiveClassSinglePost = ({ el, currLink, state }) => {
       single.classList.add("active");
       tl.clear();
       buildAnimation({ el, state });
-      tl.progress(1)
+      tl.progress(1);
     }
   })
 }
 
+// add active class on click event
 const addActiveClass = ({ el, state }) => {
   const post = [...el.querySelectorAll(".post")];
 
@@ -34,7 +35,7 @@ const addActiveClass = ({ el, state }) => {
       e.preventDefault();
       post[index].classList.add("active");
       // build animation after setting active class
-      tl.clear();
+      tl.restart().clear();
       buildAnimation({ el, state })
     })
   })
@@ -44,17 +45,16 @@ const buildAnimation = ({ el, state }) => {
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-image");
-  const postActiveH2 = [...el.querySelectorAll(".post.active h2 div")]
+  const postActiveImageDiv = el.querySelector(".post.active .post-image > div");
+  const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
-  const postActiveDividerSubline = el.querySelector(".post.active .divider-subline");
   const isProjectPage = state.theme.postCat == "work";
 
   tl.to(postsInActive, {
     opacity: 0,
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
-      gsap.set([postsInActive, postActive, postActiveImage], { clearProps: "all" })
-      gsap.set(postActiveH2, { clearProps: "height" })
+      gsap.set([postActiveTitleLink, postsInActive, postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
     }
   })
@@ -77,9 +77,6 @@ const buildAnimation = ({ el, state }) => {
         duration: 1
       })
     } else {
-      tl.to(postActiveDividerSubline, {
-        opacity: 0,
-      }, "-=1")
       tl.fromTo(postActiveImage, {
         width: "80%",
       }, {
@@ -89,22 +86,15 @@ const buildAnimation = ({ el, state }) => {
     }
 
     if (window.outerWidth > bp.tablet) {
-      tl.to(postActive, {
-        height: "40vh",
+      tl.to(postActiveImageDiv, {
+        height: "20rem",
         duration: 2
       }, "-=2")
     }
 
-    if (window.outerWidth <= bp.tablet) {
-      tl.to(postActiveTitleLink, {
-        height: 0,
-        display: "none"
-      }, "-=2")
-    }
-
-    tl.to(postActiveH2, {
-      height: 0,
-      duration: 2,
+    tl.to(postActiveTitleLink, {
+      opacity: 0,
+      display: "none",
       onComplete: () => {
         postActive.setAttribute('aria-disabled', 'true');
       }
@@ -113,25 +103,25 @@ const buildAnimation = ({ el, state }) => {
   }
 }
 
+// control animation depends on current slug
 const playPostsAnimation = ({ el, currLink, state }) => {
-  const isHome = currLink == "/" || currLink == "/projects/";
+  const isProjectsPage = currLink == "/" || currLink == "/projects/";
   const isProject = currLink.includes("/project/");
-  if (isHome) {
+
+  if (isProjectsPage) {
     gsap.set(el, { display: "block" })
     tl.reverse();
+    // restart if switch from project to start
+    if (state.theme.transition) tl.restart().progress(1).progress(0).pause();
   } else if (isProject) {
     gsap.set(el, { display: "block" })
     tl.play();
   } else {
     gsap.set(el, { display: "none" })
   }
-
-  // if (state.theme.href = "/") {
-  //   buildAnimation({ el, state })
-  // }
-
 }
 
+// subline hover animation
 const hoverAnimation = ({ el }) => {
   const post = [...el.querySelectorAll(".post")];
 

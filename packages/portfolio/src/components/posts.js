@@ -16,8 +16,17 @@ const Slider = ({ state }) => {
   const currLink = state.router.link;
 
   useEffect(() => {
+    if (state.router.link == "/projects/") {
+      state.theme.posts = { "work": 2 };
+      state.theme.postCat = "work";
+    };
+    if (state.router.link == "/") {
+      state.theme.posts = { "slider": 4 }
+      state.theme.postCat = "slider";
+    };
+
     setPosts(getPostsGroupedByCategory(state.source, state.theme.posts))
-  }, [state.theme.posts])
+  }, [state.router.link])
 
   useEffect(() => {
     const el = root.current;
@@ -26,16 +35,8 @@ const Slider = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-
-    // split title in words
-    const title = [...el.querySelectorAll(".post h2")];
-    title.forEach((item) => {
-      acAnimated.Plugins.SplitText(item, { words: 1, chars: 0, spacing: 0 });
-    })
-
     addActiveClassSinglePost({ el, currLink, state })
     hoverAnimation({ el });
-
   }, [])
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const Slider = ({ state }) => {
     <PostWrap ref={root}
       className={`start-posts ${state.theme.postCat == "work" ? "work-posts" : ""}`}
     >
+      <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
       {postsPerCategory.map(({ posts }, index) => (
         <div key={index}>
           {posts.map((post, index) => (
@@ -57,7 +59,7 @@ const Slider = ({ state }) => {
               href={post.link}>
               <ACFMedia className={'post-image'} source={post.acf.slider__image} />
               <div className={'title-link'}>
-                <h2>{post.title.rendered}</h2>
+                <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h2>
                 <div className={'divider-subline'}>
                   <Divider arrow />
                   <span className={"subline"}>politican, green party </span>
@@ -73,6 +75,12 @@ const Slider = ({ state }) => {
 
 export default connect(Slider);
 
+const Title = styled.h1`
+  text-align: center;
+  font-size: clamp(2em, 4.5vw, 4em);
+  margin-bottom: 6rem;
+`
+
 const PostWrap = styled.div`
   &.work-posts{
     > div{
@@ -82,6 +90,9 @@ const PostWrap = styled.div`
         width: 33%;
         height: 100%;
         display: block;
+        margin-bottom: 3rem;
+        padding-left: 0.5rem;
+          padding-right: 0.5rem;
         &:nth-of-type(3n){
           margin-left: auto;
         }
@@ -94,7 +105,7 @@ const PostWrap = styled.div`
           position: relative;
            h2{
             margin-top: 1rem;
-            font-size: clamp(1.2em, 2.5vw, 2em);
+            font-size: clamp(1.2em, 2.25vw, 2em);
           }
           .divider-subline{
             display: none;
@@ -102,6 +113,10 @@ const PostWrap = styled.div`
         }
         > div {
           width: 100%;
+        }
+        .post-image > div{
+          height: 20rem;
+          padding-top: 0;
         }
       }
     }
@@ -117,7 +132,6 @@ const Post = styled(Link)`
     }
 
   ${mq("tablet")}{
-    height: ${config.postHeight};
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -128,7 +142,7 @@ const Post = styled(Link)`
     margin-right: auto;
     ${mq("tablet")}{
       margin-top: 0;
-      width: 30%;
+      width: 55%;
       position: absolute;
       left: 0;
     }
@@ -143,11 +157,15 @@ const Post = styled(Link)`
     }
   }
   .post-image{
-    height: 100%;
+    /* height: 100%; */
     margin-left: auto;
     margin-right: auto;
     ${mq("tablet")}{
       margin-right: 0;
+    }
+    > div {
+      height: 30rem;
+      padding-top: 0;
     }
   }
 `

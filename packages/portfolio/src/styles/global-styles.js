@@ -49,6 +49,10 @@ export const GlobalStyles = css`
     border-spacing: 0;
   }
 
+  *{
+    box-sizing: border-box;
+  }
+
   @font-face {
     font-family: 'Body Text';
     src: url('${FontText}') format('truetype');
@@ -69,14 +73,13 @@ export const GlobalStyles = css`
   
   body, html{
     font-family: 'Body Text';
-    color: #000;
+    color: ${colors.text};
     background: ${colors.primary};
     height: 100%;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3 {
-    color: #000;
     font-family: 'Body Text Medium';
     line-height: 1.2em;
   }
@@ -91,7 +94,7 @@ export const GlobalStyles = css`
 
   a{
     text-decoration: none;
-    color: #000;
+    color: ${colors.text};
   }
 
   a[aria-disabled="true"] {
@@ -105,6 +108,10 @@ export const GlobalStyles = css`
   .module{
     margin-top: 4rem;
     margin-bottom: 4rem;
+  }
+
+  h1 + .module{
+    margin-top: 2rem;
   }
 
 `

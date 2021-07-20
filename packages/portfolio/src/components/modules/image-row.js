@@ -4,7 +4,6 @@ import Image from '../images/acf-media';
 import Divider from './partials/divider';
 
 const ImageRow = ({ acfData, className }) => {
-  console.log(acfData);
 
   return (
     <Images className={`module ${className}`}>

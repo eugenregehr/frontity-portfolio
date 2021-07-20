@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <LogoLink href={'/'}>
+      <LogoLink href={'/'} nav>
         <img src={Logo} alt="Logo" />
       </LogoLink>
       <Nav />

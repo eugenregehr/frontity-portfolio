@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 import { GlobalStyles } from '../styles/global-styles';
 import Header from "./header";
 import Link from "./link";
-import StartPosts from "./startPosts";
+import Posts from "./posts";
 import Post from "./post";
 import Page from "./page";
 import { mq } from "../styles/breakpoints";
@@ -18,16 +18,9 @@ import TransitionLayer from "./transition";
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
-  const root = useRef(null);
+  console.log(data);
 
-  if (state.router.link == "/projects/") {
-    state.theme.posts = { "work": 2 };
-    state.theme.postCat = "work";
-  };
-  if (state.router.link == "/") {
-    state.theme.posts = { "slider": 4 }
-    state.theme.postCat = "slider";
-  };
+  const root = useRef(null);
 
   return (
     <div ref={root}>
@@ -45,11 +38,10 @@ const Root = ({ state }) => {
             loading={data.isFetching} />
         }
         <Main>
-          <StartPosts />
+          <Posts />
           {data.isFetching && <Loading />}
           <Post />
           <Page />
-          {/* {data.id == 57 && <List category={{ "work": 2 }} />} */}
         </Main>
         <Footer>
           <div>
