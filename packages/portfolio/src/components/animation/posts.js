@@ -61,6 +61,7 @@ const buildAnimation = ({ el, state }) => {
       postActive.removeAttribute('aria-disabled');
       gsap.set([postActiveTitleLink, postsInActive, postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
+      titleWrap.classList.remove("back");
     }
   })
     .to(postsInActive, {
@@ -127,6 +128,9 @@ const buildAnimation = ({ el, state }) => {
       duration: 0.25,
       text: "Back",
       ease: "none",
+      onComplete: () => {
+        titleWrap.classList.add("back");
+      }
     }, "-=1")
 
   }

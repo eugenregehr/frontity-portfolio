@@ -9,7 +9,7 @@ import Link from "./link";
 import Divider from "./modules/partials/divider";
 import Arrow from "./modules/partials/arrow";
 
-const Slider = ({ state }) => {
+const Slider = ({ state, actions }) => {
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
   const root = useRef(null);
   const currLink = state.router.link;
@@ -48,7 +48,13 @@ const Slider = ({ state }) => {
     <PostWrap ref={root}
       className={`start-posts ${state.theme.postCat == "work" ? "work-posts" : ""}`}
     >
-      <TitleWrap className={'title-wrap'}>
+      <TitleWrap
+        className={'title-wrap'}
+        onClick={() => {
+          state.theme.postCat == "slider" ?
+            actions.router.set("/") : actions.router.set("/projects/")
+        }
+        }>
         <Arrow rotate={'180'} />
         <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
       </TitleWrap>
@@ -88,6 +94,9 @@ const TitleWrap = styled.div`
   align-items: center;
   margin-bottom: 6rem;
   justify-content: center;
+  &.back{
+    cursor: pointer;
+  }
   .arrow-icon{
     position: relative;
     right: auto;
