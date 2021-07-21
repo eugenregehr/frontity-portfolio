@@ -6,9 +6,8 @@ import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import ACFMedia from "./images/acf-media";
 import Link from "./link";
-import config from "../styles/config";
 import Divider from "./modules/partials/divider";
-import acAnimated from "../helpers/splitText";
+import Arrow from "./modules/partials/arrow";
 
 const Slider = ({ state }) => {
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
@@ -49,7 +48,11 @@ const Slider = ({ state }) => {
     <PostWrap ref={root}
       className={`start-posts ${state.theme.postCat == "work" ? "work-posts" : ""}`}
     >
-      <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
+      <TitleWrap className={'title-wrap'}>
+        <Arrow rotate={'180'} circle />
+        <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
+      </TitleWrap>
+
       {postsPerCategory.map(({ posts }, index) => (
         <div key={index}>
           {posts.map((post, index) => (
@@ -78,7 +81,17 @@ export default connect(Slider);
 const Title = styled.h1`
   text-align: center;
   font-size: clamp(2em, 4.5vw, 4em);
+`
+
+const TitleWrap = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 6rem;
+  justify-content: center;
+  .arrow-icon{
+    margin-right: -2rem;
+    opacity: 0;
+  }
 `
 
 const PostWrap = styled.div`

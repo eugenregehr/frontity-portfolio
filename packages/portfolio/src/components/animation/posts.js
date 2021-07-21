@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollToPlugin);
 
 const tl = gsap.timeline({
   paused: true,
-  defaults: { duration: 0.5, ease: "power3" }
+  defaults: { duration: 0.5, ease: "power2" }
 });
 
 
@@ -18,7 +18,7 @@ const addActiveClassSinglePost = ({ el, currLink, state }) => {
 
   post.forEach(single => {
     if (single.getAttribute("href") == currLink) {
-      single.classList.add("active");
+      single.classList.add("active", "reload");
       tl.clear();
       buildAnimation({ el, state });
       tl.progress(1);
@@ -42,6 +42,9 @@ const addActiveClass = ({ el, state }) => {
 }
 
 const buildAnimation = ({ el, state }) => {
+  const title = el.querySelector("h1");
+  const titleWrap = el.querySelector(".title-wrap");
+  const arrowIcon = el.querySelector(".arrow-icon");
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-image");
@@ -86,7 +89,9 @@ const buildAnimation = ({ el, state }) => {
     }
 
     if (window.outerWidth > bp.tablet) {
-      tl.to(postActiveImageDiv, {
+      tl.fromTo(postActiveImageDiv, {
+        height: isProjectPage ? "20rem" : "30rem"
+      }, {
         height: "20rem",
         duration: 2
       }, "-=2")
@@ -100,6 +105,19 @@ const buildAnimation = ({ el, state }) => {
       }
     }, "-=2")
 
+    tl.to(titleWrap, {
+      marginBottom: "2rem"
+    }, "<")
+
+    tl.to(title, {
+      fontSize: "2rem"
+    }, "<")
+
+    tl.to(arrowIcon, {
+      opacity: 1,
+      marginRight: "1rem"
+    }, "<")
+
   }
 }
 
@@ -110,7 +128,13 @@ const playPostsAnimation = ({ el, currLink, state }) => {
 
   if (isProjectsPage) {
     gsap.set(el, { display: "block" })
-    tl.reverse();
+    if (document.querySelector(".post.reload")) {
+      tl.restart().progress(1).progress(0).pause()
+      let post = document.querySelector(".post.reload");
+      post.classList.remove("reload")
+    } else {
+      tl.reverse();
+    }
     // restart if switch from project to start
     if (state.theme.transition) tl.restart().progress(1).progress(0).pause();
   } else if (isProject) {

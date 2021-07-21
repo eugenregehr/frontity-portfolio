@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { connect, loadable, styled } from "frontity";
 
 import { playPostAnimation } from "./animation/post";
-import Loading from "./loader";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -26,7 +25,6 @@ const Post = ({ state }) => {
   return (
     <div ref={root}>
       <div className={"single-post"} >
-        {data.isFetching && <Loading />}
         {post &&
           <>
             <H1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />

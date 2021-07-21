@@ -64,7 +64,7 @@ const Container = styled.div`
   ${mq("tablet")} {
       padding: 0 3rem;
     }
-  &:before{
+  /* &:before{
     position: absolute;
     background: ${colors.primary};
     width: 100%;
@@ -72,7 +72,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     content: "";
-  }
+  } */
 `
 const Main = styled.main`
   padding: 2rem 0;
@@ -90,7 +90,7 @@ const InstaLink = styled.a`
   }
 `
 const Footer = styled.footer`
-  margin: 2rem 0;
+  padding: 1rem 0;
   > div{
     width: 50%;
     margin: auto;

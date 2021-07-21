@@ -52,27 +52,39 @@ const Navigation = styled.nav`
     margin-left: 0.35rem;
     display: inline-block;
     font-size: 0.9em;
-    ${mq("tablet")}{
-      margin-left: 1rem;
-      font-size: 1.2em;
-    }
-  }
-  a[aria-current=page]{
     position: relative;
     &:before{
       content: "";
       position: absolute;
       bottom: 0.75rem;
       left: 0;
-      width: 100%;
+      width: 0%;
       height: 2px;
       background: ${colors.primary};
+      transition: bottom 0.3s ease, width 0.3s ease;
+    }
+    ${mq("tablet")}{
+      margin-left: 1rem;
+      font-size: 1.2em;
+    }
+  }
+  a[aria-current=page]{
+    &:before{
+      width: 100%;
+    }
+    &:hover{
+      &:before{
+        bottom: -0.25rem;
+      }
     }
   }
   a:not(a[aria-current=page]){
-    /* color: ${Colors.inactive}; */
-    /* :hover{
-      color: ${colors.text};
-    } */
+    &:hover{
+      &:before{
+        /* bottom: -0.25rem; */
+        width: 100%;
+        /* background: ${colors.text}; */
+      }
+    }
   }
 `

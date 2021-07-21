@@ -14,7 +14,7 @@ export default {
       isMenuOpen: false,
       transition: false,
       href: "",
-      posts: { "slider": 4 },
+      posts: { "work": 2 },
       postCat: ""
     },
   },
