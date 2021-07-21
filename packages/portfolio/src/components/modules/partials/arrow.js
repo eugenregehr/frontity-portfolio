@@ -20,6 +20,7 @@ const ArrowEl = styled.div`
     width: 2rem;
     height: 0.75rem;
     right: -2.15rem;
+    top: 0;
     position: absolute;
     p{
       width: 1rem;

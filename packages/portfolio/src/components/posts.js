@@ -49,7 +49,7 @@ const Slider = ({ state }) => {
       className={`start-posts ${state.theme.postCat == "work" ? "work-posts" : ""}`}
     >
       <TitleWrap className={'title-wrap'}>
-        <Arrow rotate={'180'} circle />
+        <Arrow rotate={'180'} />
         <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
       </TitleWrap>
 
@@ -89,8 +89,22 @@ const TitleWrap = styled.div`
   margin-bottom: 6rem;
   justify-content: center;
   .arrow-icon{
+    position: relative;
+    right: auto;
     margin-right: -2rem;
     opacity: 0;
+    top: 0.15rem;
+    height: auto;
+    p{
+      width: 0.8rem;
+      height: 3px;
+      &.first{
+        transform: rotate(35deg) translateY(-4px);
+      }
+      &.last{
+        transform: rotate(-35deg) translateY(4px);
+      }
+    }
   }
 `
 

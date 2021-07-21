@@ -1,10 +1,11 @@
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
 import acAnimated from "../../helpers/splitText";
 
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin, TextPlugin);
 
 const tl = gsap.timeline({
   paused: true,
@@ -52,6 +53,7 @@ const buildAnimation = ({ el, state }) => {
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const isProjectPage = state.theme.postCat == "work";
+
 
   tl.to(postsInActive, {
     opacity: 0,
@@ -105,18 +107,27 @@ const buildAnimation = ({ el, state }) => {
       }
     }, "-=2")
 
+    // Title and Arrow Animation
     tl.to(titleWrap, {
       marginBottom: "2rem"
-    }, "<")
+    }, "-=2")
 
     tl.to(title, {
-      fontSize: "2rem"
-    }, "<")
+      fontSize: "1.4rem",
+    }, "-=2")
 
     tl.to(arrowIcon, {
       opacity: 1,
-      marginRight: "1rem"
-    }, "<")
+      marginRight: "0.75rem",
+    }, "-=1.5")
+
+    tl.fromTo(title, {
+      text: `${isProjectPage ? "Projects" : "Latest work"}`,
+    }, {
+      duration: 0.25,
+      text: "Back",
+      ease: "none",
+    }, "-=1")
 
   }
 }
@@ -128,6 +139,9 @@ const playPostsAnimation = ({ el, currLink, state }) => {
 
   if (isProjectsPage) {
     gsap.set(el, { display: "block" })
+
+    // if single page is direct loaded, 
+    // restart animation when go back to overview page, else reverse animation
     if (document.querySelector(".post.reload")) {
       tl.restart().progress(1).progress(0).pause()
       let post = document.querySelector(".post.reload");
@@ -135,8 +149,9 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     } else {
       tl.reverse();
     }
-    // restart if switch from project to start
+    // restart animation if switch from project to start and back
     if (state.theme.transition) tl.restart().progress(1).progress(0).pause();
+
   } else if (isProject) {
     gsap.set(el, { display: "block" })
     tl.play();

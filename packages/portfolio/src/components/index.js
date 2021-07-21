@@ -18,7 +18,6 @@ import TransitionLayer from "./transition";
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
-  console.log(data);
 
   const root = useRef(null);
 
