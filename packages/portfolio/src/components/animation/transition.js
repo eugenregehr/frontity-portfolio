@@ -22,8 +22,6 @@ const Transition = ({ node, href, actions, state }) => {
 
     tl.to(transition, {
       height: "100%",
-      width: "100%",
-      x: 0
     })
       .to(startPosts, {
         display: "none",
@@ -34,9 +32,8 @@ const Transition = ({ node, href, actions, state }) => {
       .from(cat, { opacity: 0 }, "-=1")
       .to(cat, { opacity: 0 })
       .to(transition, {
-        height: "94px",
-        width: "64px",
-        x: "3rem",
+        height: 0,
+        top: "100%",
         onComplete: () => {
           state.theme.transition = false;
         }

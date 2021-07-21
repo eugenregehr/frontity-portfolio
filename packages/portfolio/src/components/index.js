@@ -12,7 +12,6 @@ import { mq } from "../styles/breakpoints";
 import Loading from "./loader";
 import Insta from "../assest/icons/instagram.svg";
 import config from "../styles/config";
-import colors from "../styles/colors";
 import TransitionLayer from "./transition";
 
 
@@ -63,15 +62,6 @@ const Container = styled.div`
   ${mq("tablet")} {
       padding: 0 3rem;
     }
-  /* &:before{
-    position: absolute;
-    background: ${colors.primary};
-    width: 100%;
-    height: 0.2rem;
-    top: 0;
-    left: 0;
-    content: "";
-  } */
 `
 const Main = styled.main`
   padding: 2rem 0;

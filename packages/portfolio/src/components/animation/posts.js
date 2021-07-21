@@ -3,7 +3,6 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
-import acAnimated from "../../helpers/splitText";
 
 gsap.registerPlugin(ScrollToPlugin, TextPlugin);
 
@@ -12,35 +11,6 @@ const tl = gsap.timeline({
   defaults: { duration: 0.5, ease: "power2" }
 });
 
-
-// add active class on reload to single post
-const addActiveClassSinglePost = ({ el, currLink, state }) => {
-  const post = [...el.querySelectorAll(".post")];
-
-  post.forEach(single => {
-    if (single.getAttribute("href") == currLink) {
-      single.classList.add("active", "reload");
-      tl.clear();
-      buildAnimation({ el, state });
-      tl.progress(1);
-    }
-  })
-}
-
-// add active class on click event
-const addActiveClass = ({ el, state }) => {
-  const post = [...el.querySelectorAll(".post")];
-
-  post.forEach((single, index) => {
-    single.addEventListener("click", (e) => {
-      e.preventDefault();
-      post[index].classList.add("active");
-      // build animation after setting active class
-      tl.restart().clear();
-      buildAnimation({ el, state })
-    })
-  })
-}
 
 const buildAnimation = ({ el, state }) => {
   const title = el.querySelector("h1");
@@ -136,6 +106,36 @@ const buildAnimation = ({ el, state }) => {
   }
 }
 
+
+// add active class on reload to single post
+const addActiveClassOnReload = ({ el, currLink, state }) => {
+  const post = [...el.querySelectorAll(".post")];
+
+  post.forEach(single => {
+    if (single.getAttribute("href") == currLink) {
+      single.classList.add("active", "reload");
+      tl.clear();
+      buildAnimation({ el, state });
+      tl.progress(1);
+    }
+  })
+}
+
+// add active class on click event
+const addActiveClassOnClick = ({ el, state }) => {
+  const post = [...el.querySelectorAll(".post")];
+
+  post.forEach((single, index) => {
+    single.addEventListener("click", (e) => {
+      e.preventDefault();
+      post[index].classList.add("active");
+      // build animation after setting active class
+      tl.restart().clear();
+      buildAnimation({ el, state })
+    })
+  })
+}
+
 // control animation depends on current slug
 const playPostsAnimation = ({ el, currLink, state }) => {
   const isProjectsPage = currLink == "/" || currLink == "/projects/";
@@ -149,12 +149,18 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     if (document.querySelector(".post.reload")) {
       tl.restart().progress(1).progress(0).pause()
       let post = document.querySelector(".post.reload");
-      post.classList.remove("reload")
+      post.classList.remove("reload");
     } else {
       tl.reverse();
     }
     // restart animation if switch from project to start and back
-    if (state.theme.transition) tl.restart().progress(1).progress(0).pause();
+    if (state.theme.transition) {
+      tl.restart().progress(1).progress(0).pause();
+      gsap.to(window, {
+        scrollTo: 0,
+        duration: 0.1
+      })
+    };
 
   } else if (isProject) {
     gsap.set(el, { display: "block" })
@@ -164,46 +170,5 @@ const playPostsAnimation = ({ el, currLink, state }) => {
   }
 }
 
-// subline hover animation
-const hoverAnimation = ({ el }) => {
-  const post = [...el.querySelectorAll(".post")];
 
-  post.forEach((item) => {
-    const subline = item.querySelector(".subline");
-    const divider = item.querySelector(".divider");
-    const arrow = [...item.querySelectorAll(".arrow-icon p")];
-
-    const tl = gsap.timeline({ paused: true, defaults: { ease: "power2" } });
-    const splitText = acAnimated.Plugins.SplitText(subline, { words: 0, chars: 1, spacing: 8 });
-
-    gsap.set(subline, { perspective: 400 });
-    tl.set([divider, subline], {
-      clearProps: "all"
-    })
-      .to(splitText.chars, {
-        delay: 1,
-        duration: 0.5,
-        opacity: 0,
-        scale: 0,
-        y: 80,
-        rotationX: 180,
-        transformOrigin: "0% 50% -50",
-        stagger: 0.02,
-      })
-      .to(divider, {
-        y: 20,
-        x: 20,
-        maxWidth: "8rem",
-        duration: 0.3
-      }, "-=0.4")
-      .from(arrow, {
-        background: "transparent",
-        duration: 0.3
-      }, "-=0.4")
-
-    item.addEventListener("mouseenter", () => tl.play())
-    item.addEventListener("mouseleave", () => tl.reverse())
-  })
-}
-
-export { addActiveClass, playPostsAnimation, hoverAnimation, addActiveClassSinglePost }
+export { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload }

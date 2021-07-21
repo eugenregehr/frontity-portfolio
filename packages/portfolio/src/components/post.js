@@ -42,6 +42,7 @@ export default connect(Post);
 
 const H1 = styled.h1`
   text-align: center;
+  line-height: 1.1;
 `
 const DividerWrap = styled.div`
   text-align: center;

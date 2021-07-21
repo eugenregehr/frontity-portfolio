@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { connect, styled } from "frontity";
 
-import { addActiveClass, playPostsAnimation, hoverAnimation, addActiveClassSinglePost } from "./animation/posts";
+import hoverPost from "./animation/hoverPost";
+import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import ACFMedia from "./images/acf-media";
@@ -29,13 +30,13 @@ const Slider = ({ state, actions }) => {
 
   useEffect(() => {
     const el = root.current;
-    addActiveClass({ el, currLink, state });
+    addActiveClassOnClick({ el, currLink, state });
   })
 
   useEffect(() => {
     const el = root.current;
-    addActiveClassSinglePost({ el, currLink, state })
-    hoverAnimation({ el });
+    addActiveClassOnReload({ el, currLink, state })
+    hoverPost({ el });
   }, [])
 
   useEffect(() => {
@@ -141,7 +142,9 @@ const PostWrap = styled.div`
           position: relative;
            h2{
             margin-top: 1rem;
-            font-size: clamp(1.2em, 2.25vw, 2em);
+            line-height: 1.2;
+            font-size: clamp(1.2em, 2vw, 2em);
+            text-align: center;
           }
           .divider-subline{
             display: none;

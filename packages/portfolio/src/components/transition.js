@@ -27,11 +27,10 @@ const Container = styled.div`
   z-index: 100;
   top: 0;
   left: 0;
-  transform: translateX(3rem);
   background: ${colors.primary};
-  height: 94px;
-  width: 64px;
+  height: 0;
+  width: 100%;
   display: flex;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
 `;
