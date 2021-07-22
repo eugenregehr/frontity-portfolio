@@ -27,7 +27,7 @@ const Post = ({ state }) => {
       <div className={"single-post"} >
         {post &&
           <>
-            <H1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+            <H1 className={'title'} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
             {post.acf.module && post.acf.module.length > 0 && post.acf.module.map((item, index) => (
               <Component key={index} page={item.acf_fc_layout} acfData={item} />
             ))}
@@ -43,14 +43,4 @@ export default connect(Post);
 const H1 = styled.h1`
   text-align: center;
   line-height: 1.1;
-`
-const DividerWrap = styled.div`
-  text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 6rem;
-  .divider{
-    max-width: 4rem;
-    margin: auto;
-    transform: rotate(90deg);
-  }
 `

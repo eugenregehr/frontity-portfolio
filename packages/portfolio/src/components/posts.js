@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import { connect, styled } from "frontity";
 
-import hoverPost from "./animation/hoverPost";
+import hoverPostStart from "./animation/hoverPostStart";
+import hoverPostProjects from "./animation/hoverPostProject";
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import ACFMedia from "./images/acf-media";
 import Link from "./link";
-import Divider from "./modules/partials/divider";
 import Arrow from "./modules/partials/arrow";
+import PostDescription from "./post-description";
+
 
 const Slider = ({ state, actions }) => {
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
@@ -36,8 +38,16 @@ const Slider = ({ state, actions }) => {
   useEffect(() => {
     const el = root.current;
     addActiveClassOnReload({ el, currLink, state })
-    hoverPost({ el });
   }, [])
+
+  useEffect(() => {
+    const el = root.current;
+    if (state.theme.postCat == "slider") {
+      hoverPostStart({ el });
+    } else {
+      hoverPostProjects({ el })
+    }
+  }, [state.theme.postCat])
 
   useEffect(() => {
     const el = root.current;
@@ -47,7 +57,7 @@ const Slider = ({ state, actions }) => {
 
   return (
     <PostWrap ref={root}
-      className={`start-posts ${state.theme.postCat == "work" ? "work-posts" : ""}`}
+      className={`posts ${state.theme.postCat == "work" ? "work-posts" : "start-posts"}`}
     >
       <TitleWrap
         className={'title-wrap'}
@@ -57,7 +67,7 @@ const Slider = ({ state, actions }) => {
         }
         }>
         <Arrow rotate={'180'} />
-        <Title>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
+        <Title className={'title'}>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
       </TitleWrap>
 
       {postsPerCategory.map(({ posts }, index) => (
@@ -68,13 +78,10 @@ const Slider = ({ state, actions }) => {
               className={'post'}
               href={post.link}>
               <ACFMedia className={'post-image'} source={post.acf.slider__image} />
-              <div className={'title-link'}>
-                <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h2>
-                <div className={'divider-subline'}>
-                  <Divider arrow />
-                  <span className={"subline"}>politican, green party </span>
-                </div>
-              </div>
+
+              <PostDescription
+                title={post.title.rendered}
+                excerpt={post.excerpt.rendered} />
             </Post>
           ))}
         </div>
@@ -87,14 +94,16 @@ export default connect(Slider);
 
 const Title = styled.h1`
   text-align: center;
-  font-size: clamp(2em, 4.5vw, 4em);
 `
 
 const TitleWrap = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   justify-content: center;
+  ${mq("tablet")}{
+    margin-bottom: 6rem;
+  }
   &.back{
     cursor: pointer;
   }
@@ -118,44 +127,45 @@ const TitleWrap = styled.div`
   }
 `
 
+// project page
 const PostWrap = styled.div`
   &.work-posts{
     > div{
     display: flex;
     flex-wrap: wrap;
       .post{
-        width: 33%;
+        width: 50%;
         height: 100%;
         display: block;
         margin-bottom: 3rem;
         padding-left: 0.5rem;
-          padding-right: 0.5rem;
-        &:nth-of-type(3n){
+        padding-right: 0.5rem;
+
+        &:nth-of-type(2n){
           margin-left: auto;
         }
-        &:nth-of-type(3n + 2){
-          margin-left: auto;
-          margin-right: auto;
-        }
-        .title-link{
-          width: auto;
-          position: relative;
-           h2{
-            margin-top: 1rem;
-            line-height: 1.2;
-            font-size: clamp(1.2em, 2vw, 2em);
-            text-align: center;
+
+        ${mq("tablet")}{
+          width: 33.333%;
+
+          &:nth-of-type(3n){
+            margin-left: auto;
           }
-          .divider-subline{
-            display: none;
+          &:nth-of-type(3n + 2){
+            margin-left: auto;
+            margin-right: auto;
           }
         }
         > div {
           width: 100%;
         }
         .post-image > div{
-          height: 20rem;
+          height: 15rem;
           padding-top: 0;
+          ${mq("tablet")}{
+            height: 20rem;
+            width: 33.333%;
+          }
         }
       }
     }
@@ -175,36 +185,18 @@ const Post = styled(Link)`
     align-items: center;
     flex-direction: row-reverse;
   }
-  .title-link{
-    margin-top: 1.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    ${mq("tablet")}{
-      margin-top: 0;
-      width: 55%;
-      position: absolute;
-      left: 0;
-    }
-    h2{
-      margin-bottom: 1rem;
-      line-height: 1.1;
-      font-size: clamp(2em, 6.5vw, 5em);
-      div{
-        overflow-y: hidden;
-        vertical-align: bottom;
-      }
-    }
-  }
   .post-image{
-    /* height: 100%; */
     margin-left: auto;
     margin-right: auto;
     ${mq("tablet")}{
       margin-right: 0;
     }
     > div {
-      height: 30rem;
+      height: 20rem;
       padding-top: 0;
+      ${mq("tablet")}{
+        height: 30rem;
+      }
     }
   }
 `

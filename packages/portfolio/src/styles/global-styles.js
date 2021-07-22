@@ -84,12 +84,8 @@ export const GlobalStyles = css`
     line-height: 1.2em;
   }
 
-  h1{
+  .title{
     font-size: clamp(2em, 5.5vw, 4em);
-  }
-
-  .subline{
-    font-size: clamp(1.2em, 1.8vw, 2em);
   }
 
   a{

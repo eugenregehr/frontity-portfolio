@@ -62,12 +62,11 @@ const buildAnimation = ({ el, state }) => {
     }
 
     if (window.outerWidth > bp.tablet) {
-      tl.fromTo(postActiveImageDiv, {
-        height: isProjectPage ? "20rem" : "30rem"
-      }, {
-        height: "20rem",
-        duration: 2
-      }, "-=2")
+      tl.to(postActiveImageDiv,
+        {
+          height: "20rem",
+          duration: 2
+        }, "-=2")
     }
 
     tl.to(postActiveTitleLink, {

@@ -6,7 +6,7 @@ const ImageBigText = ({ acfData }) => {
 
   return (
     <Columns className="module">
-      <h1>{acfData.text}</h1>
+      <h1 className={"title"}>{acfData.text}</h1>
       <Image className={"image"} source={acfData.image} />
     </Columns>
   )

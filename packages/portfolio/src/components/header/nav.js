@@ -20,7 +20,7 @@ const Nav = ({ state }) => (
       return (
         <div key={name}>
           {name == "Github" ? (
-            <a href="https://github.com/eugenregehr" target="_blank">
+            <a href="https://github.com/eugenregehr" target="_blank" className={"icon"}>
               <GithubIcon src={Github} alt="github logo" />
             </a>
           ) :
@@ -51,7 +51,7 @@ const Navigation = styled.nav`
     padding: 0.25rem;
     margin-left: 0.35rem;
     display: inline-block;
-    font-size: 0.9em;
+    font-size: 1em;
     position: relative;
     &:before{
       content: "";
@@ -78,7 +78,7 @@ const Navigation = styled.nav`
       }
     }
   }
-  a:not(a[aria-current=page]){
+  a:not(a[aria-current=page]):not(.icon){
     &:hover{
       &:before{
         /* bottom: -0.25rem; */

@@ -59,8 +59,9 @@ export default connect(Root);
 const Container = styled.div`
   padding: 0 1rem;
   background: #fff;
+  min-height: 100vh;
   ${mq("tablet")} {
-      padding: 0 3rem;
+      padding: 0 4rem;
     }
 `
 const Main = styled.main`
@@ -69,7 +70,7 @@ const Main = styled.main`
   margin-left: auto;
   margin-right: auto;
   ${mq("tablet")} {
-      padding: 4rem;
+      padding: 4rem 0;
     }
 `
 const InstaLink = styled.a`

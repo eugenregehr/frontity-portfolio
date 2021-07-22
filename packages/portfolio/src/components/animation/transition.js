@@ -18,7 +18,7 @@ const Transition = ({ node, href, actions, state }) => {
     const root = node.current;
     const transition = root.querySelector(".transition-layer");
     const cat = root.querySelector(".transition-layer .cat");
-    const startPosts = root.querySelector(".start-posts");
+    const startPosts = root.querySelector(".posts");
 
     tl.to(transition, {
       height: "100%",
