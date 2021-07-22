@@ -61,6 +61,9 @@ const Container = styled.div`
   background: #fff;
   min-height: 100vh;
   ${mq("tablet")} {
+      padding: 0 2rem;
+    }
+  ${mq("desktop")} {
       padding: 0 4rem;
     }
 `
