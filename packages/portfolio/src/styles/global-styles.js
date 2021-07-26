@@ -106,8 +106,14 @@ export const GlobalStyles = css`
     margin-bottom: 4rem;
   }
 
+  .divider-wrap + .ext-link{ 
+    margin-top: -3.75rem;
+  }
+
   h1 + .module{
     margin-top: 2rem;
   }
+
+
 
 `

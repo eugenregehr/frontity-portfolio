@@ -5,7 +5,7 @@ const VerticalDivider = ({ acfData }) => {
   const isHorizonal = acfData.horizontal;
 
   return (
-    <DividerWrap className={isHorizonal ? "is-horizontal" : ""}>
+    <DividerWrap className={`divider-wrap ${isHorizonal ? "is-horizontal" : ""}`}>
       <Divider
         vertical={!isHorizonal}
         color={acfData.different_color ?

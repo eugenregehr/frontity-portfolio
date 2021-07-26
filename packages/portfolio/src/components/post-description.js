@@ -17,36 +17,37 @@ const PostDescription = ({ state, title, excerpt, root }) => {
 
     if (state.theme.postCat == "slider") {
       hoverPostStart({ elStart });
-    } else {
+    }
+    if (state.theme.postCat == "work") {
       hoverPostProjects({ elProject });
     }
 
-  })
+  }, [state.theme.postCat])
 
 
   return (
     <>
       {
-        state.theme.postCat == "slider" ?
-          <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
-            <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
-            <div className={'divider-subline'}>
-              <Divider arrow />
-              <span
-                dangerouslySetInnerHTML={{ __html: excerpt }}
-                className={"subline"} />
-            </div>
-          </TitleLinkStart>
-          :
-          <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
-            <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
-            <div className={'divider-subline'}>
-              {/* <Divider arrow /> */}
-              <span
-                dangerouslySetInnerHTML={{ __html: excerpt }}
-                className={"subline"} />
-            </div>
-          </TitleLinkProject>
+        state.theme.postCat == "slider" &&
+        <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
+          <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
+          <div className={'divider-subline'}>
+            <Divider arrow />
+            <span
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+              className={"subline"} />
+          </div>
+        </TitleLinkStart>}
+      {state.theme.postCat == "work" &&
+        <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
+          <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
+          <div className={'divider-subline'}>
+            {/* <Divider arrow /> */}
+            <span
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+              className={"subline"} />
+          </div>
+        </TitleLinkProject>
       }
     </>
   )
@@ -104,13 +105,14 @@ const TitleLinkProject = styled.div`
       .subline{
         margin-top: 1rem;
         opacity: 0; 
-        display: none;
+        /* display: none; */
         line-height: 1.4;
         font-size: clamp(1em, 1.3vw, 1.2em);
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
+        overflow: hidden;
       }
     }
 `

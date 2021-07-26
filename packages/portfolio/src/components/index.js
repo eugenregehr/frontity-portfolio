@@ -9,8 +9,6 @@ import Posts from "./posts";
 import Post from "./post";
 import Page from "./page";
 import { mq } from "../styles/breakpoints";
-import Loading from "./loader";
-import Insta from "../assest/icons/instagram.svg";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
 
@@ -31,14 +29,14 @@ const Root = ({ state }) => {
         <Header />
         <TransitionLayer node={root} loading={data.isFetching} />
         <Main>
-          {/* <Loading loading={data.isFetching} node={root} /> */}
           <Posts />
           <Post />
           <Page />
         </Main>
         <Footer>
           <div>
-            <Link href={"/imprint/"} >| <strong>Imprint</strong></Link>
+            <Link href={"/imprint/"}><strong>Imprint</strong> | </Link>
+            <p>© 2021 Eugen Regehr - Some cool sentence</p>
           </div>
         </Footer>
       </Container>
@@ -59,6 +57,7 @@ const Container = styled.div`
       padding: 0 4rem;
     }
 `
+
 const Main = styled.main`
   padding: 2rem 0;
   max-width: ${config.containerWidth};
@@ -70,27 +69,20 @@ const Main = styled.main`
 `
 
 const Footer = styled.footer`
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   > div{
-    /* width: 50%; */
     margin: auto;
     border-top: 1px solid #000;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
+    justify-content: flex-end;
     a,p{
       font-size: 0.9rem;
       display: inline-block;
-    }
-    a{
-      margin-top: 0.5rem;
+       margin-top: 1rem;
       margin-right: 0.25rem;
     }
-    p{
-      a{
-        margin-right: 0;
-        text-decoration: underline;
-      }
-    }
+
+
   }
 `

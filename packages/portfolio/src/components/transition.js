@@ -1,17 +1,37 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { styled, connect } from "frontity";
 
 import colors from "../styles/colors";
-import { Transition } from "./animation/transition";
+import { Loading, Transition } from "./animation/transition";
 import GifCat from "../assest/images/turn-page.gif";
 import GifHomer from "../assest/images/turn-page2.gif";
-import gsap from "gsap";
+import GifStatue from "../assest/images/turn-page3.gif";
+import GifPizza from "../assest/images/turn-page4.gif";
+
+const getRandomNumber = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 const TransitionLayer = ({ node, actions, state, loading }) => {
   const root = useRef(null);
   const href = state.theme.href;
+  const [gifSrc, setGifSrc] = useState(GifStatue);
+  const gifs = [GifCat, GifHomer, GifStatue, GifPizza]
 
+  // random gifs
   useEffect(() => {
+    if (state.theme.href) {
+      const el = root.current;
+      const getGifNumber = getRandomNumber(0, gifs.length);
+      setGifSrc(gifs[getGifNumber])
+    }
+  }, [state.theme.href])
+
+  // page transition
+  useEffect(() => {
+    const el = root.current;
     const currSlug = state.router.link;
     const isProject = currSlug.includes("/project/")
     const toProjectsStartpage = href == "/" && state.theme.postCat == "slider";
@@ -22,42 +42,24 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
       state.theme.transition = false;
       actions.router.set(href);
     } else {
-      Transition({ state, node, href, actions });
+      Transition({ state, node, el, href, actions });
     }
   }, [state.theme.transition])
 
+  // loader while fetching
   useEffect(() => {
     const el = root.current;
-    const loader = el.querySelector(".loader");
-    const gif = el.querySelector(".loader img");
-
-    if (!loading || state.theme.href.includes("/project/")) {
-      gsap.to(gif, {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => {
-          gsap.to(loader, {
-            height: 0,
-            top: "100%",
-            display: "none",
-            duration: 0.5
-          })
-        }
-      })
-    } else {
-      gsap.set([gif, loader], { clearProps: "all" });
-    }
-
+    Loading({ el, state, loading })
   }, [loading])
 
 
   return (
     <Container ref={root}>
       <div className={'transition-layer loader'}>
-        <img className={'gif'} src={GifCat} alt="turn page cat" />
+        <img className={'gif'} src={gifSrc} alt="turn page cat" />
       </div>
       <div className={'transition-layer page-transition'}>
-        <img className={'gif'} src={GifCat} alt="turn page cat" />
+        <img className={'gif'} src={gifSrc} alt="turn page cat" />
       </div>
     </Container>
   )
@@ -81,6 +83,10 @@ const Container = styled.div`
       height: 100%;
       display: flex;
       z-index: 1001;
+    }
+    img{
+      max-width: 15rem;
+      height: auto;
     }
   }
 `;

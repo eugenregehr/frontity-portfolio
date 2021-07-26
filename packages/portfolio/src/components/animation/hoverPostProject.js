@@ -6,7 +6,7 @@ const hoverPostProjects = ({ elProject }) => {
   const subline = elProject.querySelector(".subline");
   const title = elProject.querySelector(".title");
 
-  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2", duration: 0.3 } });
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2", duration: 0.25 } });
   const post = elProject.parentNode;
 
   post.addEventListener("mouseover", () => {
@@ -32,10 +32,12 @@ const buildHoverAnimationProject = ({ tl, subline, title }) => {
       delay: 0.5,
       display: "none"
     })
-    .to(subline, {
-      opacity: 1,
-      display: "block",
+    .from(subline, {
+      height: 0
     })
+    .to(subline, {
+      opacity: 1
+    }, "-=0.25")
 
 }
 
