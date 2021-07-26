@@ -1,14 +1,34 @@
+import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 
 import { mq } from "../styles/breakpoints";
 import Divider from "./modules/partials/divider";
+import hoverPostStart from "./animation/hoverPostStart";
+import hoverPostProjects from "./animation/hoverPostProject";
 
-const PostDescription = ({ state, title, excerpt }) => {
+const PostDescription = ({ state, title, excerpt, root }) => {
+
+  const startRoot = useRef(null);
+  const projectRoot = useRef(null);
+
+  useEffect(() => {
+    const elStart = startRoot.current;
+    const elProject = projectRoot.current;
+
+    if (state.theme.postCat == "slider") {
+      hoverPostStart({ elStart });
+    } else {
+      hoverPostProjects({ elProject });
+    }
+
+  })
+
+
   return (
     <>
       {
         state.theme.postCat == "slider" ?
-          <TitleLinkStart className={`title-link start-title-link`}>
+          <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
             <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
             <div className={'divider-subline'}>
               <Divider arrow />
@@ -18,7 +38,7 @@ const PostDescription = ({ state, title, excerpt }) => {
             </div>
           </TitleLinkStart>
           :
-          <TitleLinkProject className={`title-link projects-title-link`}>
+          <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
             <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
             <div className={'divider-subline'}>
               {/* <Divider arrow /> */}
@@ -57,6 +77,9 @@ const TitleLinkStart = styled.div`
     font-size: clamp(1em, 1.6vw, 1.5em);
     display: inline-block;
   }
+  .arrow-icon p{
+    background: transparent;
+  }
 `
 
 const TitleLinkProject = styled.div`
@@ -67,7 +90,7 @@ const TitleLinkProject = styled.div`
       line-height: 1.2;
       font-size: clamp(1.2em, 2vw, 2em);
       text-align: center;
-        overflow: hidden;
+      overflow: hidden;
 
     }
     .divider-subline{
@@ -80,11 +103,14 @@ const TitleLinkProject = styled.div`
       }
       .subline{
         margin-top: 1rem;
-        opacity: 0;
+        opacity: 0; 
         display: none;
         line-height: 1.4;
         font-size: clamp(1em, 1.3vw, 1.2em);
-
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
       }
     }
 `

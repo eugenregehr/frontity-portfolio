@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { connect, Global, styled, Head } from "frontity";
 import Cookies from 'universal-cookie';
 
@@ -17,7 +17,6 @@ import TransitionLayer from "./transition";
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
-
   const root = useRef(null);
 
   return (
@@ -30,22 +29,15 @@ const Root = ({ state }) => {
       </Head>
       <Container>
         <Header />
-        {state.theme.transition &&
-          <TransitionLayer
-            node={root}
-            loading={data.isFetching} />
-        }
+        <TransitionLayer node={root} loading={data.isFetching} />
         <Main>
+          {/* <Loading loading={data.isFetching} node={root} /> */}
           <Posts />
-          {data.isFetching && <Loading />}
           <Post />
           <Page />
         </Main>
         <Footer>
           <div>
-            <InstaLink href="" target="_blank">
-              <img src={Insta} alt="instagram icon" />
-            </InstaLink>
             <Link href={"/imprint/"} >| <strong>Imprint</strong></Link>
           </div>
         </Footer>
@@ -76,20 +68,15 @@ const Main = styled.main`
       padding: 4rem 0;
     }
 `
-const InstaLink = styled.a`
-  img{
-    width: 1.5rem;
-    height: auto;
-  }
-`
+
 const Footer = styled.footer`
   padding: 1rem 0;
   > div{
-    width: 50%;
+    /* width: 50%; */
     margin: auto;
     border-top: 1px solid #000;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     a,p{
       font-size: 0.9rem;

@@ -1,7 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { connect, loadable, styled } from "frontity";
-
-import Loading from "./loader";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -12,7 +10,6 @@ const Post = ({ state, history }) => {
 
   return (
     page ? <div ref={root}>
-      {data.isFetching && <Loading />}
       <div className={"single-page"} >
         {page.acf.module && page.acf.module.length > 0 && page.acf.module.map((item, index) => (
           <div key={index}>

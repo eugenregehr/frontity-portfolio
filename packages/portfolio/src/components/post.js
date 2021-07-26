@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { connect, loadable, styled } from "frontity";
 
 import { playPostAnimation } from "./animation/post";

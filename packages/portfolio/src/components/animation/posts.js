@@ -128,10 +128,13 @@ const addActiveClassOnClick = ({ el, state }) => {
     single.addEventListener("click", (e) => {
       e.preventDefault();
       post[index].classList.add("active");
+
       // build animation after setting active class
       tl.restart().clear();
       buildAnimation({ el, state })
+
     })
+
   })
 }
 
@@ -153,18 +156,21 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       tl.reverse();
     }
     // restart animation if switch from project to start and back
-    if (state.theme.transition) {
+    if (state.theme.href == "/projects/" || state.theme.href == "/") {
       tl.restart().progress(1).progress(0).pause();
       gsap.to(window, {
         scrollTo: 0,
         duration: 0.1
       })
+
     };
 
   } else if (isProject) {
     gsap.set(el, { display: "block" })
     tl.play();
-  } else {
+  }
+  else {
+    // if all other pages
     gsap.set(el, { display: "none" })
   }
 }

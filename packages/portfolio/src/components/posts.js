@@ -1,8 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { connect, styled } from "frontity";
 
-import hoverPostStart from "./animation/hoverPostStart";
-import hoverPostProjects from "./animation/hoverPostProject";
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
@@ -28,26 +26,15 @@ const Slider = ({ state, actions }) => {
     };
 
     setPosts(getPostsGroupedByCategory(state.source, state.theme.posts))
+    state.theme.postsDataLoaded = true;
+
   }, [state.router.link])
 
   useEffect(() => {
     const el = root.current;
     addActiveClassOnClick({ el, currLink, state });
-  })
-
-  useEffect(() => {
-    const el = root.current;
     addActiveClassOnReload({ el, currLink, state })
   }, [])
-
-  useEffect(() => {
-    const el = root.current;
-    if (state.theme.postCat == "slider") {
-      hoverPostStart({ el });
-    } else {
-      hoverPostProjects({ el })
-    }
-  }, [state.theme.postCat])
 
   useEffect(() => {
     const el = root.current;
@@ -56,37 +43,39 @@ const Slider = ({ state, actions }) => {
 
 
   return (
-    <PostWrap ref={root}
-      className={`posts ${state.theme.postCat == "work" ? "work-posts" : "start-posts"}`}
-    >
-      <TitleWrap
-        className={'title-wrap'}
-        onClick={() => {
-          state.theme.postCat == "slider" ?
-            actions.router.set("/") : actions.router.set("/projects/")
-        }
-        }>
-        <Arrow rotate={'180'} />
-        <Title className={'title'}>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
-      </TitleWrap>
+    <>
+      <PostWrap ref={root}
+        className={`posts ${state.theme.postCat == "work" ? "work-posts" : "start-posts"}`}>
+        <TitleWrap
+          className={'title-wrap'}
+          onClick={() => {
+            state.theme.postCat == "slider" ?
+              actions.router.set("/") : actions.router.set("/projects/")
+          }
+          }>
+          <Arrow rotate={'180'} />
+          <Title className={'title'}>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
+        </TitleWrap>
 
-      {postsPerCategory.map(({ posts }, index) => (
-        <div key={index}>
-          {posts.map((post, index) => (
-            <Post
-              key={index}
-              className={'post'}
-              href={post.link}>
-              <ACFMedia className={'post-image'} source={post.acf.slider__image} />
+        {postsPerCategory.map(({ posts }, index) => (
+          <div key={index}>
+            {posts.map((post, index) => (
+              <Post
+                key={index}
+                className={'post'}
+                href={post.link}>
+                <ACFMedia className={'post-image'} source={post.acf.slider__image} />
 
-              <PostDescription
-                title={post.title.rendered}
-                excerpt={post.excerpt.rendered} />
-            </Post>
-          ))}
-        </div>
-      ))}
-    </PostWrap>
+                <PostDescription
+                  root={root}
+                  title={post.title.rendered}
+                  excerpt={post.excerpt.rendered} />
+              </Post>
+            ))}
+          </div>
+        ))}
+      </PostWrap>
+    </>
   )
 }
 
@@ -148,12 +137,19 @@ const PostWrap = styled.div`
         ${mq("tablet")}{
           width: 33.333%;
 
+           &:nth-of-type(3n + 1){
+            margin-left: 0;
+            /* background: green; */
+          }
+
           &:nth-of-type(3n){
             margin-left: auto;
+            /* background: red; */
           }
           &:nth-of-type(3n + 2){
             margin-left: auto;
             margin-right: auto;
+            /* background: blue; */
           }
         }
         > div {

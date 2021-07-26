@@ -15,7 +15,8 @@ export default {
       transition: false,
       href: "",
       posts: { "work": 2 },
-      postCat: ""
+      postCat: "",
+      postsDataLoaded: false
     },
   },
   actions: {
