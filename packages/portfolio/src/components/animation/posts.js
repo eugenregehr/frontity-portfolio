@@ -46,6 +46,13 @@ const buildAnimation = ({ el, state }) => {
     }, "-=1")
 
   if (postActive) {
+    tl.set({},
+      {
+        onComplete: () => {
+          postActive.setAttribute('aria-disabled', 'true');
+        }
+      }
+    )
 
     if (isProjectPage) {
       tl.to(postActive, {
@@ -71,10 +78,7 @@ const buildAnimation = ({ el, state }) => {
 
     tl.to(postActiveTitleLink, {
       opacity: 0,
-      display: "none",
-      onComplete: () => {
-        postActive.setAttribute('aria-disabled', 'true');
-      }
+      display: "none"
     }, "-=2")
 
     // Title and Arrow Animation
@@ -101,7 +105,6 @@ const buildAnimation = ({ el, state }) => {
         titleWrap.classList.add("back");
       }
     }, "-=1")
-
   }
 }
 

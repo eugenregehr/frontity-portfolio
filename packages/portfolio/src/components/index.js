@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { connect, Global, styled, Head } from "frontity";
 import Cookies from 'universal-cookie';
 
@@ -16,6 +16,12 @@ import TransitionLayer from "./transition";
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const root = useRef(null);
+
+  useEffect(() => {
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+  }, [])
 
   return (
     <div ref={root}>

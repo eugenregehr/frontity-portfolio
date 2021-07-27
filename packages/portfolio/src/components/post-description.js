@@ -27,8 +27,7 @@ const PostDescription = ({ state, title, excerpt, root }) => {
 
   return (
     <>
-      {
-        state.theme.postCat == "slider" &&
+      {state.theme.postCat == "slider" &&
         <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>

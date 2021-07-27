@@ -33,8 +33,9 @@ const Slider = ({ state, actions }) => {
   useEffect(() => {
     const el = root.current;
     addActiveClassOnClick({ el, currLink, state });
-    addActiveClassOnReload({ el, currLink, state })
-  }, [])
+    addActiveClassOnReload({ el, currLink, state });
+    console.log("changed")
+  }, [state.theme.postCat])
 
   useEffect(() => {
     const el = root.current;

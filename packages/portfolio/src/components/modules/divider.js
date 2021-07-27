@@ -12,12 +12,6 @@ const VerticalDivider = ({ acfData }) => {
           acfData.divider_color ? "#fff" : "#000"
           : null}
       />
-      {/* {isHorizonal && <Divider
-        className={"last"}
-        vertical={false}
-        color={acfData.different_color ?
-          acfData.divider_color ? "#fff" : "#000"
-          : null} />} */}
     </DividerWrap>
   )
 }
@@ -29,19 +23,14 @@ const DividerWrap = styled.div`
   .divider{
     margin: 4rem auto;
   }
-  /* &.is-horizontal{
+  &.is-horizontal{
     .divider{
-      max-width: 3.5rem;
-      transform: translateX(-19px);
-      bottom: 0;
+      .three{
+        width: 20%;  
+      }
+      .four{
+        width: 10%;
+      }
     }
-    .last{
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      transform: rotate(180deg) translateX(-19px);
-    }
-  } */
+  }
 `
