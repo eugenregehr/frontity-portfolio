@@ -34,7 +34,6 @@ const Slider = ({ state, actions }) => {
     const el = root.current;
     addActiveClassOnClick({ el, currLink, state });
     addActiveClassOnReload({ el, currLink, state });
-    console.log("changed")
   }, [state.theme.postCat])
 
   useEffect(() => {
@@ -161,7 +160,7 @@ const PostWrap = styled.div`
           padding-top: 0;
           ${mq("tablet")}{
             height: 20rem;
-            width: 33.333%;
+            /* width: 33.333%; */
           }
         }
       }

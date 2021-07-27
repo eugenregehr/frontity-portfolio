@@ -5,7 +5,6 @@ const playPostAnimation = ({ el, currLink, state }) => {
   const isProject = currLink.includes("/project/");
 
   if (isPostsPage) {
-    console.log("is posts page");
     gsap.to(el, {
       opacity: 0,
       display: "none",

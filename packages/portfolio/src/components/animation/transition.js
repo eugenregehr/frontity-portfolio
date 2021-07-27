@@ -20,10 +20,7 @@ const buildTransition = ({ node, href, state, actions, el }) => {
 
   tl.to(transition, {
     height: "100%",
-    display: "flex"
-  })
-  tl.to(startPosts, {
-    display: "none",
+    display: "flex",
     onComplete: () => {
       actions.router.set(href);
     }

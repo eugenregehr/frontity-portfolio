@@ -1,12 +1,16 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { connect, loadable, styled } from "frontity";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
-const Post = ({ state, history }) => {
+const Post = ({ state }) => {
   const data = state.source.get(state.router.link);
   const page = state.source.page[data.id];
   const root = useRef(null);
+
+  useEffect(() => {
+    console.log(page)
+  })
 
   return (
     page ? <div ref={root}>
