@@ -38,9 +38,13 @@ export default connect(Nav);
 
 const GithubIcon = styled.img`
     display: block;
-    max-width: 1rem;
+    max-width: 1.25rem;
+    position: relative;
+    top: -3px;
+
     ${mq("tablet")}{
       max-width: 1.5rem;
+      top: 0;
     }
 `
 const Navigation = styled.nav`

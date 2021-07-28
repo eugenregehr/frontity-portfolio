@@ -23,6 +23,7 @@ const buildAnimation = ({ el, state }) => {
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const isProjectPage = state.theme.postCat == "work";
+  const isTablet = window.outerWidth > bp.tablet;
 
 
   tl.to(postsInActive, {
@@ -61,20 +62,18 @@ const buildAnimation = ({ el, state }) => {
       })
     } else {
       tl.fromTo(postActiveImage, {
-        width: "80%",
+        width: isTablet ? "80%" : "100%",
       }, {
         width: "100%",
         duration: 2
       }, "-=1")
     }
 
-    if (window.outerWidth > bp.tablet) {
-      tl.to(postActiveImageDiv,
-        {
-          height: "20rem",
-          duration: 2
-        }, "-=2")
-    }
+    tl.to(postActiveImageDiv,
+      {
+        height: isTablet ? "20rem" : "15rem",
+        duration: 2
+      }, "-=2")
 
     tl.to(postActiveTitleLink, {
       opacity: 0,

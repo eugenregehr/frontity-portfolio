@@ -3,8 +3,8 @@ const settings = {
   "state": {
     "frontity": {
       "url": "https://test.frontity.org",
-      "title": "Valeria Abendroth",
-      "description": "Portfolio of Valeria Abendroth"
+      "title": "Eugen Regehr",
+      "description": "Portfolio of Eugen Regehr"
     }
   },
   "packages": [
@@ -30,7 +30,7 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "url": "http://localhost:8888/portfolio/wordpress/"
+          "url": "https://wp.its-eugen.com/"
         }
       }
     },

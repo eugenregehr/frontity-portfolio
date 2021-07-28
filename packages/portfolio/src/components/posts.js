@@ -168,18 +168,22 @@ const PostWrap = styled.div`
   }
 `
 
+// start page
 const Post = styled(Link)`
   position: relative;
   margin-bottom: 4rem;
   display: block;
   > div{
-      width: 80%;
+      width: 100%;
     }
 
   ${mq("tablet")}{
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
+    > div{
+      width: 80%;
+    }
   }
   .post-image{
     margin-left: auto;

@@ -53,7 +53,7 @@ const Root = ({ state }) => {
 export default connect(Root);
 
 const Container = styled.div`
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   background: #fff;
   min-height: 100vh;
   ${mq("tablet")} {

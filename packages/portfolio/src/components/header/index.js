@@ -25,7 +25,7 @@ const LogoLink = styled(Link)`
   cursor: pointer;
   img{
     display: block;
-    max-width: 2.5rem;
+    max-width: 3rem;
     position: relative;
     ${mq("tablet")} {
       max-width: 4rem;
