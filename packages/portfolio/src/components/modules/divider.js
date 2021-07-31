@@ -25,12 +25,7 @@ const DividerWrap = styled.div`
   }
   &.is-horizontal{
     .divider{
-      .three{
-        width: 20%;  
-      }
-      .four{
-        width: 10%;
-      }
+      justify-content: center;
     }
   }
 `

@@ -1,6 +1,6 @@
 export const categoriesWidgetsHome = {
-  "work": 2,
-  "slider": 4
+  "projects": 2,
+  "startpage": 4
 }
 
 export const site = {

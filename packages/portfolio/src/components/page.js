@@ -8,10 +8,6 @@ const Post = ({ state }) => {
   const page = state.source.page[data.id];
   const root = useRef(null);
 
-  useEffect(() => {
-    console.log(page)
-  })
-
   return (
     page ? <div ref={root}>
       <div className={"single-page"} >

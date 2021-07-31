@@ -15,10 +15,10 @@ const PostDescription = ({ state, title, excerpt, root }) => {
     const elStart = startRoot.current;
     const elProject = projectRoot.current;
 
-    if (state.theme.postCat == "slider") {
+    if (state.theme.postCat == "startpage") {
       hoverPostStart({ elStart });
     }
-    if (state.theme.postCat == "work") {
+    if (state.theme.postCat == "projects") {
       hoverPostProjects({ elProject });
     }
 
@@ -27,7 +27,7 @@ const PostDescription = ({ state, title, excerpt, root }) => {
 
   return (
     <>
-      {state.theme.postCat == "slider" &&
+      {state.theme.postCat == "startpage" &&
         <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
@@ -37,7 +37,7 @@ const PostDescription = ({ state, title, excerpt, root }) => {
               className={"subline"} />
           </div>
         </TitleLinkStart>}
-      {state.theme.postCat == "work" &&
+      {state.theme.postCat == "projects" &&
         <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>

@@ -63,15 +63,18 @@ const Lines = styled.div`
       opacity: 0.2;
     }
     &.two{
-      width: 20%;
+      /* width: 20%; */
+      width: 10%;
       opacity: 0.4;
     }
     &.three{
-      width: 25%;
+      /* width: 25%; */
+      width: 10%;
       opacity: 0.65;
     }
     &.four{
-      width: 55%;
+      /* width: 55%; */
+      width: 10%;
       opacity: 1;
     }
   }

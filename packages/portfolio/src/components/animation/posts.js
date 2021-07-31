@@ -1,10 +1,11 @@
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
 
-gsap.registerPlugin(ScrollToPlugin, TextPlugin);
+gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);
 
 const tl = gsap.timeline({
   paused: true,
@@ -22,7 +23,7 @@ const buildAnimation = ({ el, state }) => {
   const postActiveImageDiv = el.querySelector(".post.active .post-image > div");
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
-  const isProjectPage = state.theme.postCat == "work";
+  const isProjectPage = state.theme.postCat == "projects";
   const isTablet = window.outerWidth > bp.tablet;
 
 
@@ -30,7 +31,7 @@ const buildAnimation = ({ el, state }) => {
     opacity: 0,
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
-      gsap.set([postActiveTitleLink, postsInActive, postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
+      gsap.set([titleWrap, postActiveTitleLink, postsInActive, postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
       titleWrap.classList.remove("back");
     }
@@ -42,7 +43,7 @@ const buildAnimation = ({ el, state }) => {
       duration: 1
     })
     .to(window, {
-      scrollTo: 0,
+      scrollTo: 130,
       duration: 1
     }, "-=1")
 
@@ -94,6 +95,11 @@ const buildAnimation = ({ el, state }) => {
       marginRight: "0.75rem",
     }, "-=1.5")
 
+    tl.to(titleWrap, {
+      width: "6rem",
+      duration: 1.5
+    }, "-=1")
+
     tl.fromTo(title, {
       text: `${isProjectPage ? "Projects" : "Latest work"}`,
     }, {
@@ -144,9 +150,13 @@ const addActiveClassOnClick = ({ el, state }) => {
 const playPostsAnimation = ({ el, currLink, state }) => {
   const isProjectsPage = currLink == "/" || currLink == "/projects/";
   const isProject = currLink.includes("/project/");
+  const icon = el.querySelector(".fixed-icon")
+  const postActiveImage = el.querySelector(".post.active .post-image");
+
 
   if (isProjectsPage) {
     gsap.set(el, { display: "block" })
+    gsap.set(icon, { display: "none" })
 
     // if single page is direct loaded, 
     // restart animation when go back to overview page, else reverse animation
@@ -155,7 +165,7 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       let post = document.querySelector(".post.reload");
       post.classList.remove("reload");
     } else {
-      tl.reverse();
+      tl.timeScale(1.5).reverse();
     }
     // restart animation if switch from project to start and back
     if (state.theme.href == "/projects/" || state.theme.href == "/") {
@@ -168,12 +178,23 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     };
 
   } else if (isProject) {
-    gsap.set(el, { display: "block" })
-    tl.play();
+    gsap.set([el, icon], { display: "block" })
+    tl.timeScale(1).play();
+
+    ScrollTrigger.create({
+      trigger: postActiveImage,
+      start: "top top",
+      onEnter: () => {
+        icon.classList.add("fixed")
+      },
+      onLeaveBack: () => {
+        icon.classList.remove("fixed")
+      }
+    })
   }
   else {
     // if all other pages
-    gsap.set(el, { display: "none" })
+    gsap.set([el, icon], { display: "none" })
   }
 }
 

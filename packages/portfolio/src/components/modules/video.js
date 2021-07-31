@@ -2,37 +2,34 @@ import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ScrollToPlugin from "gsap/ScrollToPlugin"
+// import ScrollToPlugin from "gsap/ScrollToPlugin"
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
+
+const tl = gsap.timeline({
+  paused: true
+})
 
 const Video = ({ acfData, state }) => {
   const root = useRef(null);
 
   useEffect(() => {
-
     const el = root.current;
     const bg = el.querySelector(".background");
     const video = el.querySelector("video");
 
-    const tl = gsap.timeline({
-      paused: true,
-      scrollTrigger: {
-        trigger: el,
-        start: "top center",
-        end: "+=200",
-        scrub: 1,
-        toggleActions: "play none none reverse"
-      }
-    })
 
     if (state.theme.singlePostLoaded) {
 
-      tl.clear();
+      tl.restart().clear().pause();
 
-      // gsap.set(window, {
-      //   scrollTo: 0,
-      //   onComplete: () => {
+      ScrollTrigger.create({
+        animation: tl,
+        trigger: el,
+        start: "bottom bottom",
+        toggleActions: "play none none reverse"
+      })
+
       tl.to(bg, {
         opacity: 1,
         display: "block"
@@ -40,13 +37,10 @@ const Video = ({ acfData, state }) => {
         .to(video, {
           width: "100%"
         }, "<")
-      console.log("start")
-      // }
-      // })
+
 
     } else {
-      tl.kill()
-      console.log("restart")
+      tl.restart().kill()
     }
 
   }, [state.theme.singlePostLoaded])
@@ -55,7 +49,7 @@ const Video = ({ acfData, state }) => {
     <div ref={root} >
       <Bg className={"background"} />
       <VideoWrapper className={"module"}>
-        <video loop autoPlay muted>
+        <video loop autoPlay muted playsInline>
           <source src={acfData.video_webm} type="video/webm" />
           <source src={acfData.video_mp4} type="video/mp4" />
         </video>

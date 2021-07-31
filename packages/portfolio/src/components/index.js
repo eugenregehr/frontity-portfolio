@@ -69,6 +69,7 @@ const Main = styled.main`
   max-width: ${config.containerWidth};
   margin-left: auto;
   margin-right: auto;
+  min-height: 100vh;
   ${mq("tablet")} {
       padding: 4rem 0;
     }

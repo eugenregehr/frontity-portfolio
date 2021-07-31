@@ -10,19 +10,19 @@ import Arrow from "./modules/partials/arrow";
 import PostDescription from "./post-description";
 
 
-const Slider = ({ state, actions }) => {
+const Posts = ({ state, actions }) => {
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
   const root = useRef(null);
   const currLink = state.router.link;
 
   useEffect(() => {
     if (state.router.link == "/projects/") {
-      state.theme.posts = { "work": 2 };
-      state.theme.postCat = "work";
+      state.theme.posts = { "projects": 2 };
+      state.theme.postCat = "projects";
     };
     if (state.router.link == "/") {
-      state.theme.posts = { "slider": 4 }
-      state.theme.postCat = "slider";
+      state.theme.posts = { "startpage": 4 }
+      state.theme.postCat = "startpage";
     };
 
     setPosts(getPostsGroupedByCategory(state.source, state.theme.posts))
@@ -45,16 +45,17 @@ const Slider = ({ state, actions }) => {
   return (
     <>
       <PostWrap ref={root}
-        className={`posts ${state.theme.postCat == "work" ? "work-posts" : "start-posts"}`}>
+        className={`posts ${state.theme.postCat == "projects" ? "work-posts" : "start-posts"}`}>
         <TitleWrap
           className={'title-wrap'}
           onClick={() => {
-            state.theme.postCat == "slider" ?
+            state.theme.postCat == "startpage" ?
               actions.router.set("/") : actions.router.set("/projects/")
           }
           }>
           <Arrow rotate={'180'} />
-          <Title className={'title'}>{state.theme.postCat == "slider" ? "Latest work" : "Projects"}</Title>
+          <Title className={'title'}>{state.theme.postCat == "startpage" ? "Latest work" : "Projects"}</Title>
+          <div className={'fixed-icon'}><Arrow rotate={'180'} /></div>
         </TitleWrap>
 
         {postsPerCategory.map(({ posts }, index) => (
@@ -79,7 +80,7 @@ const Slider = ({ state, actions }) => {
   )
 }
 
-export default connect(Slider);
+export default connect(Posts);
 
 const Title = styled.h1`
   text-align: center;
@@ -90,19 +91,21 @@ const TitleWrap = styled.div`
   align-items: center;
   margin-bottom: 4rem;
   justify-content: center;
+  background: #fff;
   ${mq("tablet")}{
     margin-bottom: 6rem;
   }
   &.back{
     cursor: pointer;
   }
-  .arrow-icon{
+  > .arrow-icon{
     position: relative;
     right: auto;
     margin-right: -2rem;
     opacity: 0;
     top: 0.15rem;
     height: auto;
+    width: auto;
     p{
       width: 0.8rem;
       height: 3px;
@@ -112,6 +115,35 @@ const TitleWrap = styled.div`
       &.last{
         transform: rotate(-35deg) translateY(4px);
       }
+    }
+  }
+  .fixed-icon{
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    height: 3rem;
+    width: 3rem;
+    background: #fff;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 550;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transform: translateX(-100px);
+    transition: transform .3s ease;
+    &.fixed{
+      transform: translateX(0);
+    }
+    ${mq("tablet")}{
+      top: 2rem;
+      left: 2rem;
+    }
+    .arrow-icon{
+      width: 1.5rem;
+      top: 0;
+      right: 0.8rem;
+      height: 1.6rem;
     }
   }
 `

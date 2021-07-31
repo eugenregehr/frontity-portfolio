@@ -31,6 +31,7 @@ const settings = {
       "state": {
         "source": {
           "url": "https://wp.its-eugen.com/"
+          // "url": "http://localhost:8888/portfolio/wordpress"
         }
       }
     },

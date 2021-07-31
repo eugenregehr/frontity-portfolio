@@ -34,8 +34,8 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
     const el = root.current;
     const currSlug = state.router.link;
     const isProject = currSlug.includes("/project/")
-    const toProjectsStartpage = href == "/" && state.theme.postCat == "slider";
-    const toProjectsPage = href == "/projects/" && state.theme.postCat == "work";
+    const toProjectsStartpage = href == "/" && state.theme.postCat == "startpage";
+    const toProjectsPage = href == "/projects/" && state.theme.postCat == "projects";
 
     // no page transition from project to start/projects
     if (isProject && toProjectsStartpage || isProject && toProjectsPage) {
