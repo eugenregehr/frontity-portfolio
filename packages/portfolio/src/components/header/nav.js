@@ -4,6 +4,7 @@ import Link from "../link";
 import colors from "../../styles/colors";
 import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
+import zindex from "../../styles/zindex";
 
 const Nav = ({ state }) => (
   <Navigation>
@@ -50,7 +51,7 @@ const GithubIcon = styled.img`
 const Navigation = styled.nav`
   display: flex;
   position: relative;
-  z-index: 99;
+  /* z-index: ${zindex.navigation}; */
   a{
     padding: 0.25rem;
     margin-left: 0.35rem;

@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { connect, Global, styled, Head } from "frontity";
-import Cookies from 'universal-cookie';
 
 import { GlobalStyles } from '../styles/global-styles';
 import Header from "./header";

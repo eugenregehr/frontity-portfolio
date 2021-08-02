@@ -17,7 +17,8 @@ export default {
       posts: { "projects": 2 },
       postCat: "projects",
       postsDataLoaded: false,
-      singlePostLoaded: false
+      singlePostLoaded: false,
+      introPlayed: false
     },
   },
   actions: {

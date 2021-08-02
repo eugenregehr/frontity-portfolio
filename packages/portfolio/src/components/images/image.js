@@ -36,6 +36,7 @@ const ImageElement = ({ preview, src, srcset, height, width, ...props }) => {
 export default connect(ImageElement);
 
 const StyledImage = styled.img`
+  transform: translate3d(0, 0, 0);
   display: block; 
   height: 100%;
   width: 100%;

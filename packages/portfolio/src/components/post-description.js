@@ -74,7 +74,7 @@ const TitleLinkStart = styled.div`
   .subline{
     max-width: 20rem;
     line-height: 1.4;
-    font-size: clamp(1em, 1.6vw, 1.5em);
+    font-size: clamp(1em, 1.3vw, 1.2em);
     display: inline-block;
   }
   .arrow-icon p{

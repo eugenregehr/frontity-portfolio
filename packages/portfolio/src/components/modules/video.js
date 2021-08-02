@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import zindex from "../../styles/zindex";
 // import ScrollToPlugin from "gsap/ScrollToPlugin"
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,17 +19,16 @@ const Video = ({ acfData, state }) => {
     const bg = el.querySelector(".background");
     const video = el.querySelector("video");
 
-
     if (state.theme.singlePostLoaded) {
 
-      tl.restart().clear().pause();
+      // ScrollTrigger.create({
+      //   animation: tl,
+      //   trigger: el,
+      //   start: "bottom bottom",
+      //   toggleActions: "play none none reverse"
+      // })
 
-      ScrollTrigger.create({
-        animation: tl,
-        trigger: el,
-        start: "bottom bottom",
-        toggleActions: "play none none reverse"
-      })
+      tl.restart().clear().pause();
 
       tl.to(bg, {
         opacity: 1,
@@ -70,14 +70,14 @@ const Bg = styled.div`
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 500;
+  z-index: ${zindex.videoBg};
 `
 
 const VideoWrapper = styled.div`
   video{
     position: relative;
-    z-index: 501;
-    width: 80%;
+    z-index: ${zindex.videoWrapper};
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     display: block;

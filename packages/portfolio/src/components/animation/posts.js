@@ -97,7 +97,7 @@ const buildAnimation = ({ el, state }) => {
 
     tl.to(titleWrap, {
       width: "6rem",
-      duration: 1.5
+      duration: isProjectPage ? 1.5 : 1
     }, "-=1")
 
     tl.fromTo(title, {

@@ -8,6 +8,7 @@ import ACFMedia from "./images/acf-media";
 import Link from "./link";
 import Arrow from "./modules/partials/arrow";
 import PostDescription from "./post-description";
+import zindex from "../styles/zindex";
 
 
 const Posts = ({ state, actions }) => {
@@ -128,7 +129,7 @@ const TitleWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 550;
+    z-index: ${zindex.backIcon};
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     transform: translateX(-100px);
     transition: transform .3s ease;
@@ -203,7 +204,7 @@ const PostWrap = styled.div`
 // start page
 const Post = styled(Link)`
   position: relative;
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
   display: block;
   > div{
       width: 100%;
@@ -230,6 +231,9 @@ const Post = styled(Link)`
         height: 30rem;
       }
     }
+  }
+  .arrow-icon{
+    top: 0;
   }
 `
 

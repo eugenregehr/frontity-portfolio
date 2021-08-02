@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { styled, connect } from "frontity";
 import gsap from "gsap";
 import colors from "../styles/colors";
+import zindex from "../styles/zindex";
 
 
 const Loading = ({ loading, state, node }) => {
@@ -44,7 +45,7 @@ const Loading = ({ loading, state, node }) => {
 export default connect(Loading);
 
 const Container = styled.div`
-  z-index: 90;
+  z-index: ${zindex.loader};
   text-align: center;
   /* display: flex; */
   display: none;

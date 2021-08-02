@@ -1,5 +1,6 @@
 import { connect, styled } from "frontity";
 import { mq } from "../../styles/breakpoints";
+import zindex from "../../styles/zindex";
 import Image from "../images/acf-media";
 
 const ImageBigText = ({ acfData }) => {
@@ -25,7 +26,7 @@ const Columns = styled.div`
   h1{
     margin-bottom: 2rem;
     position: absolute;
-    z-index: 10;
+    z-index: ${zindex.moduleBigTextH1};
     width: 60%;
     ${mq("desktop")}{
       width: 50%;

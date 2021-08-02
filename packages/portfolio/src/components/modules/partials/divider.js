@@ -48,7 +48,7 @@ export default connect(Devider);
 const Lines = styled.div`
   display: flex;
   margin: 1rem 0;
-  max-width: 6rem;
+  max-width: 2.75rem;
   width: 100%;
   position: relative;
   align-items: center;
@@ -58,36 +58,30 @@ const Lines = styled.div`
     display: block;
     height: ${config.lineHeight};
     border-radius: 1rem;
+    width: 25%;
     &.one{
-      width: 10%;
       opacity: 0.2;
     }
     &.two{
-      /* width: 20%; */
-      width: 10%;
       opacity: 0.4;
     }
     &.three{
-      /* width: 25%; */
-      width: 10%;
       opacity: 0.65;
     }
     &.four{
-      /* width: 55%; */
-      width: 10%;
       opacity: 1;
     }
   }
 
   &.vertical{
-    height: 4rem;
+    height: 5rem;
     flex-direction: column;
     span{
       width: ${config.lineHeight};
       margin-left: 0;
       margin-bottom: 0.3rem;
       &.one{
-        height: 10%;
+        height: 15%;
       }
       &.two{
         height: 20%;
@@ -96,7 +90,7 @@ const Lines = styled.div`
         height: 25%;
       }
       &.four{
-        height: 55%;
+        height: 40%;
       }
     }
     

@@ -6,13 +6,12 @@ const hoverPostStart = ({ elStart }) => {
 
   const subline = elStart.querySelector(".subline");
   const divider = elStart.querySelector(".divider");
-  const dividerItems = [...elStart.querySelectorAll(".divider span")];
   const arrow = [...elStart.querySelectorAll(".arrow-icon p")];
-  const tl = gsap.timeline({ paused: true, defaults: { duration: 0.3 } });
+  const tl = gsap.timeline({ paused: true, defaults: { duration: 0.2 } });
   const post = elStart.parentNode;
 
   post.addEventListener("mouseover", () => {
-    buildHoverAnimationStart({ tl, divider, subline, arrow, dividerItems });
+    // buildHoverAnimationStart({ tl, divider, subline, arrow });
   }, { once: true })
   post.addEventListener("mouseenter", () => {
     tl.play();
@@ -23,7 +22,7 @@ const hoverPostStart = ({ elStart }) => {
 
 }
 
-const buildHoverAnimationStart = ({ tl, divider, subline, arrow, dividerItems }) => {
+const buildHoverAnimationStart = ({ tl, divider, subline, arrow }) => {
 
   tl.set([divider, subline], {
     clearProps: "all"
@@ -35,18 +34,14 @@ const buildHoverAnimationStart = ({ tl, divider, subline, arrow, dividerItems })
     })
     .to(divider, {
       y: 20,
-    }, "-=0.3")
-    .to(dividerItems, {
-      width: "20%",
-    })
+      maxWidth: "5rem",
+    }, "-=0.2")
     .to(arrow, {
       background: colors.primary,
-    }, "-=0.3")
-    .fromTo(arrow, {
-      x: "-30px"
-    }, {
-      x: "2px"
-    }, "-=0.3")
+    }, "-=0.2")
+    .to(arrow, {
+      x: "5.5rem"
+    }, "-=0.2")
 
 }
 

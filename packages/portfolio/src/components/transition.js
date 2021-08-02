@@ -7,6 +7,7 @@ import GifCat from "../assest/images/turn-page.gif";
 import GifHomer from "../assest/images/turn-page2.gif";
 import GifStatue from "../assest/images/turn-page3.gif";
 import GifPizza from "../assest/images/turn-page4.gif";
+import zindex from "../styles/zindex";
 
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
@@ -70,7 +71,7 @@ export default connect(TransitionLayer);
 const Container = styled.div`
   .transition-layer{
     position: fixed;
-    z-index: 1000;
+    z-index: ${zindex.transitionLayer};
     top: 0;
     left: 0;
     background: ${colors.primary};
@@ -82,10 +83,10 @@ const Container = styled.div`
     &.loader{
       height: 100%;
       display: flex;
-      z-index: 1001;
+      z-index: ${zindex.transitionLayerLoader}
     }
     img{
-      max-width: 15rem;
+      max-width: 20rem;
       height: auto;
     }
   }

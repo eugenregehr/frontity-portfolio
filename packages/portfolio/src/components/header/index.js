@@ -3,14 +3,15 @@ import { connect, styled } from "frontity";
 import Link from "../link";
 import Nav from "./nav";
 import { mq } from "../../styles/breakpoints";
-import Logo from "../../assest/images/logo-w.svg"
+import Logo from "./logo";
+import zindex from "../../styles/zindex";
 
 const Header = () => {
 
   return (
     <Wrapper>
       <LogoLink href={'/'} nav>
-        <img src={Logo} alt="Logo" />
+        <Logo />
       </LogoLink>
       <Nav />
     </Wrapper>
@@ -23,14 +24,6 @@ export default connect(Header)
 
 const LogoLink = styled(Link)`
   cursor: pointer;
-  img{
-    display: block;
-    max-width: 3rem;
-    position: relative;
-    ${mq("tablet")} {
-      max-width: 4rem;
-    }
-  }
 `
 const Wrapper = styled.header`
   display: flex;
@@ -38,9 +31,13 @@ const Wrapper = styled.header`
   align-items: center;
   position: relative;
   margin: auto;
+  height: 4.75rem;
+  ${mq("tablet")}{
+    height: 6rem;
+  }
   a{
     display: block;
-    z-index: 999;
+    /* z-index: ${zindex.navLinks}; */
     position: relative;
   }
 `

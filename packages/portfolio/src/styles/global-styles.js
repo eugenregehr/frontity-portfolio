@@ -45,8 +45,13 @@ export const GlobalStyles = css`
     content: none;
   }
   table {
-    border-collapse: collapse;
+    border-collapse: collapse; 
     border-spacing: 0;
+  }
+
+  img, img:focus{
+    box-shadow: none;
+    outline: none;
   }
 
   *{
