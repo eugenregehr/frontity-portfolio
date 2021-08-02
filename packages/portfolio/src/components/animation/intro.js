@@ -8,6 +8,7 @@ const tl = gsap.timeline({
 });
 
 const Intro = ({ el, state }) => {
+  const holder = el.querySelector(".holder");
 
   // horizontal
   const topLeftEl = el.querySelector(".top-left");
@@ -21,8 +22,6 @@ const Intro = ({ el, state }) => {
   const leftBottomEl = el.querySelector(".left-bottom");
   const logoShift = window.outerWidth > bp.desktop ? "4rem" : window.outerWidth > bp.tablet ? "2rem" : "1.5rem";
 
-  console.log(logoShift)
-
   tl.set(el, {
     position: "fixed",
     left: 0,
@@ -30,15 +29,15 @@ const Intro = ({ el, state }) => {
       el.classList.remove("spacer");
     }
   })
-  tl.to({}, { delay: 0.5 })
-  tl.add(LA({ el: topLeftEl, y: -75, x: -150 }), "<")
-    .add(LA({ el: topRightEl, y: -75, x: 150 }), "<")
-    .add(LA({ el: middleRightEl, y: 0, x: 162 }), "<")
-    .add(LA({ el: middleLeftEl, y: 0, x: -150 }), "<")
-    .add(LA({ el: bottomLeftEl, y: 75, x: -150 }), "<")
-    .add(LA({ el: bottomRightEl, y: 75, x: 150 }), "<")
-    .add(LA({ el: leftTopEl, y: -150, x: 0, v: true }), "<")
-    .add(LA({ el: leftBottomEl, y: 150, x: 0, v: true }), "<")
+  tl.from(holder, { rotate: 360, duration: 8 })
+  tl.add(LA({ el: topLeftEl, y: -175, x: -200 }), "-=7")
+    .add(LA({ el: topRightEl, y: -175, x: 200 }), "-=6")
+    .add(LA({ el: middleRightEl, y: 0, x: 255 }), "-=5")
+    .add(LA({ el: middleLeftEl, y: 0, x: -235 }), "-=4")
+    .add(LA({ el: bottomLeftEl, y: 175, x: -200 }), "-=3")
+    .add(LA({ el: bottomRightEl, y: 175, x: 200 }), "-=2")
+    .add(LA({ el: leftTopEl, y: -235, x: 115, v: true }), "-=2")
+    .add(LA({ el: leftBottomEl, y: 235, x: 115, v: true }), "-=1.5")
 
   tl.from(el, {
     height: "100vh",
@@ -64,11 +63,12 @@ const Intro = ({ el, state }) => {
     const tl = gsap.timeline({ defaults: { duration: 2.5, ease: "power3" } });
     tl.from(el, {
       opacity: 0,
+      // delay: 100,
       y: y,
     })
     tl.from(el, {
       x: x,
-    }, "-=1")
+    }, "-=2.5")
     if (v) {
       tl.from(el, {
         height: config.lineHeight,
