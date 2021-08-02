@@ -81,7 +81,7 @@ const LogoWrap = styled.div`
     > div{
       background: #fff;
       position: absolute;
-      border-radius: 6px;
+      border-radius: ${config.lineHeight};;
       transform: translate3d(0, 0, 0);
     }
     .hz{

@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { bp } from "../../styles/breakpoints";
+import config from "../../styles/config";
 import zindex from "../../styles/zindex";
 
 const tl = gsap.timeline({
@@ -70,12 +71,12 @@ const Intro = ({ el, state }) => {
     }, "-=1")
     if (v) {
       tl.from(el, {
-        height: "6px",
+        height: config.lineHeight,
         duration: 0.5,
       }, "-=1")
     } else {
       tl.from(el, {
-        width: "6px",
+        width: config.lineHeight,
         duration: 0.5,
       }, "-=1")
     }
@@ -84,9 +85,6 @@ const Intro = ({ el, state }) => {
   }
 
 }
-
-
-
 
 
 export default Intro;
