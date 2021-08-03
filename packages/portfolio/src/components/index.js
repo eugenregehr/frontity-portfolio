@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { connect, Global, styled, Head } from "frontity";
+import gsap from "gsap";
 
 import { GlobalStyles } from '../styles/global-styles';
 import Header from "./header";
@@ -15,12 +16,50 @@ import TransitionLayer from "./transition";
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const root = useRef(null);
+  const [videoUrl, setVideoUrl] = useState(null)
+  const tl = gsap.timeline();
 
   useEffect(() => {
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
   }, [])
+
+  useEffect(() => {
+    const el = root.current;
+    const video = el.querySelector(".pre-video");
+    const main = el.querySelector(".main");
+
+    if (state.theme.postVideo) {
+      setVideoUrl(state.theme.postVideo)
+      gsap.to(main, {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          gsap.to(video, {
+            zIndex: 10,
+            opacity: 1,
+            duration: 0.5,
+          });
+        }
+      })
+    } else {
+      gsap.to(video, {
+        opacity: 0,
+        duration: 0.5,
+        zIndex: -1,
+        onComplete: () => {
+          gsap.to(main, {
+            opacity: 1,
+            duration: 0.5,
+            onComplete: () => {
+              setVideoUrl(null)
+            }
+          });
+        }
+      });
+    }
+  }, [state.theme.postVideo])
 
   return (
     <div ref={root}>
@@ -31,9 +70,15 @@ const Root = ({ state }) => {
         <meta name="description" content={state.frontity.description} />
       </Head>
       <Container>
+        <PreVideo className={"pre-video"} >
+          {videoUrl && <video loop autoPlay muted playsInline>
+            <source src={videoUrl.video_mp4} type="video/webm" />
+            <source src={videoUrl.video_webm} type="video/mp4" />
+          </video>}
+        </PreVideo>
         <Header />
         <TransitionLayer node={root} loading={data.isFetching} />
-        <Main>
+        <Main className={"main"}>
           <Posts />
           <Post />
           <Page />
@@ -61,6 +106,26 @@ const Container = styled.div`
   ${mq("desktop")} {
       padding: 0 4rem;
     }
+`
+
+const PreVideo = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80vw;
+  height: 80vh;
+  object-fit: contain;
+  object-position: center;
+  margin: auto; 
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  video{
+    width: 100%;
+  }
 `
 
 const Main = styled.main`

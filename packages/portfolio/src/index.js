@@ -18,7 +18,8 @@ export default {
       postCat: "projects",
       postsDataLoaded: false,
       singlePostLoaded: false,
-      introPlayed: false
+      introPlayed: false,
+      postVideo: null
     },
   },
   actions: {

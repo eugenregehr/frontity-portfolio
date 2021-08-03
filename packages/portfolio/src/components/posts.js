@@ -9,12 +9,22 @@ import Link from "./link";
 import Arrow from "./modules/partials/arrow";
 import PostDescription from "./post-description";
 import zindex from "../styles/zindex";
+import VideoIcon from "../assest/icons/video.svg";
 
 
 const Posts = ({ state, actions }) => {
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
   const root = useRef(null);
   const currLink = state.router.link;
+
+  function setVideoObject(post) {
+    const acfVideo = post.acf.module.find(el => el.acf_fc_layout == "video") || null;
+    state.theme.postVideo = acfVideo;
+  }
+
+  function removeVideoObject() {
+    state.theme.postVideo = null;
+  }
 
   useEffect(() => {
     if (state.router.link == "/projects/") {
@@ -66,7 +76,16 @@ const Posts = ({ state, actions }) => {
                 key={index}
                 className={'post'}
                 href={post.link}>
-                <ACFMedia className={'post-image'} source={post.acf.slider__image} />
+                <Icon
+                  className={"video-icon"}
+                  onMouseEnter={() => setVideoObject(post)}
+                  onMouseLeave={() => { state.theme.postVideo = null }}
+                >
+                  <img src={VideoIcon} alt="video-icon" />
+                </Icon>
+                <ACFMedia
+                  className={'post-image'}
+                  source={post.acf.slider__image} />
 
                 <PostDescription
                   root={root}
@@ -85,6 +104,27 @@ export default connect(Posts);
 
 const Title = styled.h1`
   text-align: center;
+`
+
+const Icon = styled.div`
+  width: 2.5rem !important;
+  height: 2.5rem;
+  background: rgba(255,255,255, 0.5);
+  border-radius: 100%;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: ${zindex.videoIcon};
+  opacity: 0;
+  transform: scale(0);
+  transition: all .3s ease;
+  img{
+    width: 1.45rem;
+    height: 1.25rem;
+    position: relative;
+    left: 8px;
+    top: 9px;
+  }
 `
 
 const TitleWrap = styled.div`
@@ -234,6 +274,12 @@ const Post = styled(Link)`
   }
   .arrow-icon{
     top: 0;
+  }
+  &:hover{
+    .video-icon{
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 `
 

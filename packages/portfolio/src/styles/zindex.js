@@ -8,4 +8,5 @@ export default {
   videoBg: "200",
   loader: "100",
   moduleBigTextH1: "50",
+  videoIcon: "10"
 }
