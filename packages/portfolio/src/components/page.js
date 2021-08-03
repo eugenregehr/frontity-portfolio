@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { connect, loadable, styled } from "frontity";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })

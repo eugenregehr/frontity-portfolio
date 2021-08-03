@@ -31,7 +31,7 @@ const PostDescription = ({ state, title, excerpt, root }) => {
         <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
-            <Divider arrow />
+            {/* <Divider arrow /> */}
             <span
               dangerouslySetInnerHTML={{ __html: excerpt }}
               className={"subline"} />

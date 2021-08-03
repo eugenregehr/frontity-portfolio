@@ -11,28 +11,32 @@ const playPostAnimation = ({ el, currLink, state }) => {
   if (isPostsPage) {
     gsap.to(el, {
       opacity: 0,
-      display: "none",
       delay: state.theme.postCat == "startpage" ? 1 : 0,
       onComplete: () => {
         state.theme.singlePostLoaded = false;
+        gsap.to(el, { display: "none" })
       }
     });
 
   } else if (isProject) {
     gsap.to(el,
       {
-        opacity: 1,
         display: "block",
-        delay: state.theme.postCat == "projects" ? 2 : 1,
+        delay: state.theme.postCat == "projects" ? 1.5 : 0,
         duration: 1,
         onComplete: () => {
+          gsap.to(el, { opacity: 1 })
           state.theme.singlePostLoaded = true;
-          // gsap.to(window, { scrollTo: 130 })
         }
       }
     );
   } else {
-    gsap.set(el, { display: "none" })
+    gsap.set(el, {
+      opacity: 0,
+      onComplete: () => {
+        gsap.to(el, { display: "none" })
+      }
+    })
   }
 }
 

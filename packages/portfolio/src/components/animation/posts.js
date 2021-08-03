@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);
 
 const tl = gsap.timeline({
   paused: true,
-  defaults: { duration: 0.5, ease: "power2" }
+  defaults: { duration: 0.5 }
 });
 
 
@@ -40,11 +40,13 @@ const buildAnimation = ({ el, state }) => {
       height: 0,
       marginBottom: 0,
       display: "none",
-      duration: 1
+      duration: 1,
+      // delay: 0.25
     })
     .to(window, {
       scrollTo: 130,
-      duration: 1
+      duration: 1,
+      // delay: 0.25
     }, "-=1")
 
   if (postActive) {
@@ -52,7 +54,7 @@ const buildAnimation = ({ el, state }) => {
       {
         onComplete: () => {
           postActive.setAttribute('aria-disabled', 'true');
-        }
+        },
       }
     )
 
@@ -165,6 +167,7 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       let post = document.querySelector(".post.reload");
       post.classList.remove("reload");
     } else {
+      gsap.to(window, { scrollTo: 130, duration: 0.25 })
       tl.timeScale(1.5).reverse();
     }
     // restart animation if switch from project to start and back
