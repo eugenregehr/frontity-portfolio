@@ -35,6 +35,10 @@ export default {
           Object.keys(categoriesWidgetsHome)
             .map(category => actions.source.fetch(`/category/${category}/`))
         )
+        if (state.router.link.includes("/en/")) {
+          // Stop the server-side rendering (SSR) until this is ready.
+          await actions.source.fetch("/en/");
+        }
       }
     }
   },

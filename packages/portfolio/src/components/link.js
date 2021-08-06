@@ -1,9 +1,10 @@
 import { connect, styled } from "frontity";
+import FLink from "@frontity/components/link";
 
 const Link = ({ className, state, href, current, actions, children, nav }) => {
   return (
     <>
-      <LinkEl href={href}
+      <FLink link={href}
         aria-current={current}
         className={className}
         onClick={e => {
@@ -17,13 +18,13 @@ const Link = ({ className, state, href, current, actions, children, nav }) => {
         }}
       >
         {children}
-      </LinkEl>
+      </FLink>
     </>
   )
 }
 
 export default connect(Link)
 
-const LinkEl = styled.a`
+const LinkEl = styled(FLink)`
   transition: color 0.3s ease;
 `

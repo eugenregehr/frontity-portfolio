@@ -2,5 +2,5 @@ export default {
   containerWidth: "1000px",
   postHeight: "60vh",
   // for all lines
-  lineHeight: "5px"
+  lineHeight: "4px"
 }

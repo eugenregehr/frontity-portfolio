@@ -11,7 +11,7 @@ const hoverPostStart = ({ elStart }) => {
   const post = elStart.parentNode;
 
   post.addEventListener("mouseover", () => {
-    // buildHoverAnimationStart({ tl, divider, subline, arrow });
+    buildHoverAnimationStart({ tl, divider, subline, arrow });
   }, { once: true })
   post.addEventListener("mouseenter", () => {
     tl.play();
@@ -28,19 +28,20 @@ const buildHoverAnimationStart = ({ tl, divider, subline, arrow }) => {
     clearProps: "all"
   })
     .to(subline, {
-      delay: 1,
+      delay: 1.5,
       opacity: 0,
       y: 20,
     })
     .to(divider, {
       y: 20,
+      x: 25,
       maxWidth: "5rem",
     }, "-=0.2")
     .to(arrow, {
       background: colors.primary,
     }, "-=0.2")
     .to(arrow, {
-      x: "5.5rem"
+      x: "5.25rem"
     }, "-=0.2")
 
 }

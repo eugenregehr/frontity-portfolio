@@ -6,7 +6,7 @@ import { mq } from "../../styles/breakpoints";
 import Logo from "./logo";
 import zindex from "../../styles/zindex";
 
-const Header = () => {
+const Header = ({ actions }) => {
 
   return (
     <Wrapper>
@@ -14,6 +14,7 @@ const Header = () => {
         <Logo />
       </LogoLink>
       <Nav />
+      {/* <div onClick={() => actions.router.set("http://localhost:3000/en/")}> en </div> */}
     </Wrapper>
   )
 

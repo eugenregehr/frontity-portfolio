@@ -4,6 +4,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
+import { projectsOverviewSlugs } from "../../config";
 
 gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);
 
@@ -115,7 +116,6 @@ const buildAnimation = ({ el, state }) => {
   }
 }
 
-
 // add active class on reload to single post
 const addActiveClassOnReload = ({ el, currLink, state }) => {
   const post = [...el.querySelectorAll(".post")];
@@ -150,7 +150,7 @@ const addActiveClassOnClick = ({ el, state }) => {
 
 // control animation depends on current slug
 const playPostsAnimation = ({ el, currLink, state }) => {
-  const isProjectsPage = currLink == "/" || currLink == "/projects/";
+  const isProjectsPage = projectsOverviewSlugs.includes(currLink)
   const isProject = currLink.includes("/project/");
   const icon = el.querySelector(".fixed-icon")
   const postActiveImage = el.querySelector(".post.active .post-image");
@@ -163,7 +163,7 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     // if single page is direct loaded, 
     // restart animation when go back to overview page, else reverse animation
     if (document.querySelector(".post.reload")) {
-      tl.restart().progress(1).progress(0).pause()
+      tl.restart().progress(1).progress(0).pause();
       let post = document.querySelector(".post.reload");
       post.classList.remove("reload");
     } else {
@@ -171,12 +171,12 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       tl.timeScale(1.5).reverse();
     }
     // restart animation if switch from project to start and back
-    if (state.theme.href == "/projects/" || state.theme.href == "/") {
-      tl.restart().progress(1).progress(0).pause();
-      gsap.to(window, {
-        scrollTo: 0,
-        duration: 0.1
-      })
+    if (projectsOverviewSlugs.includes(state.theme.href)) {
+      tl.restart().progress(1).progress(0).pause().then(
+        gsap.to(window, {
+          scrollTo: 0
+        })
+      );
 
     };
 

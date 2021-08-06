@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, css } from "frontity";
 
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
@@ -9,10 +9,10 @@ import Link from "./link";
 import Arrow from "./modules/partials/arrow";
 import PostDescription from "./post-description";
 import zindex from "../styles/zindex";
-import VideoIcon from "../assest/icons/video.svg";
 
 
 const Posts = ({ state, actions }) => {
+
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
   const root = useRef(null);
   const currLink = state.router.link;
@@ -22,16 +22,13 @@ const Posts = ({ state, actions }) => {
     state.theme.postVideo = acfVideo;
   }
 
-  function removeVideoObject() {
-    state.theme.postVideo = null;
-  }
-
   useEffect(() => {
-    if (state.router.link == "/projects/") {
+
+    if (state.router.link == "/projects/" || state.router.link == "/en/projects/") {
       state.theme.posts = { "projects": 2 };
       state.theme.postCat = "projects";
     };
-    if (state.router.link == "/") {
+    if (state.router.link == "/" || state.router.link == "/en/") {
       state.theme.posts = { "startpage": 4 }
       state.theme.postCat = "startpage";
     };
@@ -60,8 +57,11 @@ const Posts = ({ state, actions }) => {
         <TitleWrap
           className={'title-wrap'}
           onClick={() => {
-            state.theme.postCat == "startpage" ?
-              actions.router.set("/") : actions.router.set("/projects/")
+            if (state.theme.postCat == "startpage") {
+              state.theme.lang == "en" ? actions.router.set("/en") : actions.router.set("/");
+            } else {
+              state.theme.lang == "en" ? actions.router.set("/en/projects/") : actions.router.set("/projects/")
+            }
           }
           }>
           <Arrow rotate={'180'} />
@@ -76,13 +76,14 @@ const Posts = ({ state, actions }) => {
                 key={index}
                 className={'post'}
                 href={post.link}>
-                <Icon
+                {post.acf.module.find(el => el.acf_fc_layout == "video") && <Icon
                   className={"video-icon"}
                   onMouseEnter={() => setVideoObject(post)}
                   onMouseLeave={() => { state.theme.postVideo = null }}
+                  css={css`right: ${state.theme.postCat == "startpage" ? '1rem' : '1.5rem'}`}
                 >
-                  <img src={VideoIcon} alt="video-icon" />
-                </Icon>
+                  <div className={"pulse"}><div></div><div></div></div>
+                </Icon>}
                 <ACFMedia
                   className={'post-image'}
                   source={post.acf.slider__image} />
@@ -107,24 +108,52 @@ const Title = styled.h1`
 `
 
 const Icon = styled.div`
-  width: 2.5rem !important;
-  height: 2.5rem;
-  background: rgba(255,255,255, 0.5);
+  width: 36px !important;
+  height: 36px;
   border-radius: 100%;
   position: absolute;
   top: 1rem;
-  right: 1.5rem;
   z-index: ${zindex.videoIcon};
   opacity: 0;
+  display: none;
   transform: scale(0);
   transition: all .3s ease;
-  img{
-    width: 1.45rem;
-    height: 1.25rem;
-    position: relative;
-    left: 8px;
-    top: 9px;
+  ${mq("tablet")}{
+    display: block;
   }
+  .pulse {
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 36px;
+  div{
+    position: absolute;
+    border: 2px solid #fff;
+    opacity: 1;
+    border-radius: 50%;
+    animation: pulse 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  div:nth-of-type(2) {
+    animation-delay: -0.75s;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    top: 18px;
+    left: 18px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 36px;
+    height: 36px;
+    opacity: 0;
+  }
+}
 `
 
 const TitleWrap = styled.div`
@@ -233,7 +262,6 @@ const PostWrap = styled.div`
           padding-top: 0;
           ${mq("tablet")}{
             height: 20rem;
-            /* width: 33.333%; */
           }
         }
       }
@@ -244,13 +272,15 @@ const PostWrap = styled.div`
 // start page
 const Post = styled(Link)`
   position: relative;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   display: block;
+
   > div{
       width: 100%;
     }
 
   ${mq("tablet")}{
+    margin-bottom: 6rem;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -282,4 +312,3 @@ const Post = styled(Link)`
     }
   }
 `
-

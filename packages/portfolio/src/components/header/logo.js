@@ -44,6 +44,8 @@ const Logo = ({ state }) => {
 
 export default connect(Logo);
 
+const lh = "5px";
+
 const LogoWrap = styled.div`
   background: ${colors.primary};
   width: 64px;
@@ -81,14 +83,14 @@ const LogoWrap = styled.div`
     > div{
       background: #fff;
       position: absolute;
-      border-radius: ${config.lineHeight};;
+      border-radius: ${lh};;
       transform: translate3d(0, 0, 0);
     }
     .hz{
-      height: ${config.lineHeight};
+      height: ${lh};
     }
     .vt{
-      width: ${config.lineHeight};
+      width: ${lh};
     }
     .top-left, .bottom-right{
       width: 1.25rem;

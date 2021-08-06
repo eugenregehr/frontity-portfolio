@@ -11,12 +11,10 @@ const Transition = ({ node, href, actions, state, el }) => {
   }
 }
 
-const buildTransition = ({ node, href, state, actions, el }) => {
+const buildTransition = ({ href, state, actions, el }) => {
 
-  const root = node.current;
   const transition = el.querySelector(".page-transition");
   const gif = el.querySelector(".page-transition img");
-  const startPosts = root.querySelector(".posts");
 
   tl.to(transition, {
     height: "100%",

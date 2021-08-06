@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 
-import { mq } from "../styles/breakpoints";
+import { mq, bp } from "../styles/breakpoints";
 import Divider from "./modules/partials/divider";
 import hoverPostStart from "./animation/hoverPostStart";
 import hoverPostProjects from "./animation/hoverPostProject";
@@ -15,11 +15,13 @@ const PostDescription = ({ state, title, excerpt, root }) => {
     const elStart = startRoot.current;
     const elProject = projectRoot.current;
 
-    if (state.theme.postCat == "startpage") {
-      hoverPostStart({ elStart });
-    }
-    if (state.theme.postCat == "projects") {
-      hoverPostProjects({ elProject });
+    if (window.outerWidth > bp.tablet) {
+      if (state.theme.postCat == "startpage") {
+        hoverPostStart({ elStart });
+      }
+      if (state.theme.postCat == "projects") {
+        hoverPostProjects({ elProject });
+      }
     }
 
   }, [state.theme.postCat])
@@ -31,7 +33,7 @@ const PostDescription = ({ state, title, excerpt, root }) => {
         <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
-            {/* <Divider arrow /> */}
+            <Divider arrow />
             <span
               dangerouslySetInnerHTML={{ __html: excerpt }}
               className={"subline"} />
@@ -41,7 +43,6 @@ const PostDescription = ({ state, title, excerpt, root }) => {
         <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
           <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
-            {/* <Divider arrow /> */}
             <span
               dangerouslySetInnerHTML={{ __html: excerpt }}
               className={"subline"} />
@@ -95,6 +96,10 @@ const TitleLinkProject = styled.div`
     }
     .divider-subline{
       text-align: center;
+      display: none;
+      ${mq("tablet")}{
+        display: block;
+      }
       .divider{
         margin-left: auto;
         margin-right: auto;

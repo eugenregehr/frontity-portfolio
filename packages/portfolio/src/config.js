@@ -3,9 +3,24 @@ export const categoriesWidgetsHome = {
   "startpage": 4
 }
 
-export const site = {
-  work: "/projects/",
-  vita: "/about/",
-  contact: "/contact/",
-  imprint: "/imprint/"
+export const lang = {
+  first: "de",
+  second: "en"
 }
+
+export const site = {
+  home: "/",
+  homeLang: `/${lang.second}/`,
+  about: "/about/",
+  projects: "/projects/",
+  projectsLang: `/${lang.second}/projects/`,
+  contact: "/contact/",
+}
+
+export const projectsOverviewSlugs = [
+  site.home,
+  site.homeLang,
+  site.projects,
+  site.projectsLang,
+]
+

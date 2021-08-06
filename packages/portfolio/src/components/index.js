@@ -15,11 +15,13 @@ import TransitionLayer from "./transition";
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
+  // console.log(data);
   const root = useRef(null);
   const [videoUrl, setVideoUrl] = useState(null)
-  const tl = gsap.timeline();
+  const isProjectPage = !state.router.link.includes("/project/");
 
   useEffect(() => {
+    gsap.to(window, { scrollTo: 0 })
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
@@ -37,9 +39,9 @@ const Root = ({ state }) => {
         duration: 0.5,
         onComplete: () => {
           gsap.to(video, {
-            zIndex: 10,
             opacity: 1,
             duration: 0.5,
+            scale: 1,
           });
         }
       })
@@ -47,7 +49,7 @@ const Root = ({ state }) => {
       gsap.to(video, {
         opacity: 0,
         duration: 0.5,
-        zIndex: -1,
+        scale: 0.9,
         onComplete: () => {
           gsap.to(main, {
             opacity: 1,
@@ -70,12 +72,12 @@ const Root = ({ state }) => {
         <meta name="description" content={state.frontity.description} />
       </Head>
       <Container>
-        <PreVideo className={"pre-video"} >
+        {isProjectPage && <PreVideo className={"pre-video"} >
           {videoUrl && <video loop autoPlay muted playsInline>
             <source src={videoUrl.video_mp4} type="video/webm" />
             <source src={videoUrl.video_webm} type="video/mp4" />
           </video>}
-        </PreVideo>
+        </PreVideo>}
         <Header />
         <TransitionLayer node={root} loading={data.isFetching} />
         <Main className={"main"}>
@@ -125,6 +127,8 @@ const PreVideo = styled.div`
   align-items: center;
   video{
     width: 100%;
+    max-width: 1000px;
+    margin: auto;
   }
 `
 

@@ -5,7 +5,9 @@ gsap.registerPlugin(ScrollToPlugin);
 
 
 const playPostAnimation = ({ el, currLink, state }) => {
-  const isPostsPage = currLink == "/" || currLink == "/projects/";
+  const isPostsPage =
+    (currLink == "/" || currLink == "/en/") ||
+    (currLink == "/projects/" || currLink == "/en/projects");
   const isProject = currLink.includes("/project/");
 
   if (isPostsPage) {

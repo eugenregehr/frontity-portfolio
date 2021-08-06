@@ -5,16 +5,24 @@ import colors from "../../styles/colors";
 import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
 import zindex from "../../styles/zindex";
+import { lang } from "../../config";
 
 const Nav = ({ state }) => (
   <Navigation>
-    {state.theme.menu.map(([name, link]) => {
+    {state.theme.menu.map(([name, link], index) => {
       // Check if the link matched the current page url
       let isCurrentPage
+      const isHome = state.theme.lang == `${lang.first}` ? "/" : `/${lang.second}/`;
+      const isLastLink = index + 1 == state.theme.menu.length;
+      const setLangLink =
+        state.theme.lang == `${lang.second}` ?
+          `${link}${state.router.link.replace(`/${lang.second}/`, "/")}` :
+          `${link}${state.router.link}`
+
       if (state.router.link.length == link.length) {
         isCurrentPage = state.router.link == link
       } else {
-        if (link !== "/") {
+        if (link !== isHome) {
           isCurrentPage = state.router.link.includes(link)
         }
       };
@@ -25,10 +33,12 @@ const Nav = ({ state }) => (
               <GithubIcon src={Github} alt="github logo" />
             </a>
           ) :
-            <Link nav href={link} current={isCurrentPage ? "page" : undefined}>
+            <Link
+              href={isLastLink ? setLangLink : link}
+              current={isCurrentPage ? "page" : undefined}
+              nav>
               {name}
             </Link>}
-
         </div>
       );
     })}

@@ -1,6 +1,7 @@
 import { connect, styled } from "frontity";
 
 import { mq } from "../../../styles/breakpoints";
+import colors from "../../../styles/colors";
 
 const ContentText = ({ data, className }) => {
   return (
@@ -23,6 +24,24 @@ const Text = styled.div`
     line-height: 1.6;
     ${mq("tablet")}{
       max-width: 25rem;
+    }
+    a{
+      text-decoration: underline;
+      position: relative;
+      transition: color .3s ease;
+      /* display: inline-block;
+      &:after{
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        background: ${colors.primary};
+      } */
+      &:hover{
+        color: ${colors.primary};
+      }
     }
   }
   p + p{

@@ -7,7 +7,7 @@ const hoverPostProjects = ({ elProject }) => {
   const title = elProject.querySelector(".title");
 
   const tl = gsap.timeline({ paused: true, defaults: { ease: "power2", duration: 0.25 } });
-  const post = elProject.parentNode;
+  const post = elProject.previousSibling;
 
   post.addEventListener("mouseover", () => {
     buildHoverAnimationProject({ tl, subline, title });
