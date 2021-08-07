@@ -46,10 +46,9 @@ const buildAnimation = ({ el, state }) => {
     })
     .to(window, {
       scrollTo: 130,
-      duration: 1,
+      duration: 0.5,
       // delay: 0.25
     }, "-=1")
-
   if (postActive) {
     tl.set({},
       {

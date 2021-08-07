@@ -1,24 +1,34 @@
 import { connect, styled } from "frontity";
 import FLink from "@frontity/components/link";
 
-const Link = ({ className, state, href, current, actions, children, nav }) => {
+const Link = ({ className, state, href, current, actions, children, nav, toProject }) => {
   return (
     <>
-      <FLink link={href}
-        aria-current={current}
-        className={className}
-        onClick={e => {
-          e.preventDefault();
-          state.theme.href = href
-          if (nav) {
-            state.theme.transition = true;
-          } else {
+      {toProject ?
+        <a
+          href={href}
+          className={className}
+          onClick={e => {
+            e.preventDefault();
+            state.theme.href = href;
             actions.router.set(href)
-          }
-        }}
-      >
-        {children}
-      </FLink>
+          }}
+        >{children}</a>
+        : <FLink link={href}
+          aria-current={current}
+          className={className}
+          onClick={e => {
+            e.preventDefault();
+            state.theme.href = href
+            if (nav) {
+              state.theme.transition = true;
+            } else {
+              actions.router.set(href)
+            }
+          }}
+        >
+          {children}
+        </FLink>}
     </>
   )
 }

@@ -5,7 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import zindex from "../../styles/zindex";
 // import ScrollToPlugin from "gsap/ScrollToPlugin"
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 const tl = gsap.timeline({
   paused: true

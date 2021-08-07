@@ -75,7 +75,9 @@ const Posts = ({ state, actions }) => {
               <Post
                 key={index}
                 className={'post'}
-                href={post.link}>
+                href={post.link}
+                toProject={true}
+              >
                 {post.acf.module.find(el => el.acf_fc_layout == "video") && <Icon
                   className={"video-icon"}
                   onMouseEnter={() => setVideoObject(post)}

@@ -21,7 +21,7 @@ const Root = ({ state }) => {
   const isProjectPage = !state.router.link.includes("/project/");
 
   useEffect(() => {
-    gsap.to(window, { scrollTo: 0 })
+    gsap.to(window, { scrollTo: 0, duration: 0.2 })
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
