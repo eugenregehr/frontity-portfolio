@@ -95,7 +95,8 @@ export const GlobalStyles = css`
 
   a{
     text-decoration: none;
-    color: ${colors.text};
+    /* color: ${colors.text}; */
+    color: inherit;
   }
 
   a[aria-disabled="true"] {

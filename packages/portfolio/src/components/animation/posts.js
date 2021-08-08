@@ -24,6 +24,7 @@ const buildAnimation = ({ el, state }) => {
   const postActiveImageDiv = el.querySelector(".post.active .post-image > div");
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
+  const container = document.querySelector(".container");
   const isProjectPage = state.theme.postCat == "projects";
   const isTablet = window.outerWidth > bp.tablet;
 
@@ -36,6 +37,7 @@ const buildAnimation = ({ el, state }) => {
         postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
       titleWrap.classList.remove("back");
+      container.classList.remove("inverted");
     }
   })
     .to(postsInActive, {
@@ -48,6 +50,7 @@ const buildAnimation = ({ el, state }) => {
       scrollTo: 130,
       duration: 0.5,
     }, "-=1")
+
 
   if (postActive) {
     tl.set({},
@@ -70,6 +73,14 @@ const buildAnimation = ({ el, state }) => {
         duration: 2
       }, "-=1")
     }
+
+    tl.to(container, {
+      background: "#000",
+      color: "#fff",
+      onComplete: () => {
+        container.classList.add("inverted");
+      }
+    }, "-=1")
 
     tl.to(postActiveImageDiv,
       {
@@ -109,6 +120,9 @@ const buildAnimation = ({ el, state }) => {
       ease: "none",
       onComplete: () => {
         titleWrap.classList.add("back");
+      },
+      onReverseComplete: () => {
+        gsap.to(window, { scrollTo: 130, duration: 0.25 })
       }
     }, "-=1")
   }
@@ -165,7 +179,7 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       let post = document.querySelector(".post.reload");
       post.classList.remove("reload");
     } else {
-      tl.timeScale(1.5).reverse();
+      tl.timeScale(1.25).reverse();
     }
     // restart animation if switch from project to start and back
     if (projectsOverviewSlugs.includes(state.theme.href)) {

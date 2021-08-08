@@ -9,6 +9,7 @@ import Link from "./link";
 import Arrow from "./modules/partials/arrow";
 import PostDescription from "./post-description";
 import zindex from "../styles/zindex";
+import colors from "../styles/colors";
 
 
 const Posts = ({ state, actions }) => {
@@ -70,7 +71,9 @@ const Posts = ({ state, actions }) => {
         </TitleWrap>
 
         {postsPerCategory.map(({ posts }, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            css={css`margin: ${state.theme.postCat == "startpage" ? 0 : "0 -0.25rem"}`}>
             {posts.map((post, index) => (
               <Post
                 key={index}
@@ -81,7 +84,7 @@ const Posts = ({ state, actions }) => {
                   className={"video-icon"}
                   onMouseEnter={() => setVideoObject(post)}
                   onMouseLeave={() => { state.theme.postVideo = null }}
-                  css={css`right: ${state.theme.postCat == "startpage" ? '1rem' : '1.5rem'}`}
+                  css={css`right: ${state.theme.postCat == "startpage" ? "1rem" : "1.5rem"}`}
                 >
                   <div className={"pulse"}><div></div><div></div></div>
                 </Icon>}
@@ -127,34 +130,35 @@ const Icon = styled.div`
     position: relative;
     width: 36px;
     height: 36px;
-  div{
-    position: absolute;
-    border: 2px solid #fff;
-    opacity: 1;
-    border-radius: 50%;
-    animation: pulse 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    div{
+      position: absolute;
+      border: 2px solid #fff;
+      opacity: 1;
+      border-radius: 50%;
+      animation: pulse 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+      transition: border-color 1s ease;
+    }
+    div:nth-of-type(2) {
+      animation-delay: -0.75s;
+    }
   }
-  div:nth-of-type(2) {
-    animation-delay: -0.75s;
-  }
-}
 
-@keyframes pulse {
-  0% {
-    top: 18px;
-    left: 18px;
-    width: 0;
-    height: 0;
-    opacity: 1;
+  @keyframes pulse {
+    0% {
+      top: 18px;
+      left: 18px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 36px;
+      height: 36px;
+      opacity: 0;
+    }
   }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 36px;
-    height: 36px;
-    opacity: 0;
-  }
-}
 `
 
 const TitleWrap = styled.div`
@@ -162,7 +166,6 @@ const TitleWrap = styled.div`
   align-items: center;
   margin-bottom: 4rem;
   justify-content: center;
-  background: #fff;
   ${mq("tablet")}{
     margin-bottom: 6rem;
   }
@@ -254,6 +257,9 @@ const PostWrap = styled.div`
             margin-right: auto;
             /* background: blue; */
           }
+        }
+        ${mq("desktop")}{
+          margin-bottom: 4rem;
         }
         > div {
           width: 100%;

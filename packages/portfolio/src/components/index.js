@@ -12,6 +12,7 @@ import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
 import { site } from "../config";
+import colors from "../styles/colors";
 
 
 let hoverTimer
@@ -52,7 +53,7 @@ const Root = ({ state }) => {
             });
           }
         })
-      }, 1000);
+      }, 500);
     }
 
     if (!state.theme.postVideo) {
@@ -83,7 +84,7 @@ const Root = ({ state }) => {
         <meta name="referrer" content="origin" />
         <meta name="description" content={state.frontity.description} />
       </Head>
-      <Container>
+      <Container className={"container"}>
         {isNotProjectPage && <PreVideo className={"pre-video"} >
           {videoUrl && <video loop autoPlay muted playsInline>
             <source src={videoUrl.video_mp4} type="video/webm" />
@@ -113,6 +114,7 @@ export default connect(Root);
 const Container = styled.div`
   padding: 0 1.5rem;
   background: #fff;
+  color: ${colors.text};
   min-height: 100vh;
   ${mq("tablet")} {
       padding: 0 2rem;
@@ -120,6 +122,14 @@ const Container = styled.div`
   ${mq("desktop")} {
       padding: 0 4rem;
     }
+  &.inverted{
+    nav .icon img{
+      filter: invert(1);
+    }
+    footer > div {
+      border-color: #ffffff4d;
+    }
+  }
 `
 
 const PreVideo = styled.div`
