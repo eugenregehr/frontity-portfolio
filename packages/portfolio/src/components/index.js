@@ -101,7 +101,7 @@ const Root = ({ state }) => {
         <Footer>
           <div>
             <Link href={"/imprint/"}><strong>Imprint</strong> | </Link>
-            <p>© 2021 Eugen Regehr - Some cool sentence</p>
+            <p>© 2021 Eugen Regehr</p>
           </div>
         </Footer>
       </Container>

@@ -33,7 +33,7 @@ const buildAnimation = ({ el, state }) => {
     opacity: 0,
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
-      gsap.set([titleWrap, postActiveTitleLink, postsInActive,
+      gsap.set([title, titleWrap, postActiveTitleLink, postsInActive,
         postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
       titleWrap.classList.remove("back");
