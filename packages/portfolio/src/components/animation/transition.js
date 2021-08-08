@@ -1,7 +1,11 @@
 import gsap from "gsap";
+import { site } from "../../config";
+
+const speed = 0.5;
+const ease = "power1";
 
 const tl = gsap.timeline({
-  defaults: { duration: 0.5, ease: "power2" },
+  defaults: { duration: speed, ease: ease },
 });
 
 const Transition = ({ node, href, actions, state, el }) => {
@@ -39,16 +43,18 @@ const Loading = ({ el, loading, state }) => {
   const loader = el.querySelector(".loader");
   const gif = el.querySelector(".loader img");
 
-  if (!loading || state.theme.href.includes("/project/")) {
+  if (!loading || state.theme.href.includes(site.project)) {
     gsap.to(gif, {
       opacity: 0,
-      duration: 0.5,
+      duration: speed,
+      ease: ease,
       onComplete: () => {
         gsap.to(loader, {
           height: 0,
           top: "100%",
           display: "none",
-          duration: 0.5
+          duration: speed,
+          ease: ease
         })
       }
     })

@@ -36,6 +36,7 @@ const Nav = ({ state }) => (
             <Link
               href={isLastLink ? setLangLink : link}
               current={isCurrentPage ? "page" : undefined}
+              hardLink={name == "EN" || name == "DE"}
               nav>
               {name}
             </Link>}
@@ -48,20 +49,27 @@ const Nav = ({ state }) => (
 export default connect(Nav);
 
 const GithubIcon = styled.img`
-    display: block;
+    display: none;
     max-width: 1.25rem;
     position: relative;
     top: -3px;
-
     ${mq("tablet")}{
       max-width: 1.5rem;
       top: 0;
     }
+    ${mq("desktop")}{
+      display: block;
+    }
+
 `
 const Navigation = styled.nav`
   display: flex;
   position: relative;
   /* z-index: ${zindex.navigation}; */
+  right: 0.5rem;
+  ${mq("desktop")}{
+    right: auto;
+  }
   a{
     padding: 0.25rem;
     margin-left: 0.35rem;
@@ -71,7 +79,10 @@ const Navigation = styled.nav`
     &:before{
       content: "";
       position: absolute;
-      bottom: 0.75rem;
+      bottom: 0.7rem;
+      ${mq("desktop")}{
+        bottom: 0.75rem;
+      }
       left: 0;
       width: 0%;
       height: 2px;
@@ -99,6 +110,32 @@ const Navigation = styled.nav`
         /* bottom: -0.25rem; */
         width: 100%;
         /* background: ${colors.text}; */
+      }
+    }
+  }
+  div:last-of-type{
+    background: ${colors.primary};
+    position: fixed;
+    right: -0.5rem;
+    z-index: ${zindex.language};
+    ${mq("tablet")}{
+      top: 5rem;
+    }
+    ${mq("desktop")}{
+      top: 2.1rem;
+    }
+    a{
+      color: #fff;
+      margin-left: 0;
+      margin-right: 1rem;
+      font-size: 1em;
+      ${mq("desktop")}{
+        font-size: 1.1em;
+    }
+      &:hover{
+        &:before{
+          display: none;
+        }
       }
     }
   }

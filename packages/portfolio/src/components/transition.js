@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { styled, connect } from "frontity";
 
+// import Loader from "./loader";
 import colors from "../styles/colors";
 import { Loading, Transition } from "./animation/transition";
 import GifCat from "../assest/images/turn-page.gif";
@@ -8,6 +9,7 @@ import GifHomer from "../assest/images/turn-page2.gif";
 import GifStatue from "../assest/images/turn-page3.gif";
 import GifPizza from "../assest/images/turn-page4.gif";
 import zindex from "../styles/zindex";
+import { site } from "../config";
 
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
@@ -23,18 +25,17 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
 
   // random gifs
   useEffect(() => {
-    if (state.theme.href) {
-      const el = root.current;
+    if (state.theme.transition) {
       const getGifNumber = getRandomNumber(0, gifs.length);
       setGifSrc(gifs[getGifNumber])
     }
-  }, [state.theme.href])
+  }, [state.theme.transition])
 
   // page transition
   useEffect(() => {
     const el = root.current;
     const currSlug = state.router.link;
-    const isProject = currSlug.includes("/project/")
+    const isProject = currSlug.includes(site.project);
     const toProjectsStartpage = (href == "/" || href == "/en/") && state.theme.postCat == "startpage";
     const toProjectsPage = (href == "/projects/" || href == "/en/projects") && state.theme.postCat == "projects";
 
@@ -58,6 +59,7 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
     <Container ref={root}>
       <div className={'transition-layer loader'}>
         <img className={'gif'} src={gifSrc} alt="turn page cat" />
+        {/* <Loader /> */}
       </div>
       <div className={'transition-layer page-transition'}>
         <img className={'gif'} src={gifSrc} alt="turn page cat" />
@@ -83,7 +85,10 @@ const Container = styled.div`
     &.loader{
       height: 100%;
       display: flex;
-      z-index: ${zindex.transitionLayerLoader}
+      z-index: ${zindex.transitionLayerLoader};
+      /* > div {
+        margin-top: 0;
+      } */
     }
     img{
       max-width: 20rem;

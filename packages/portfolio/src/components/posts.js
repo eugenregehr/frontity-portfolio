@@ -76,7 +76,6 @@ const Posts = ({ state, actions }) => {
                 key={index}
                 className={'post'}
                 href={post.link}
-                toProject={true}
               >
                 {post.acf.module.find(el => el.acf_fc_layout == "video") && <Icon
                   className={"video-icon"}
@@ -120,7 +119,7 @@ const Icon = styled.div`
   display: none;
   transform: scale(0);
   transition: all .3s ease;
-  ${mq("tablet")}{
+  ${mq("desktop")}{
     display: block;
   }
   .pulse {

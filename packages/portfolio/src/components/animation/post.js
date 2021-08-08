@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { site } from "../../config";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -8,7 +9,7 @@ const playPostAnimation = ({ el, currLink, state }) => {
   const isPostsPage =
     (currLink == "/" || currLink == "/en/") ||
     (currLink == "/projects/" || currLink == "/en/projects");
-  const isProject = currLink.includes("/project/");
+  const isProject = currLink.includes(site.project);
 
   if (isPostsPage) {
     gsap.to(el, {

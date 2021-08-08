@@ -12,6 +12,7 @@ export const site = {
   home: "/",
   homeLang: `/${lang.second}/`,
   about: "/about/",
+  project: "/project/",
   projects: "/projects/",
   projectsLang: `/${lang.second}/projects/`,
   contact: "/contact/",

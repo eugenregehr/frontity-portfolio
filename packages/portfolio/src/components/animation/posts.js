@@ -4,7 +4,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
-import { projectsOverviewSlugs } from "../../config";
+import { projectsOverviewSlugs, site } from "../../config";
 
 gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);
 
@@ -32,7 +32,8 @@ const buildAnimation = ({ el, state }) => {
     opacity: 0,
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
-      gsap.set([titleWrap, postActiveTitleLink, postsInActive, postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
+      gsap.set([titleWrap, postActiveTitleLink, postsInActive,
+        postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
       postActive.classList.remove("active");
       titleWrap.classList.remove("back");
     }
@@ -42,13 +43,12 @@ const buildAnimation = ({ el, state }) => {
       marginBottom: 0,
       display: "none",
       duration: 1,
-      // delay: 0.25
     })
     .to(window, {
       scrollTo: 130,
       duration: 0.5,
-      // delay: 0.25
     }, "-=1")
+
   if (postActive) {
     tl.set({},
       {
@@ -57,7 +57,6 @@ const buildAnimation = ({ el, state }) => {
         },
       }
     )
-
     if (isProjectPage) {
       tl.to(postActive, {
         width: "100%",
@@ -150,7 +149,7 @@ const addActiveClassOnClick = ({ el, state }) => {
 // control animation depends on current slug
 const playPostsAnimation = ({ el, currLink, state }) => {
   const isProjectsPage = projectsOverviewSlugs.includes(currLink)
-  const isProject = currLink.includes("/project/");
+  const isProject = currLink.includes(site.project);
   const icon = el.querySelector(".fixed-icon")
   const postActiveImage = el.querySelector(".post.active .post-image");
 
@@ -166,17 +165,15 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       let post = document.querySelector(".post.reload");
       post.classList.remove("reload");
     } else {
-      gsap.to(window, { scrollTo: 130, duration: 0.25 })
       tl.timeScale(1.5).reverse();
     }
     // restart animation if switch from project to start and back
     if (projectsOverviewSlugs.includes(state.theme.href)) {
       tl.restart().progress(1).progress(0).pause().then(
         gsap.to(window, {
-          scrollTo: 0
+          scrollTo: 0,
         })
       );
-
     };
 
   } else if (isProject) {

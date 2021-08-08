@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { connect, loadable, styled, css } from "frontity";
 
 import { playPostAnimation } from "./animation/post";
+import { site } from "../config";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -12,7 +13,7 @@ const Post = ({ state }) => {
   const currLink = state.router.link
 
   useEffect(() => {
-    if (currLink.includes("/project/")) {
+    if (currLink.includes(site.project)) {
       let newData = state.source.get(state.router.link)
       let newPost = state.source.post[newData.id] || null;
       setData(newData);

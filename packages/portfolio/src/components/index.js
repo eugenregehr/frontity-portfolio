@@ -11,17 +11,21 @@ import Page from "./page";
 import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
+import { site } from "../config";
 
+
+let hoverTimer
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   // console.log(data);
   const root = useRef(null);
   const [videoUrl, setVideoUrl] = useState(null)
-  const isProjectPage = !state.router.link.includes("/project/");
+  const isNotProjectPage = !state.router.link.includes(site.project);
 
   useEffect(() => {
     gsap.to(window, { scrollTo: 0, duration: 0.2 })
+    // prevent default browser scrolling position
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
@@ -34,18 +38,26 @@ const Root = ({ state }) => {
 
     if (state.theme.postVideo) {
       setVideoUrl(state.theme.postVideo)
-      gsap.to(main, {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => {
-          gsap.to(video, {
-            opacity: 1,
-            duration: 0.5,
-            scale: 1,
-          });
-        }
-      })
-    } else {
+
+      // delay post hover
+      hoverTimer = setTimeout(() => {
+        gsap.to(main, {
+          opacity: 0,
+          duration: 0.5,
+          onComplete: () => {
+            gsap.to(video, {
+              opacity: 1,
+              duration: 0.5,
+              scale: 1,
+            });
+          }
+        })
+      }, 1000);
+    }
+
+    if (!state.theme.postVideo) {
+      clearTimeout(hoverTimer);
+
       gsap.to(video, {
         opacity: 0,
         duration: 0.5,
@@ -72,7 +84,7 @@ const Root = ({ state }) => {
         <meta name="description" content={state.frontity.description} />
       </Head>
       <Container>
-        {isProjectPage && <PreVideo className={"pre-video"} >
+        {isNotProjectPage && <PreVideo className={"pre-video"} >
           {videoUrl && <video loop autoPlay muted playsInline>
             <source src={videoUrl.video_mp4} type="video/webm" />
             <source src={videoUrl.video_webm} type="video/mp4" />
@@ -138,6 +150,7 @@ const Main = styled.main`
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
+  position: relative;
   ${mq("tablet")} {
       padding: 4rem 0;
     }

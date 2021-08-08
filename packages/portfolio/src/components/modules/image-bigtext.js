@@ -29,7 +29,7 @@ const Columns = styled.div`
     z-index: ${zindex.moduleBigTextH1};
     width: 60%;
     ${mq("desktop")}{
-      width: 50%;
+      width: 70%;
     }
   }
   .image{
