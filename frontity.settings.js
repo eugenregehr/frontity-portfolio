@@ -4,8 +4,8 @@ const settings = [
     "state": {
       "frontity": {
         "url": "https://test.frontity.org",
-        "title": "Eugen Regehr",
-        "description": "Portfolio of Eugen Regehr"
+        "title": "its-eugen.com",
+        "description": "Eugen Regehr | Interaktionsdesigner und Frontend-Entwickler "
       }
     },
     "packages": [
@@ -33,7 +33,8 @@ const settings = [
         "name": "@frontity/wp-source",
         "state": {
           "source": {
-            "api": "https://wp.its-eugen.com/wp-json"
+            "api": "https://wp.its-eugen.com/wp-json",
+            // "homepage": "index"
           }
         }
       },
@@ -47,8 +48,8 @@ const settings = [
     "state": {
       "frontity": {
         "url": "https://test.frontity.org",
-        "title": "Eugen Regehr",
-        "description": "Portfolio of Eugen Regehr"
+        "title": "its-eugen.com",
+        "description": "Eugen Regehr | Interactiondesigner and Frontend Developer"
       }
     },
     "packages": [
@@ -77,7 +78,8 @@ const settings = [
         "state": {
           "source": {
             "api": "https://wp.its-eugen.com/en/wp-json",
-            "subdirectory": "en"
+            "subdirectory": "en",
+            // "homepage": "/en/index"
           }
         }
       },

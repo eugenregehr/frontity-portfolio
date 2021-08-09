@@ -11,18 +11,23 @@ import Page from "./page";
 import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
-import { site } from "../config";
+import { projectsOverviewSlugs, site } from "../config";
 import colors from "../styles/colors";
 
 
-let hoverTimer
+let hoverTimer;
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
-  // console.log(data);
+  const setLang = state.theme.lang == "en" ? "en" : "de";
+  // const site = state.source[data.type][data.id] || null;
+  // let title = "Index";
+  // site ? title = site.title.rendered : "";
+  // console.log(data)
+
   const root = useRef(null);
   const [videoUrl, setVideoUrl] = useState(null)
-  const isNotProjectPage = !state.router.link.includes(site.project);
+  // const isProjectsPage = projectsOverviewSlugs.includes(state.theme.link);
 
   useEffect(() => {
     gsap.to(window, { scrollTo: 0, duration: 0.2 })
@@ -80,17 +85,18 @@ const Root = ({ state }) => {
     <div ref={root}>
       <Global styles={GlobalStyles} />
       <Head>
-        <html lang="en" />
+        <html lang={setLang} className={setLang} />
         <meta name="referrer" content="origin" />
         <meta name="description" content={state.frontity.description} />
+        <title>{state.frontity.title}</title>
       </Head>
       <Container className={"container"}>
-        {isNotProjectPage && <PreVideo className={"pre-video"} >
+        <PreVideo className={"pre-video"} >
           {videoUrl && <video loop autoPlay muted playsInline>
             <source src={videoUrl.video_mp4} type="video/webm" />
             <source src={videoUrl.video_webm} type="video/mp4" />
           </video>}
-        </PreVideo>}
+        </PreVideo>
         <Header />
         <TransitionLayer node={root} loading={data.isFetching} />
         <Main className={"main"}>
@@ -99,8 +105,11 @@ const Root = ({ state }) => {
           <Page />
         </Main>
         <Footer>
-          <div>
-            <Link href={"/imprint/"}><strong>Imprint</strong> | </Link>
+          <div>{
+            state.theme.lang == "EN" ?
+              <Link href={"/en/imprint/"}><strong>Imprint</strong> | </Link>
+              : <Link href={"/imprint/"}><strong>Impressum</strong> | </Link>
+          }
             <p>© 2021 Eugen Regehr</p>
           </div>
         </Footer>

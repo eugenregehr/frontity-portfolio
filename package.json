@@ -19,6 +19,7 @@
   "dependencies": {
     "@charlietango/use-native-lazy-loading": "^1.9.0",
     "@frontity/core": "^1.14.0",
+    "@frontity/head-tags": "^1.1.1",
     "@frontity/hooks": "^2.2.2",
     "@frontity/html2react": "^1.7.0",
     "@frontity/mars-theme": "./packages/mars-theme",

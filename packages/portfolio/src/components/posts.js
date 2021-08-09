@@ -15,6 +15,8 @@ import colors from "../styles/colors";
 const Posts = ({ state, actions }) => {
 
   const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
+  // console.log(postsPerCategory);
+
   const root = useRef(null);
   const currLink = state.router.link;
 

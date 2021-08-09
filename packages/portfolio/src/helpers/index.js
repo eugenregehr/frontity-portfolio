@@ -1,11 +1,19 @@
 // import { categoriesWidgetsHome } from '../config'
 const MAXIMUM_POSTS = 10
 
-const getPostsFromCategory = ({ post }, categoryId) =>
+const getPostsFromCategory = ({ post }, categoryId) => {
 
-  Object.keys(post)
+  return Object.keys(post)
     .map(postID => post[postID])
     .filter(({ categories }) => categories.includes(parseInt(categoryId)))
+    .sort((a, b) => {
+      if (a.date > b.date)
+        return -1;
+      if (a.date < b.date)
+        return 1;
+      return 0;
+    });
+}
 
 export const getPostsGroupedByCategory = (source, category) => {
   return Object.values(category)
