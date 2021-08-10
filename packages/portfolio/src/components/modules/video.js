@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import zindex from "../../styles/zindex";
 // import ScrollToPlugin from "gsap/ScrollToPlugin"
 

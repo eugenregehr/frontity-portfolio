@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { site } from "../../config";
+import zindex from "../../styles/zindex";
 
 const speed = 0.5;
 const ease = "power1";
@@ -20,6 +21,9 @@ const buildTransition = ({ href, state, actions, el }) => {
   const transition = el.querySelector(".page-transition");
   const gif = el.querySelector(".page-transition img");
 
+  tl.set(transition, {
+    zIndex: zindex.transitionLayer,
+  })
   tl.to(transition, {
     height: "100%",
     display: "flex",
@@ -31,6 +35,7 @@ const buildTransition = ({ href, state, actions, el }) => {
     .to(transition, {
       height: 0,
       top: "100%",
+      zIndex: zindex.inActive,
       onComplete: () => {
         state.theme.transition = false;
       }
@@ -54,7 +59,8 @@ const Loading = ({ el, loading, state }) => {
           top: "100%",
           display: "none",
           duration: speed,
-          ease: ease
+          ease: ease,
+          zIndex: zindex.inActive,
         })
       }
     })

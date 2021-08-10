@@ -73,7 +73,7 @@ export default connect(TransitionLayer);
 const Container = styled.div`
   .transition-layer{
     position: fixed;
-    z-index: ${zindex.transitionLayer};
+    z-index: ${zindex.inActive};
     top: 0;
     left: 0;
     background: ${colors.primary};

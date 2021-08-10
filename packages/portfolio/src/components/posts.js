@@ -1,5 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import { connect, styled, css } from "frontity";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
@@ -24,6 +28,22 @@ const Posts = ({ state, actions }) => {
     const acfVideo = post.acf.module.find(el => el.acf_fc_layout == "video") || null;
     state.theme.postVideo = acfVideo;
   }
+
+  useEffect(() => {
+    const el = root.current;
+    const icon = el.querySelector(".fixed-icon")
+
+    ScrollTrigger.create({
+      trigger: "body",
+      start: "200px 0px",
+      onEnter: () => {
+        icon.classList.add("fixed")
+      },
+      onLeaveBack: () => {
+        icon.classList.remove("fixed")
+      }
+    })
+  }, [])
 
   useEffect(() => {
 

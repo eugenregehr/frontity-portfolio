@@ -70,8 +70,8 @@ const buildAnimation = ({ el, state }) => {
         width: isTablet ? "80%" : "100%",
       }, {
         width: "100%",
-        duration: 2
-      }, "-=1")
+        duration: 1
+      })
     }
 
     tl.to(container, {
@@ -165,8 +165,6 @@ const playPostsAnimation = ({ el, currLink, state }) => {
   const isProjectsPage = projectsOverviewSlugs.includes(currLink)
   const isProject = currLink.includes(site.project);
   const icon = el.querySelector(".fixed-icon")
-  const postActiveImage = el.querySelector(".post.active .post-image");
-
 
   if (isProjectsPage) {
     gsap.set(el, { display: "block" })
@@ -191,19 +189,10 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     };
 
   } else if (isProject) {
-    gsap.set([el, icon], { display: "block" })
+    gsap.set(el, { display: "block" })
+    gsap.set(icon, { display: "block", delay: 1 })
     tl.timeScale(1).play();
 
-    ScrollTrigger.create({
-      trigger: postActiveImage,
-      start: "top top",
-      onEnter: () => {
-        icon.classList.add("fixed")
-      },
-      onLeaveBack: () => {
-        icon.classList.remove("fixed")
-      }
-    })
   }
   else {
     // if all other pages
