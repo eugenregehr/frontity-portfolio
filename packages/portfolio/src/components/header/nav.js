@@ -5,27 +5,25 @@ import colors from "../../styles/colors";
 import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
 import zindex from "../../styles/zindex";
-import { lang } from "../../config";
+import { lang, site } from "../../config";
 
 const Nav = ({ state }) => (
   <Navigation>
     {state.theme.menu.map(([name, link], index) => {
       // Check if the link matched the current page url
       let isCurrentPage
-      const isHome = state.theme.lang == `${lang.first}` ? "/" : `/${lang.second}/`;
+      const currLink = state.router.link;
+      const isProjectsSite = (link == site.projects || link == site.projectsLang) && state.theme.postCat == "projects";
+      const isHomeSite = (link == site.home || link == site.homeLang) && state.theme.postCat == "startpage";
       const isLastLink = index + 1 == state.theme.menu.length;
       const setLangLink =
         state.theme.lang == `${lang.second}` ?
-          `${link}${state.router.link.replace(`/${lang.second}/`, "/")}` :
-          `${link}${state.router.link}`
+          `${link}${currLink.replace(`/${lang.second}/`, "/")}` :
+          `${link}${currLink}`
 
-      if (state.router.link.length == link.length) {
-        isCurrentPage = state.router.link == link
-      } else {
-        if (link !== isHome) {
-          isCurrentPage = state.router.link.includes(link)
-        }
-      };
+      if (currLink == link) isCurrentPage = true;
+      if (isProjectsSite && currLink.includes(site.project)) isCurrentPage = true;
+      if (isHomeSite && currLink.includes(site.project)) isCurrentPage = true;
       return (
         <div key={name}>
           {name == "Github" ? (

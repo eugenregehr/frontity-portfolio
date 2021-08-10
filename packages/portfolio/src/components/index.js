@@ -13,21 +13,16 @@ import config from "../styles/config";
 import TransitionLayer from "./transition";
 import Cookies from "./cookies";
 import colors from "../styles/colors";
+import Preview from "./preview";
 
 
-let hoverTimer;
+// let hoverTimer;
 
 const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const setLang = state.theme.lang == "en" ? "en" : "de";
-  // const site = state.source[data.type][data.id] || null;
-  // let title = "Index";
-  // site ? title = site.title.rendered : "";
-  // console.log(data)
 
   const root = useRef(null);
-  const [videoUrl, setVideoUrl] = useState(null)
-  // const isProjectsPage = projectsOverviewSlugs.includes(state.theme.link);
 
   useEffect(() => {
     gsap.to(window, { scrollTo: 0, duration: 0.2 })
@@ -37,49 +32,6 @@ const Root = ({ state }) => {
     }
   }, [])
 
-  useEffect(() => {
-    const el = root.current;
-    const video = el.querySelector(".pre-video");
-    const main = el.querySelector(".main");
-
-    if (state.theme.postVideo) {
-      setVideoUrl(state.theme.postVideo)
-
-      // delay post hover
-      hoverTimer = setTimeout(() => {
-        gsap.to(main, {
-          opacity: 0,
-          duration: 0.5,
-          onComplete: () => {
-            gsap.to(video, {
-              opacity: 1,
-              duration: 0.5,
-              scale: 1,
-            });
-          }
-        })
-      }, 500);
-    }
-
-    if (!state.theme.postVideo) {
-      clearTimeout(hoverTimer);
-
-      gsap.to(video, {
-        opacity: 0,
-        duration: 0.5,
-        scale: 0.9,
-        onComplete: () => {
-          gsap.to(main, {
-            opacity: 1,
-            duration: 0.5,
-            onComplete: () => {
-              setVideoUrl(null)
-            }
-          });
-        }
-      });
-    }
-  }, [state.theme.postVideo])
 
   return (
     <div ref={root}>
@@ -93,12 +45,7 @@ const Root = ({ state }) => {
       <Cookies />
       <Container className={"container"}>
         <TransitionLayer node={root} loading={data.isFetching} />
-        <PreVideo className={"pre-video"} >
-          {videoUrl && <video loop autoPlay muted playsInline>
-            <source src={videoUrl.video_mp4} type="video/webm" />
-            <source src={videoUrl.video_webm} type="video/mp4" />
-          </video>}
-        </PreVideo>
+        <Preview node={root} />
         <Header />
         <Main className={"main"}>
           <Posts />
@@ -106,11 +53,10 @@ const Root = ({ state }) => {
           <Page />
         </Main>
         <Footer>
-          <div>{
-            state.theme.lang == "EN" ?
+          <div>
+            {state.theme.lang == "en" ?
               <Link href={"/en/imprint/"}><strong>Imprint</strong> | </Link>
-              : <Link href={"/imprint/"}><strong>Impressum</strong> | </Link>
-          }
+              : <Link href={"/imprint/"}><strong>Impressum</strong> | </Link>}
             <p>© 2021 Eugen Regehr</p>
           </div>
         </Footer>
@@ -139,28 +85,6 @@ const Container = styled.div`
     footer > div {
       border-color: #ffffff4d;
     }
-  }
-`
-
-const PreVideo = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 80vw;
-  height: 80vh;
-  object-fit: contain;
-  object-position: center;
-  margin: auto; 
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  video{
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
   }
 `
 
