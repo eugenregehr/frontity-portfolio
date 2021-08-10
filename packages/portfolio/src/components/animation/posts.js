@@ -70,8 +70,8 @@ const buildAnimation = ({ el, state }) => {
         width: isTablet ? "80%" : "100%",
       }, {
         width: "100%",
-        duration: 1
-      })
+        duration: 2
+      }, "-=1")
     }
 
     tl.to(container, {

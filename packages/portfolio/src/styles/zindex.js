@@ -1,7 +1,8 @@
 export default {
-  logoWrapper: "601",
-  transitionLayerLoader: "501",
-  transitionLayer: "500",
+  transitionLayerLoader: "601",
+  transitionLayer: "600",
+  cookie: "550",
+  logoWrapper: "500",
   language: "460",
   logoWrapperAfterIntro: "450",
   backIcon: "300",

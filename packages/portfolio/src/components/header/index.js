@@ -25,6 +25,8 @@ export default connect(Header)
 
 const LogoLink = styled(Link)`
   cursor: pointer;
+  z-index: ${zindex.logoWrapper};
+  position: relative;
 `
 const Wrapper = styled.header`
   display: flex;

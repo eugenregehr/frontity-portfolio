@@ -5,7 +5,6 @@ import Cookies from 'universal-cookie';
 import { mq } from '../../styles/breakpoints';
 import colors from '../../styles/colors';
 import zindex from '../../styles/zindex';
-import config from '../../styles/config';
 import Intro from '../animation/intro';
 
 const Logo = ({ state }) => {
@@ -14,7 +13,7 @@ const Logo = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-    if (document.cookie !== "intro=played") {
+    if (cookie.get("intro") !== "played") {
       cookie.set('intro', 'played', { path: '/', maxAge: 86400 });
       Intro({ el, state })
     } else {
@@ -57,7 +56,6 @@ const LogoWrap = styled.div`
   transform-origin: top left;
   position: relative;
   top: -1px;
-  z-index: ${zindex.logoWrapper};
 
   ${mq("tablet")} {
       transform: scale(1);

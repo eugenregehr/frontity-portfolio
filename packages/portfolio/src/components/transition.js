@@ -10,6 +10,7 @@ import GifStatue from "../assest/images/turn-page3.gif";
 import GifPizza from "../assest/images/turn-page4.gif";
 import zindex from "../styles/zindex";
 import { site } from "../config";
+import { mq } from "../styles/breakpoints";
 
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
@@ -91,7 +92,10 @@ const Container = styled.div`
       } */
     }
     img{
-      max-width: 20rem;
+      max-width: 15rem;
+      ${mq("tablet")}{
+        max-width: 20rem;
+      }
       height: auto;
     }
   }

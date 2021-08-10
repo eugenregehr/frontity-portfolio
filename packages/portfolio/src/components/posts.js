@@ -225,9 +225,10 @@ const TitleWrap = styled.div`
     justify-content: center;
     align-items: center;
     z-index: ${zindex.backIcon};
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
     transform: translateX(-100px);
     transition: transform .3s ease;
+    background: ${colors.primary};
     &.fixed{
       transform: translateX(0);
     }
@@ -240,6 +241,9 @@ const TitleWrap = styled.div`
       top: 0;
       right: 0.8rem;
       height: 1.6rem;
+      p{
+        background: #fff;
+      }
     }
   }
 `

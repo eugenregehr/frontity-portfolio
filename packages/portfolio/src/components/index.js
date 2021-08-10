@@ -11,7 +11,7 @@ import Page from "./page";
 import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
-import { projectsOverviewSlugs, site } from "../config";
+import Cookies from "./cookies";
 import colors from "../styles/colors";
 
 
@@ -90,7 +90,9 @@ const Root = ({ state }) => {
         <meta name="description" content={state.frontity.description} />
         <title>{state.frontity.title}</title>
       </Head>
+      <Cookies />
       <Container className={"container"}>
+        <TransitionLayer node={root} loading={data.isFetching} />
         <PreVideo className={"pre-video"} >
           {videoUrl && <video loop autoPlay muted playsInline>
             <source src={videoUrl.video_mp4} type="video/webm" />
@@ -98,7 +100,6 @@ const Root = ({ state }) => {
           </video>}
         </PreVideo>
         <Header />
-        <TransitionLayer node={root} loading={data.isFetching} />
         <Main className={"main"}>
           <Posts />
           <Post />
