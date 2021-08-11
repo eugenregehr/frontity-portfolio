@@ -5,6 +5,8 @@ import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
 import { projectsOverviewSlugs, site } from "../../config";
+import translate from '../translations';
+
 
 gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);
 
@@ -47,7 +49,7 @@ const buildAnimation = ({ el, state }) => {
       duration: 1,
     })
     .to(window, {
-      scrollTo: 130,
+      scrollTo: isTablet ? 130 : 90,
       duration: 0.5,
     }, "-=1")
 
@@ -102,21 +104,26 @@ const buildAnimation = ({ el, state }) => {
       fontSize: "1.4rem",
     }, "-=2")
 
-    tl.to(arrowIcon, {
-      opacity: 1,
-      marginRight: "0.75rem",
-    }, "-=1.5")
-
     tl.to(titleWrap, {
       width: "6rem",
+      paddingLeft: "1.5rem",
       duration: isProjectPage ? 1.5 : 1
     }, "-=1")
 
+    tl.to(arrowIcon, {
+      opacity: 1,
+      display: "block",
+    }, "-=0.5")
+
+
     tl.fromTo(title, {
-      text: `${isProjectPage ? "Projects" : "Latest work"}`,
+      text: `${isProjectPage ?
+        state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de :
+        state.theme.lang == "en" ? translate['Latest work'].en : translate['Latest work'].de
+        }`,
     }, {
       duration: 0.25,
-      text: "Back",
+      text: state.theme.lang == "en" ? translate["Back"].en : translate["Back"].de,
       ease: "none",
       onComplete: () => {
         titleWrap.classList.add("back");

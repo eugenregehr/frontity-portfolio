@@ -34,10 +34,10 @@ const Wrapper = styled.header`
   align-items: center;
   position: relative;
   margin: auto;
-  height: 4.75rem;
-  ${mq("tablet")}{
-    height: 6rem;
-  }
+  /* height: 4.75rem; */
+  height: 5.9rem;
+  /* ${mq("tablet")}{
+  } */
   a{
     display: block;
     /* z-index: ${zindex.navLinks}; */

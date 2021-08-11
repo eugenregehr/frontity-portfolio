@@ -7,7 +7,7 @@ const ImageBigText = ({ acfData }) => {
 
   return (
     <Columns className="module">
-      <h1 className={"title"}>{acfData.text}</h1>
+      <h1 className={"title"} dangerouslySetInnerHTML={{ __html: acfData.text }} />
       <Image className={"image"} source={acfData.image} />
     </Columns>
   )
@@ -27,10 +27,10 @@ const Columns = styled.div`
     margin-bottom: 2rem;
     position: absolute;
     z-index: ${zindex.moduleBigTextH1};
-    width: 60%;
-    ${mq("desktop")}{
+    width: 78%;
+    /* ${mq("desktop")}{
       width: 70%;
-    }
+    } */
   }
   .image{
     width: 60%;

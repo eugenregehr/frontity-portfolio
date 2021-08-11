@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
-import { connect, loadable, styled } from "frontity";
+import { connect, loadable } from "frontity";
 import gsap from "gsap";
-import { projectsOverviewSlugs, site } from "../config";
+import { projectsOverviewSlugs } from "../config";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -32,17 +32,3 @@ const Post = ({ state }) => {
 }
 
 export default connect(Post);
-
-// const H1 = styled.h1`
-//   text-align: center;
-// `
-// const DividerWrap = styled.div`
-//   text-align: center;
-//   margin-top: 3rem;
-//   margin-bottom: 6rem;
-//   .divider{
-//     max-width: 4rem;
-//     margin: auto;
-//     transform: rotate(90deg);
-//   }
-// `

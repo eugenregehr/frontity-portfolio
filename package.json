@@ -30,6 +30,7 @@
     "gsap": "^3.6.1",
     "portfolio": "file:packages/portfolio",
     "react-intersection-observer": "^8.32.0",
+    "react-translated": "^2.5.0",
     "universal-cookie": "^4.0.4"
   }
 }

@@ -27,7 +27,9 @@ const Logo = ({ state }) => {
       ref={root}
       css={css`z-index: ${state.theme.introPlayed ? zindex.logoWrapperAfterIntro : zindex.logoWrapper}`}
     >
-      <div className={"holder"}>
+      <div className={"holder"}
+        css={css`margin-top: ${state.theme.introPlayed ? "1.25rem" : "0"}`}
+      >
         <div className={"hz top-left"} />
         <div className={"hz top-right"} />
         <div className={"hz middle-left"} />
@@ -50,12 +52,12 @@ const LogoWrap = styled.div`
   width: 64px;
   height: 94px;
   display: flex;
-  justify-content: center;
+  justify-content: center; 
   align-items: center;
   transform: scale(0.8);
   transform-origin: top left;
   position: relative;
-  top: -1px;
+  top: 0;
 
   ${mq("tablet")} {
       transform: scale(1);
@@ -76,7 +78,7 @@ const LogoWrap = styled.div`
     height: 40px;
     width: 36px;
     position: relative;
-    margin-top: 1.25rem;
+    /* margin-top: 1.25rem; */
     transform: translate3d(0, 0, 0);
     > div{
       background: #fff;

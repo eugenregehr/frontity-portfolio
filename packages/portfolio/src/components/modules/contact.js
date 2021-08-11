@@ -2,6 +2,7 @@ import { connect, styled } from "frontity";
 import { useEffect, useRef, useState } from 'react';
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { Translate } from 'react-translated';
 gsap.registerPlugin(ScrollToPlugin);
 
 import Loader from "../loader";
@@ -60,8 +61,8 @@ const Contact = () => {
       {isSend && <Loader />}
       <Success ref={successMessage}>
         <img src={Gif} alt="email gif" />
-        <strong>Thank you for your message.<br />I will contact you as soon as possible!</strong>
-        <button onClick={Reset}>Back</button>
+        <strong><Translate text="Kontakt-Text" /></strong>
+        <button onClick={Reset}><Translate text="Back" /></button>
       </Success>
       <Form ref={form} className="contact-form" onSubmit={sendEmail}>
         <div>
@@ -73,7 +74,7 @@ const Contact = () => {
           <input type="email" name="user_email" required />
         </div>
         <div>
-          <label>Message*</label>
+          <label><Translate text="Nachricht" />*</label>
           <textarea name="message" />
         </div>
         <input type="submit" value="Send" />
@@ -88,9 +89,9 @@ const Form = styled.form`
       margin-top: 4rem;
       label{
         display: block;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      text-align: left;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        text-align: left;
   }
   > div{
       margin-bottom: 2rem;

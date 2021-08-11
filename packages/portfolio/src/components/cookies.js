@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { connect, styled } from 'frontity';
 import Cookies from 'universal-cookie';
+import { Translate } from 'react-translated';
 
 import colors from '../styles/colors';
 import config from '../styles/config';
@@ -48,20 +49,11 @@ const Cookie = ({ state }) => {
   return (
     <CookieEl ref={root} className={"cookie-info"}>
       <div className={"inner-content"}>
-        {state.theme.lang == "en" ?
-          <>
-            <strong>Cookie Notice</strong>
-            <p>This website only uses technically necessary cookies that do not require consent.</p>
-            <button onClick={() => removeInfo()}>Verstanden</button>
-          </>
-          :
-          <>
-            <strong>Cookie Hinweis</strong>
-            <p>Diese Webseite verwendet nur technisch notwendige Cookies die keine Einwilligung erfordern.</p>
-            <button onClick={() => removeInfo()}>Verstanden</button>
-          </>
-        }
-
+        <>
+          <strong><Translate text="Cookie-Hinweis" /></strong>
+          <p><Translate text="Cookie-Text" /></p>
+          <button onClick={() => removeInfo()}><Translate text="Verstanden" /></button>
+        </>
       </div>
     </CookieEl>
   )
@@ -96,7 +88,7 @@ const CookieEl = styled.div`
     cursor: pointer;
     transition: border .15s ease;
     appearance: none;
-    font-size: 1em;
+    font-size: 0.9em;
     border: none;
   }
 `

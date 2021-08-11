@@ -35,11 +35,14 @@ const Images = styled.div`
   margin-left: auto;
   margin-right: auto;
   .image-item{
-    margin: 0 2rem;
+    margin: 0 1rem;
     max-width: 7rem;
     position: relative;
     width: 100%;
     flex-grow: 1;
+    ${mq("tablet")}{
+      margin: 0 2rem;
+    }
     p{
       font-size: 0.7em;
       letter-spacing: 1px;
@@ -60,9 +63,11 @@ const Images = styled.div`
     width: 2rem;
     bottom: 0;
     top: 0;
-    left: -3rem;
+    left: -2rem;
     position: absolute;
-    
+    ${mq("tablet")}{
+        left: -3rem;
+      }
     .one, .two{
       display: none;
     }

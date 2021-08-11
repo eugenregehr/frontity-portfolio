@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { styled, connect } from "frontity";
 
-// import Loader from "./loader";
 import colors from "../styles/colors";
 import { Loading, Transition } from "./animation/transition";
 import GifCat from "../assest/images/turn-page.gif";
@@ -37,8 +36,8 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
     const el = root.current;
     const currSlug = state.router.link;
     const isProject = currSlug.includes(site.project);
-    const toProjectsStartpage = (href == "/" || href == "/en/") && state.theme.postCat == "startpage";
-    const toProjectsPage = (href == "/projects/" || href == "/en/projects") && state.theme.postCat == "projects";
+    const toProjectsStartpage = (href == site.home || href == site.homeLang) && state.theme.postCat == "startpage";
+    const toProjectsPage = (href == site.projects || href == site.projectsLang) && state.theme.postCat == "projects";
 
     // no page transition from project to start/projects
     if (isProject && toProjectsStartpage || isProject && toProjectsPage) {
@@ -60,7 +59,6 @@ const TransitionLayer = ({ node, actions, state, loading }) => {
     <Container ref={root}>
       <div className={'transition-layer loader'}>
         <img className={'gif'} src={gifSrc} alt="turn page cat" />
-        {/* <Loader /> */}
       </div>
       <div className={'transition-layer page-transition'}>
         <img className={'gif'} src={gifSrc} alt="turn page cat" />
@@ -87,9 +85,6 @@ const Container = styled.div`
       height: 100%;
       display: flex;
       z-index: ${zindex.transitionLayerLoader};
-      /* > div {
-        margin-top: 0;
-      } */
     }
     img{
       max-width: 15rem;

@@ -16,7 +16,6 @@ export default {
       href: "",
       posts: { "projects": 2 },
       postCat: "projects",
-      postsDataLoaded: false,
       singlePostLoaded: false,
       introPlayed: false,
       postVideo: null

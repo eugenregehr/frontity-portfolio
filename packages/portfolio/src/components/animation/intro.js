@@ -40,13 +40,14 @@ const Intro = ({ el, state }) => {
     .add(LA({ el: leftBottomEl, y: 235, x: 115, v: true }), "-=1.5")
 
   tl.from(el, {
-    height: "100vh",
-    width: "100vw",
+    height: "100%",
+    width: "100%",
     left: 0,
     top: 0,
     delay: 0.5,
     scale: 1,
   })
+  tl.to(holder, { marginTop: "1.25rem" }, "-=1")
   tl.to(el, {
     left: logoShift
   }, "-=1")

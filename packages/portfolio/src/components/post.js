@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { connect, loadable, styled, css } from "frontity";
+import { connect, loadable, styled } from "frontity";
 
 import { playPostAnimation } from "./animation/post";
 import { site } from "../config";

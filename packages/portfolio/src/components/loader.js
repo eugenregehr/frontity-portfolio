@@ -1,10 +1,7 @@
 import { styled, connect } from "frontity";
-import colors from "../styles/colors";
 import zindex from "../styles/zindex";
 
-
 const Loading = () => {
-
   return (
     <Container>
       <div className={"loader"}><div></div><div></div><div></div><div></div></div>

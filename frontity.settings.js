@@ -16,9 +16,9 @@ const settings = [
             "lang": "de",
             "menu": [
               ["Index", "/"],
-              ["About", "/about/"],
-              ["Projects", "/projects/"],
-              ["Contact", "/contact/"],
+              ["Profil", "/about/"],
+              ["Projekte", "/projects/"],
+              ["Kontakt", "/contact/"],
               ["Github", "/github/"],
               ["EN", "http://localhost:3000/en"],
             ],
@@ -60,7 +60,7 @@ const settings = [
             "lang": "en",
             "menu": [
               ["Index", "/en/"],
-              ["About", "/en/about/"],
+              ["Profile", "/en/about/"],
               ["Projects", "/en/projects/"],
               ["Contact", "/en/contact/"],
               ["Github", "/github/"],

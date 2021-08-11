@@ -6,7 +6,7 @@ import Divider from "./modules/partials/divider";
 import hoverPostStart from "./animation/hoverPostStart";
 import hoverPostProjects from "./animation/hoverPostProject";
 
-const PostDescription = ({ state, title, excerpt, root }) => {
+const PostDescription = ({ state, title, excerpt }) => {
 
   const startRoot = useRef(null);
   const projectRoot = useRef(null);
