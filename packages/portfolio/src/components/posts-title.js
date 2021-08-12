@@ -30,7 +30,7 @@ const PostsTitle = ({ state, actions }) => {
         }
       </Title>
 
-      <div className={'fixed-icon'}><Arrow rotate={'180'} /></div>
+      <div className={'fixed-icon'}><Arrow rotate={'180'} circle /></div>
     </PostsTitleEl>
   )
 }
@@ -79,35 +79,21 @@ const PostsTitleEl = styled.div`
   }
   .fixed-icon{
     position: fixed;
-    top: 0.75rem;
-    left: 0.75rem;
-    height: 3rem;
-    width: 3rem;
-    background: #fff;
+    top: 2rem;
+    left: 1rem;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: ${zindex.backIcon};
-    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
     transform: translateX(-100px);
     transition: transform .3s ease;
-    background: ${colors.primary};
     &.fixed{
       transform: translateX(0);
     }
     ${mq("tablet")}{
       top: 2rem;
       left: 2rem;
-    }
-    .arrow-icon{
-      width: 1.5rem;
-      top: 0;
-      right: 0.8rem;
-      height: 1.6rem;
-      p{
-        background: #fff;
-      }
     }
   }
 `

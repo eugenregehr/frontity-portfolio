@@ -1,8 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { connect, Global, styled, Head } from "frontity";
 import gsap from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { Provider } from 'react-translated'
 import Translation from './translations';
+gsap.registerPlugin(ScrollToPlugin);
 
 import { GlobalStyles } from '../styles/global-styles';
 import Header from "./header";
@@ -16,6 +18,7 @@ import TransitionLayer from "./transition";
 import Cookies from "./cookies";
 import colors from "../styles/colors";
 import Preview from "./preview";
+import Arrow from "./modules/partials/arrow";
 
 
 const Root = ({ state }) => {
@@ -54,6 +57,9 @@ const Root = ({ state }) => {
           <Footer />
         </Container>
       </Provider>
+      <Up
+        rotate={"-90"}
+        onClick={() => gsap.to(window, { scrollTo: 0 })} circle />
     </div>
   );
 };
@@ -92,4 +98,14 @@ const Main = styled.main`
   ${mq("tablet")} {
       padding: 4rem 0;
     }
+`
+
+const Up = styled(Arrow)`
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  ${mq("tablet")} {
+    bottom: 2rem;
+    right: 2rem;
+  }
 `

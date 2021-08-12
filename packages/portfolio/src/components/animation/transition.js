@@ -31,7 +31,7 @@ const buildTransition = ({ href, state, actions, el }) => {
       actions.router.set(href);
     }
   })
-  tl.to(gif, { opacity: 0 })
+  tl.to(gif, { opacity: 0, delay: 0.5 })
     .to(transition, {
       height: 0,
       top: "100%",
@@ -53,6 +53,7 @@ const Loading = ({ el, loading, state }) => {
       opacity: 0,
       duration: speed,
       ease: ease,
+      delay: 0.5,
       onComplete: () => {
         gsap.to(loader, {
           height: 0,
