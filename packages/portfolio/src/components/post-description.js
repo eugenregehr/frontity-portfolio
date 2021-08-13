@@ -31,7 +31,7 @@ const PostDescription = ({ state, title, excerpt }) => {
     <>
       {state.theme.postCat == "startpage" &&
         <TitleLinkStart ref={startRoot} className={`title-link start-title-link`}>
-          <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
+          <h2 className={'title-2'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
             <Divider arrow />
             <span
@@ -41,7 +41,7 @@ const PostDescription = ({ state, title, excerpt }) => {
         </TitleLinkStart>}
       {state.theme.postCat == "projects" &&
         <TitleLinkProject ref={projectRoot} className={`title-link projects-title-link`}>
-          <h2 className={'title'} dangerouslySetInnerHTML={{ __html: title }} />
+          <h2 className={'title-3'} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={'divider-subline'}>
             <span
               dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -84,21 +84,23 @@ const TitleLinkStart = styled.div`
 `
 
 const TitleLinkProject = styled.div`
-    width: auto;
-    position: relative;
-      h2{
+    width: calc(100% - 1rem);
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    padding: 0 1rem;
+    h2{
       margin-top: 1rem;
       line-height: 1.2;
-      font-size: clamp(1.2em, 2vw, 2em);
-      text-align: center;
       overflow: hidden;
-
+      color: #fff;
     }
     .divider-subline{
-      text-align: center;
       display: none;
+
       ${mq("tablet")}{
         display: block;
+        margin-top: 2rem;
       }
       .divider{
         margin-left: auto;
@@ -109,14 +111,13 @@ const TitleLinkProject = styled.div`
       .subline{
         margin-top: 1rem;
         opacity: 0; 
-        /* display: none; */
         line-height: 1.4;
         font-size: clamp(1em, 1.3vw, 1.2em);
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        overflow: hidden;
+        /* position: absolute;
+        left: 1rem;
+        top: 0; */
+        /* width: calc(100% - 1rem); */
+        color: #fff;
       }
     }
 `

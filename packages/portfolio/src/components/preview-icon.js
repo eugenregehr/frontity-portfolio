@@ -29,7 +29,7 @@ const PreviewIconEl = styled.div`
   height: 36px;
   border-radius: 100%;
   position: absolute;
-  top: 1rem;
+  bottom: 1rem;
   z-index: ${zindex.videoIcon};
   opacity: 0;
   display: none;

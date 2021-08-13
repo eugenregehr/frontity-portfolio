@@ -24,18 +24,17 @@ const Post = ({ state }) => {
   })
 
   return (
-
     <div ref={root}>
-      <div className={"single-post"} >
+      <SinglePost className={"single-post"} >
         {post &&
           <>
-            <H1 className={'title'} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+            <H1 className={'title-1'} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
             {post.acf.module && post.acf.module.length > 0 && post.acf.module.map((item, index) => (
               <Component key={index} page={item.acf_fc_layout} acfData={item} />
             ))}
           </>
         }
-      </div>
+      </SinglePost>
     </div>
   )
 }
@@ -45,4 +44,8 @@ export default connect(Post);
 const H1 = styled.h1`
   text-align: center;
   line-height: 1.1;
+`
+
+const SinglePost = styled.div`
+  padding-top: 3rem;
 `

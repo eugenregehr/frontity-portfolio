@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { connect, styled, css } from "frontity";
 import gsap from "gsap";
+import Masonry from 'react-masonry-css'
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,11 +72,13 @@ const Posts = ({ state }) => {
         <PostsTitle />
 
         {postsPerCategory.map(({ posts }, index) => (
-          <div
+          <Masonry
             key={index}
-            css={css`margin: ${state.theme.postCat == "startpage" ? 0 : "0 -0.25rem"}`}>
+            breakpointCols={`${state.theme.postCat == "projects" ? 2 : 1}`}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
             {posts.map((post, index) => (
-              <Post
+              <Link
                 key={index}
                 className={'post'}
                 href={post.link}
@@ -89,9 +92,9 @@ const Posts = ({ state }) => {
                 <PostDescription
                   title={post.title.rendered}
                   excerpt={post.excerpt.rendered} />
-              </Post>
+              </Link>
             ))}
-          </div>
+          </Masonry>
         ))}
       </PostWrap>
     </>
@@ -101,100 +104,102 @@ const Posts = ({ state }) => {
 export default connect(Posts);
 
 
+const gutter = "10px";
+
 // project page
 const PostWrap = styled.div`
+  .post{
+    cursor: pointer;
+    display: block;
+    position: relative;
+  }
+
   &.work-posts{
-    > div{
-    display: flex;
-    flex-wrap: wrap;
-      .post{
-        width: 50%;
-        height: 100%;
-        display: block;
-        margin-bottom: 3rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-
-        &:nth-of-type(2n){
-          margin-left: auto;
-        }
-
+    .post{
+      .post-image {
+        width: 100%;
+      }
+      .post-image > div{
+        height: 15rem;
+        padding-top: 0;
         ${mq("tablet")}{
-          width: 33.333%;
+          height: 20rem;
+        }
+      }
+    }
 
-           &:nth-of-type(3n + 1){
-            margin-left: 0;
-            /* background: green; */
+      .my-masonry-grid_column {
+        ${mq("tablet")}{
+          &:nth-of-type(1){
+            .post:nth-of-type(2n - 1){
+              .post-image > div{
+                height: 30rem;
+              }
+            }
           }
-
-          &:nth-of-type(3n){
-            margin-left: auto;
-            /* background: red; */
-          }
-          &:nth-of-type(3n + 2){
-            margin-left: auto;
-            margin-right: auto;
-            /* background: blue; */
+          &:nth-of-type(2){
+            .post:nth-of-type(3n - 1){
+              .post-image > div{
+                height: 30rem;
+              }
+            }
           }
         }
-        ${mq("desktop")}{
-          margin-bottom: 4rem;
+      }
+  }
+
+  .my-masonry-grid {
+    display: flex;
+    margin-left: ${gutter}; /* gutter size offset */
+    width: auto;
+      .my-masonry-grid_column {
+        padding-left: ${gutter};  /* gutter size */
+        background-clip: padding-box;
+          & > a { /* change div to reference your elements you put in <Masonry> */
+            margin-bottom: ${gutter};
+          }
+        }
+      }
+
+
+  &.start-posts{
+    .post{
+      position: relative;
+      margin-bottom: 4rem;
+      display: block;
+
+      ${mq("tablet")}{
+        margin-bottom: 6rem;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        > .post-image{
+          width: 80%;
+        }
+      }
+      .post-image{
+        margin-left: auto;
+        margin-right: auto;
+        ${mq("tablet")}{
+          margin-right: 0;
         }
         > div {
-          width: 100%;
-        }
-        .post-image > div{
-          height: 15rem;
+          height: 20rem;
           padding-top: 0;
           ${mq("tablet")}{
-            height: 20rem;
+            height: 30rem;
           }
         }
       }
-    }
-  }
-`
-
-// start page
-const Post = styled(Link)`
-  position: relative;
-  margin-bottom: 4rem;
-  display: block;
-
-  > div{
-      width: 100%;
-    }
-
-  ${mq("tablet")}{
-    margin-bottom: 6rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    > div{
-      width: 80%;
-    }
-  }
-  .post-image{
-    margin-left: auto;
-    margin-right: auto;
-    ${mq("tablet")}{
-      margin-right: 0;
-    }
-    > div {
-      height: 20rem;
-      padding-top: 0;
-      ${mq("tablet")}{
-        height: 30rem;
+      .arrow-icon{
+        top: 0;
       }
-    }
-  }
-  .arrow-icon{
-    top: 0;
-  }
-  &:hover{
-    .video-icon{
-      opacity: 1;
-      transform: scale(1);
+      &:hover{
+        .video-icon{
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
     }
   }
 `

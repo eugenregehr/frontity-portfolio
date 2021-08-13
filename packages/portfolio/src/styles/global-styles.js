@@ -85,12 +85,19 @@ export const GlobalStyles = css`
   }
 
   h1, h2, h3 {
-    font-family: 'Body Text Medium';
-    line-height: 1.2em;
+    line-height: 1.3;
   }
 
-  .title{
-    font-size: clamp(2em, 5.5vw, 4em);
+  .title-1{
+    font-size: clamp(2.5em, 4.5vw, 3.5em);
+  }
+
+  .title-2{
+    font-size: clamp(2em, 4vw, 3em);
+  }
+
+  .title-3{
+    font-size: clamp(1.2em, 1.5vw, 1.75em);
   }
 
   a{

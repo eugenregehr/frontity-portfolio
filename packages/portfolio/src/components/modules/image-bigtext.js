@@ -7,7 +7,7 @@ const ImageBigText = ({ acfData }) => {
 
   return (
     <Columns className="module">
-      <h1 className={"title"} dangerouslySetInnerHTML={{ __html: acfData.text }} />
+      <h1 className={"title-1"} dangerouslySetInnerHTML={{ __html: acfData.text }} />
       <Image className={"image"} source={acfData.image} />
     </Columns>
   )

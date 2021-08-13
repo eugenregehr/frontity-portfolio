@@ -5,7 +5,7 @@ const Title = ({ data, className = "" }) => {
 
   return (
     data.title_condition && (
-      <H2 className={`${className} title`}>{data.title}</H2>
+      <H2 className={`${className} title-1`}>{data.title}</H2>
     )
   )
 }

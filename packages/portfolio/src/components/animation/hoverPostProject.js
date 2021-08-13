@@ -4,7 +4,7 @@ import gsap from "gsap";
 const hoverPostProjects = ({ elProject }) => {
 
   const subline = elProject.querySelector(".subline");
-  const title = elProject.querySelector(".title");
+  const title = elProject.querySelector("h2");
 
   const tl = gsap.timeline({ paused: true, defaults: { ease: "power2", duration: 0.25 } });
   const post = elProject.previousSibling;
@@ -27,17 +27,9 @@ const buildHoverAnimationProject = ({ tl, subline, title }) => {
   tl.set([title, subline], {
     clearProps: "all"
   })
-    .to(title, {
-      height: 0,
-      delay: 0.5,
-      display: "none"
-    })
-    .from(subline, {
-      height: 0
-    })
     .to(subline, {
       opacity: 1
-    }, "-=0.25")
+    })
 
 }
 

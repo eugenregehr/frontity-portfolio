@@ -23,7 +23,7 @@ const PostsTitle = ({ state, actions }) => {
       }>
       <Arrow rotate={'180'} />
 
-      <Title className={'title'}>
+      <Title className={'title-1'}>
         {state.theme.postCat == "startpage" ?
           state.theme.lang == "en" ? translate['Latest work'].en : translate['Latest work'].de :
           state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de
