@@ -1,9 +1,6 @@
-// import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
-import zindex from "../../styles/zindex";
 
-
-const Video = ({ acfData, state, webm, post, className }) => {
+const Video = ({ acfData, post, className }) => {
   const mp4Src = acfData.video_mp4;
   const webmSrc = acfData.video_webm;
   return (
@@ -18,15 +15,12 @@ const Video = ({ acfData, state, webm, post, className }) => {
 
 export default connect(Video);
 
-
 const VideoWrapper = styled.div`
   video{
     position: relative;
-    /* z-index: ${zindex.videoWrapper}; */
     width: 100%;
     margin-right: auto;
     margin-left: auto;
     display: block;
-    
   }
 `
