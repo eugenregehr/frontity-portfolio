@@ -8,29 +8,27 @@ import { site } from "../config";
 
 
 const PostMedia = ({ state, post }) => {
-  const [videoVisible, setVideoVisible] = useState(false)
-  const video = post.acf.module.find(el => el.acf_fc_layout == "video") || false;
-  const hasWebM = video.video_webm || false;
+  const [videoVisible, setVideoVisible] = useState(false);
+  const preview = post.acf.preview_video || false;
+  const start = post.acf.start_video || false;
+  const previewHasWebM = preview.video_webm || false;
+  const startHasWebM = start.video_webm || false;
   const currLink = state.router.link;
-  // console.log(video, hasWebM)
-  // const videoRef = useRef(null);
+  const isActive = post.link == currLink;
   const root = useRef(null);
 
   useEffect(() => {
 
-    if (video) {
+    if (preview.video_mp4) {
       const el = root.current;
       const image = el.querySelector(".post-first");
-      // console.log(el);
 
-      if (currLink.includes(site.project)) {
+      if (isActive) {
+        // console.log(preview);
+        setVideoVisible(true)
         gsap.to(image, {
           opacity: 0,
-          // display: "none",
-          delay: 2.5,
-          onComplete: () => {
-            setVideoVisible(true)
-          }
+          delay: 2.5
         })
       } else {
         setVideoVisible(false);
@@ -44,16 +42,17 @@ const PostMedia = ({ state, post }) => {
 
   return (
     <PostMediaEl ref={root}>
-      {video && videoVisible &&
+      {preview.video_mp4 && videoVisible &&
         <Video
-          acfData={video}
-          webm={hasWebM}
+          acfData={preview}
+          webm={previewHasWebM}
           className={'post-media post-video'}
-          post />}
+          post />
+      }
       {post.acf.media ?
         <Video
-          acfData={post.acf}
-          webm={hasWebM}
+          acfData={start}
+          webm={startHasWebM}
           className={'post-media post-first'}
           post />
         :

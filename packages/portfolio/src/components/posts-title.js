@@ -14,20 +14,13 @@ const PostsTitle = ({ state, actions }) => {
     <PostsTitleEl
       className={'title-wrap'}
       onClick={() => {
-        if (state.theme.postCat == "startpage") {
-          state.theme.lang == "en" ? actions.router.set("/en") : actions.router.set(site.home);
-        } else {
-          state.theme.lang == "en" ? actions.router.set(site.projectsLang) : actions.router.set(site.projects)
-        }
+        state.theme.lang == "en" ? actions.router.set(site.projectsLang) : actions.router.set(site.projects)
       }
       }>
       <Arrow rotate={'180'} />
 
       <Title className={'title-1'}>
-        {state.theme.postCat == "startpage" ?
-          state.theme.lang == "en" ? translate['Latest work'].en : translate['Latest work'].de :
-          state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de
-        }
+        {state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de}
       </Title>
 
       <div className={'fixed-icon'}><Arrow rotate={'180'} circle /></div>
@@ -38,10 +31,7 @@ export default connect(PostsTitle);
 
 
 const Title = styled.h1`
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  /* width: 100%; */
+  text-align: left;
 `
 
 const PostsTitleEl = styled.div`

@@ -23,11 +23,9 @@ const buildAnimation = ({ el, state }) => {
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-media");
-  // const postActiveImageDiv = el.querySelector(".post.active .post-media > div");
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const container = document.querySelector(".container");
-  const isProjectPage = state.theme.postCat == "projects";
   const isTablet = window.outerWidth > bp.tablet;
 
 
@@ -62,19 +60,12 @@ const buildAnimation = ({ el, state }) => {
         },
       }
     )
-    if (isProjectPage) {
-      tl.to(postActive, {
-        width: "100%",
-        duration: 1
-      })
-    } else {
-      tl.fromTo(postActiveImage, {
-        width: isTablet ? "80%" : "100%",
-      }, {
-        width: "100%",
-        duration: 2
-      }, "-=1")
-    }
+
+    tl.to(postActive, {
+      width: "100%",
+      duration: 1
+    })
+
 
     tl.to(container, {
       background: "#000",
@@ -83,12 +74,6 @@ const buildAnimation = ({ el, state }) => {
         container.classList.add("inverted");
       }
     }, "-=1")
-
-    // tl.to(postActiveImageDiv,
-    //   {
-    //     height: isTablet ? "20rem" : "15rem",
-    //     duration: 2
-    //   }, "-=2")
 
     tl.to(postActiveTitleLink, {
       opacity: 0,
@@ -107,7 +92,7 @@ const buildAnimation = ({ el, state }) => {
     tl.to(titleWrap, {
       width: "6rem",
       paddingLeft: "1.5rem",
-      duration: isProjectPage ? 1.5 : 1
+      duration: 1.5
     }, "-=1")
 
     tl.to(arrowIcon, {
@@ -117,10 +102,8 @@ const buildAnimation = ({ el, state }) => {
 
 
     tl.fromTo(title, {
-      text: `${isProjectPage ?
-        state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de :
-        state.theme.lang == "en" ? translate['Latest work'].en : translate['Latest work'].de
-        }`,
+      text:
+        state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de,
     }, {
       duration: 0.25,
       text: state.theme.lang == "en" ? translate["Back"].en : translate["Back"].de,
@@ -187,13 +170,13 @@ const playPostsAnimation = ({ el, currLink, state }) => {
       tl.timeScale(1.25).reverse();
     }
     // restart animation if switch from project to start and back
-    if (projectsOverviewSlugs.includes(state.theme.href)) {
-      tl.restart().progress(1).progress(0).pause().then(
-        gsap.to(window, {
-          scrollTo: 0,
-        })
-      );
-    };
+    // if (projectsOverviewSlugs.includes(state.theme.href)) {
+    //   tl.restart().progress(1).progress(0).pause().then(
+    //     gsap.to(window, {
+    //       scrollTo: 0,
+    //     })
+    //   );
+    // };
 
   } else if (isProject) {
     gsap.set(el, { display: "block" })

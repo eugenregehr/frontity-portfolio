@@ -43,4 +43,8 @@ export default {
     en: 'Projects',
     de: 'Projekte',
   },
+  'cta': {
+    en: 'view project',
+    de: 'zum Projekt',
+  },
 }

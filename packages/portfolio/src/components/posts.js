@@ -1,28 +1,24 @@
-import { useRef, useEffect, useState } from "react";
-import { connect, styled, css } from "frontity";
+import { useRef, useEffect } from "react";
+import { connect, styled } from "frontity";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
-import { mq } from "../styles/breakpoints";
+import { mq, bp } from "../styles/breakpoints";
 import Link from "./link";
 import PostDescription from "./post-description";
-import { site } from "../config";
 import PostsTitle from "./posts-title";
-import PreviewIcon from "./preview-icon";
 import PostMedia from "./post-media";
 
 
 const Posts = ({ state }) => {
 
-  const [postsPerCategory, setPosts] = useState(getPostsGroupedByCategory(state.source, state.theme.posts));
+  const postsPerCategory = getPostsGroupedByCategory(state.source, { "projects": 2 });
   // console.log(postsPerCategory);
-
   const root = useRef(null);
   const currLink = state.router.link;
-
 
   useEffect(() => {
     const el = root.current;
@@ -42,32 +38,47 @@ const Posts = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
+    const posts = el.querySelector(".posts");
+    const odd = [...el.querySelectorAll(".odd")];
+    const even = [...el.querySelectorAll(".post:not(.odd)")];
 
-    if (currLink == site.projects || currLink == site.projectsLang) {
-      state.theme.posts = { "projects": 2 };
-      state.theme.postCat = "projects";
-    };
-    if (currLink == site.home || currLink == site.homeLang) {
-      state.theme.posts = { "startpage": 4 }
-      state.theme.postCat = "startpage";
-    };
+    if (window.outerWidth > bp.tablet) {
+      gsap.to(odd, {
+        scrollTrigger: {
+          trigger: posts,
+          start: "top top",
+          scrub: 3,
+        },
+        y: 25
+      })
+      gsap.to(even, {
+        scrollTrigger: {
+          trigger: posts,
+          start: "top top",
+          scrub: 1,
+        },
+        y: -40
+      })
+    }
 
-    setPosts(getPostsGroupedByCategory(state.source, state.theme.posts))
+  }, []);
+
+  useEffect(() => {
+    const el = root.current;
     playPostsAnimation({ el, currLink, state })
-
   }, [currLink])
 
   useEffect(() => {
     const el = root.current;
     addActiveClassOnClick({ el, currLink, state });
     addActiveClassOnReload({ el, currLink, state });
-  }, [state.theme.postCat])
+  }, [])
 
 
   return (
     <>
       <PostWrap ref={root}
-        className={`posts ${state.theme.postCat == "projects" ? "work-posts" : "start-posts"}`}>
+        className={"posts"}>
         <PostsTitle />
 
         {postsPerCategory.map(({ posts }, index) => (
@@ -77,11 +88,9 @@ const Posts = ({ state }) => {
             {posts.map((post, index) => (
               <Link
                 key={index}
-                className={'post'}
+                className={`post ${index % 2 && "odd"}`}
                 href={post.link}
               >
-                {/* {post.acf.module.find(el => el.acf_fc_layout == "video") &&
-                  <PreviewIcon post={post} />} */}
                 <PostMedia post={post} />
                 <PostDescription
                   title={post.title.rendered}
@@ -97,83 +106,30 @@ const Posts = ({ state }) => {
 
 export default connect(Posts);
 
-
-const gutter = "10px";
-
-// project page
 const PostWrap = styled.div`
-  .post{
-    cursor: pointer;
-    display: block;
-    position: relative;
-  }
-  &.work-posts{
-    .post-wrap{
-      display: flex;
-      flex-flow: wrap;
-      .post{
+  .post-wrap{
+    display: flex;
+    flex-flow: wrap;
+    .post{
+      cursor: pointer;
+      display: block;
+      position: relative;
+      width: 100%;
+      ${mq("tablet")}{
         width: 50%;
         &:nth-of-type(2n){
           margin-left: auto;
         }
-        div:not(.project-bg) {
-          height: 100%;
-        }
-        video{
-          object-fit: cover;
-          height: 100%;
-        }
-        .post-media {
-          width: 100%;
-          > div{
-            /* height: 15rem;
-            padding-top: 0; */
-            /* ${mq("tablet")}{
-              height: 20rem;
-            } */
-          }
-        }
       }
-    }
-  }
-
-  &.start-posts{
-    .post{
-      position: relative;
-      margin-bottom: 4rem;
-      display: block;
-
-      ${mq("tablet")}{
-        margin-bottom: 4rem;
-        display: flex;
-        align-items: center;
-        flex-direction: row-reverse;
-        > .post-media{
-          width: 80%;
-        }
+      div:not(.project-bg) {
+        height: 100%;
       }
-      .post-media{
-        margin-left: auto;
-        margin-right: auto;
-        ${mq("tablet")}{
-          margin-right: 0;
-        }
-        > div {
-          height: 20rem;
-          padding-top: 0;
-          ${mq("tablet")}{
-            height: 30rem;
-          }
-        }
+      video{
+        object-fit: cover;
+        height: 100%;
       }
-      .arrow-icon{
-        top: 0;
-      }
-      &:hover{
-        .video-icon{
-          opacity: 1;
-          transform: scale(1);
-        }
+      .post-media {
+        width: 100%;
       }
     }
   }

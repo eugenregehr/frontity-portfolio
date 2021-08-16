@@ -14,7 +14,7 @@ export default {
       isMenuOpen: false,
       transition: false,
       href: "",
-      posts: { "projects": 2 },
+      // posts: { "projects": 2 },
       postCat: "projects",
       singlePostLoaded: false,
       introPlayed: false,

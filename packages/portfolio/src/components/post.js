@@ -3,6 +3,7 @@ import { connect, loadable, styled } from "frontity";
 
 import { playPostAnimation } from "./animation/post";
 import { site } from "../config";
+import { mq } from "../styles/breakpoints";
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
 
@@ -48,4 +49,7 @@ const H1 = styled.h1`
 
 const SinglePost = styled.div`
   padding-top: 3rem;
+  ${mq("tablet")}{
+    padding-top: 6rem;
+  }
 `

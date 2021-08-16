@@ -28,9 +28,9 @@ const Columns = styled.div`
     position: absolute;
     z-index: ${zindex.moduleBigTextH1};
     width: 78%;
-    /* ${mq("desktop")}{
-      width: 70%;
-    } */
+    ${mq("desktop")}{
+      width: 60%;
+    }
   }
   .image{
     width: 60%;

@@ -4,12 +4,13 @@ import zindex from "../../styles/zindex";
 
 
 const Video = ({ acfData, state, webm, post, className }) => {
-
+  const mp4Src = acfData.video_mp4;
+  const webmSrc = acfData.video_webm;
   return (
     <VideoWrapper className={`${className} ${!post && "module"}`}>
       <video loop autoPlay muted playsInline>
-        <source src={webm ? acfData.video_webm : undefined} type="video/webm" />
-        <source src={acfData.video_mp4} type="video/mp4" />
+        <source src={webmSrc.toString() == "false" ? undefined : webmSrc} type="video/webm" />
+        <source src={mp4Src.toString() == "false" ? undefined : mp4Src} type="video/mp4" />
       </video>
     </VideoWrapper>
   )
@@ -26,7 +27,6 @@ const VideoWrapper = styled.div`
     margin-right: auto;
     margin-left: auto;
     display: block;
-    max-width: 1000px;
     
   }
 `

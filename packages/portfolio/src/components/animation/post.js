@@ -6,15 +6,12 @@ gsap.registerPlugin(ScrollToPlugin);
 
 
 const playPostAnimation = ({ el, currLink, state }) => {
-  const isPostsPage =
-    (currLink == site.home || currLink == site.homeLang) ||
-    (currLink == site.projects || currLink == site.projectsLang);
+  const isPostsPage = currLink == site.projects || currLink == site.projectsLang;
   const isProject = currLink.includes(site.project);
 
   if (isPostsPage) {
     gsap.to(el, {
       opacity: 0,
-      // delay: state.theme.postCat == "startpage" ? 0 : 0,
       delay: 0.75,
       onComplete: () => {
         state.theme.singlePostLoaded = false;
@@ -26,7 +23,6 @@ const playPostAnimation = ({ el, currLink, state }) => {
     gsap.to(el,
       {
         display: "block",
-        // delay: state.theme.postCat == "projects" ? 1 : 1,
         delay: 0.75,
         duration: 1,
         onComplete: () => {

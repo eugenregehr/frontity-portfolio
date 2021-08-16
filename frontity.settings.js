@@ -15,9 +15,9 @@ const settings = [
           "theme": {
             "lang": "de",
             "menu": [
-              ["Index", "/"],
+              ["Projekte", "/"],
               ["Profil", "/about/"],
-              ["Projekte", "/projects/"],
+              // ["Projekte", "/projects/"],
               ["Kontakt", "/contact/"],
               ["Github", "/github/"],
               ["EN", "http://localhost:3000/en"],
@@ -59,9 +59,9 @@ const settings = [
           "theme": {
             "lang": "en",
             "menu": [
-              ["Index", "/en/"],
+              ["Projects", "/en/"],
               ["Profile", "/en/about/"],
-              ["Projects", "/en/projects/"],
+              // ["Projects", "/en/projects/"],
               ["Contact", "/en/contact/"],
               ["Github", "/github/"],
               ["DE", "http://localhost:3000"],

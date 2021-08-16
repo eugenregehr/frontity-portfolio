@@ -1,6 +1,5 @@
 export const categoriesWidgetsHome = {
-  "projects": 2,
-  "startpage": 4
+  "projects": 2
 }
 
 export const lang = {
@@ -9,18 +8,14 @@ export const lang = {
 }
 
 export const site = {
-  home: "/",
-  homeLang: `/${lang.second}/`,
   about: "/about/",
   project: "/project/",
-  projects: "/projects/",
-  projectsLang: `/${lang.second}/projects/`,
+  projects: "/",
+  projectsLang: `/${lang.second}/`,
   contact: "/contact/",
 }
 
 export const projectsOverviewSlugs = [
-  site.home,
-  site.homeLang,
   site.projects,
   site.projectsLang,
 ]

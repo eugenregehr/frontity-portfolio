@@ -13,8 +13,7 @@ const Nav = ({ state }) => (
       // Check if the link matched the current page url
       let isCurrentPage
       const currLink = state.router.link;
-      const isProjectsSite = (link == site.projects || link == site.projectsLang) && state.theme.postCat == "projects";
-      const isHomeSite = (link == site.home || link == site.homeLang) && state.theme.postCat == "startpage";
+      const isProjectsSite = link == site.projects || link == site.projectsLang;
       const isLastLink = index + 1 == state.theme.menu.length;
       const setLangLink =
         state.theme.lang == `${lang.second}` ?
@@ -23,7 +22,6 @@ const Nav = ({ state }) => (
 
       if (currLink == link) isCurrentPage = true;
       if (isProjectsSite && currLink.includes(site.project)) isCurrentPage = true;
-      if (isHomeSite && currLink.includes(site.project)) isCurrentPage = true;
       return (
         <div key={name}>
           {name == "Github" ? (

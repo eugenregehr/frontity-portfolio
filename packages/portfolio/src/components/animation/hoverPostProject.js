@@ -22,6 +22,7 @@ const hoverPostProjects = ({ elProject }) => {
 const buildHoverAnimationProject = ({ tl, elProject }) => {
 
   const subline = elProject.querySelector(".subline");
+  const cta = elProject.querySelector(".cta");
   const title = elProject.querySelector("h2");
   const bg = elProject.querySelector(".project-bg");
 
@@ -32,10 +33,15 @@ const buildHoverAnimationProject = ({ tl, elProject }) => {
       opacity: 1
     })
     .to(subline, {
-      opacity: 0.75,
+      opacity: 0.65,
       x: 0,
       duration: 0.5
     }, "-=0.25")
+    .to(cta, {
+      opacity: 0.65,
+      y: 0,
+      duration: 0.5
+    }, "-=0.5")
 
 }
 
