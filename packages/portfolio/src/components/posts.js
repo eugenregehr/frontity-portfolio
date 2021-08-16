@@ -1,19 +1,18 @@
 import { useRef, useEffect, useState } from "react";
 import { connect, styled, css } from "frontity";
 import gsap from "gsap";
-import Masonry from 'react-masonry-css'
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
-import ACFMedia from "./images/acf-media";
 import Link from "./link";
 import PostDescription from "./post-description";
 import { site } from "../config";
 import PostsTitle from "./posts-title";
 import PreviewIcon from "./preview-icon";
+import PostMedia from "./post-media";
 
 
 const Posts = ({ state }) => {
@@ -72,29 +71,24 @@ const Posts = ({ state }) => {
         <PostsTitle />
 
         {postsPerCategory.map(({ posts }, index) => (
-          <Masonry
-            key={index}
-            breakpointCols={`${state.theme.postCat == "projects" ? 2 : 1}`}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column">
+          <div
+            className={'post-wrap'}
+            key={index}>
             {posts.map((post, index) => (
               <Link
                 key={index}
                 className={'post'}
                 href={post.link}
               >
-                {post.acf.module.find(el => el.acf_fc_layout == "video") &&
-                  <PreviewIcon post={post} />}
-                <ACFMedia
-                  className={'post-image'}
-                  source={post.acf.slider__image} />
-
+                {/* {post.acf.module.find(el => el.acf_fc_layout == "video") &&
+                  <PreviewIcon post={post} />} */}
+                <PostMedia post={post} />
                 <PostDescription
                   title={post.title.rendered}
                   excerpt={post.excerpt.rendered} />
               </Link>
             ))}
-          </Masonry>
+          </div>
         ))}
       </PostWrap>
     </>
@@ -113,54 +107,35 @@ const PostWrap = styled.div`
     display: block;
     position: relative;
   }
-
   &.work-posts{
-    .post{
-      .post-image {
-        width: 100%;
-      }
-      .post-image > div{
-        height: 15rem;
-        padding-top: 0;
-        ${mq("tablet")}{
-          height: 20rem;
+    .post-wrap{
+      display: flex;
+      flex-flow: wrap;
+      .post{
+        width: 50%;
+        &:nth-of-type(2n){
+          margin-left: auto;
+        }
+        div:not(.project-bg) {
+          height: 100%;
+        }
+        video{
+          object-fit: cover;
+          height: 100%;
+        }
+        .post-media {
+          width: 100%;
+          > div{
+            /* height: 15rem;
+            padding-top: 0; */
+            /* ${mq("tablet")}{
+              height: 20rem;
+            } */
+          }
         }
       }
     }
-
-      .my-masonry-grid_column {
-        ${mq("tablet")}{
-          &:nth-of-type(1){
-            .post:nth-of-type(2n - 1){
-              .post-image > div{
-                height: 30rem;
-              }
-            }
-          }
-          &:nth-of-type(2){
-            .post:nth-of-type(3n - 1){
-              .post-image > div{
-                height: 30rem;
-              }
-            }
-          }
-        }
-      }
   }
-
-  .my-masonry-grid {
-    display: flex;
-    margin-left: ${gutter}; /* gutter size offset */
-    width: auto;
-      .my-masonry-grid_column {
-        padding-left: ${gutter};  /* gutter size */
-        background-clip: padding-box;
-          & > a { /* change div to reference your elements you put in <Masonry> */
-            margin-bottom: ${gutter};
-          }
-        }
-      }
-
 
   &.start-posts{
     .post{
@@ -169,15 +144,15 @@ const PostWrap = styled.div`
       display: block;
 
       ${mq("tablet")}{
-        margin-bottom: 6rem;
+        margin-bottom: 4rem;
         display: flex;
         align-items: center;
         flex-direction: row-reverse;
-        > .post-image{
+        > .post-media{
           width: 80%;
         }
       }
-      .post-image{
+      .post-media{
         margin-left: auto;
         margin-right: auto;
         ${mq("tablet")}{

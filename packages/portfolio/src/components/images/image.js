@@ -3,7 +3,7 @@ import { connect, styled, css } from "frontity";
 import { useInView } from 'react-intersection-observer';
 import useNativeLazyLoading from '@charlietango/use-native-lazy-loading'
 
-const ImageElement = ({ preview, src, srcset, height, width, ...props }) => {
+const ImageElement = ({ preview, src, srcset, height, width, cinema, ...props }) => {
 
   const supportsLazyLoading = useNativeLazyLoading()
 
@@ -14,7 +14,7 @@ const ImageElement = ({ preview, src, srcset, height, width, ...props }) => {
   })
 
   const calculatedImageRatio = height * 100 / width;
-  const calcPadding = css`padding-top: ${calculatedImageRatio}%`;
+  const calcPadding = css`padding-top: ${cinema ? "56.25%" : calculatedImageRatio + "%"}`;
 
 
   return (

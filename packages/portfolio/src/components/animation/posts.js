@@ -22,8 +22,8 @@ const buildAnimation = ({ el, state }) => {
   const arrowIcon = el.querySelector(".arrow-icon");
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
-  const postActiveImage = el.querySelector(".post.active .post-image");
-  const postActiveImageDiv = el.querySelector(".post.active .post-image > div");
+  const postActiveImage = el.querySelector(".post.active .post-media");
+  // const postActiveImageDiv = el.querySelector(".post.active .post-media > div");
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const container = document.querySelector(".container");
@@ -36,7 +36,7 @@ const buildAnimation = ({ el, state }) => {
     onReverseComplete: () => {
       postActive.removeAttribute('aria-disabled');
       gsap.set([container, title, titleWrap, postActiveTitleLink, postsInActive,
-        postActive, postActiveImage, postActiveH2, postActiveImageDiv], { clearProps: "all" })
+        postActive, postActiveImage, postActiveH2], { clearProps: "all" })
       postActive.classList.remove("active");
       titleWrap.classList.remove("back");
       container.classList.remove("inverted");
@@ -84,11 +84,11 @@ const buildAnimation = ({ el, state }) => {
       }
     }, "-=1")
 
-    tl.to(postActiveImageDiv,
-      {
-        height: isTablet ? "20rem" : "15rem",
-        duration: 2
-      }, "-=2")
+    // tl.to(postActiveImageDiv,
+    //   {
+    //     height: isTablet ? "20rem" : "15rem",
+    //     duration: 2
+    //   }, "-=2")
 
     tl.to(postActiveTitleLink, {
       opacity: 0,
@@ -153,10 +153,10 @@ const addActiveClassOnReload = ({ el, currLink, state }) => {
 const addActiveClassOnClick = ({ el, state }) => {
   const post = [...el.querySelectorAll(".post")];
 
-  post.forEach((single, index) => {
+  post.forEach(single => {
     single.addEventListener("click", (e) => {
       e.preventDefault();
-      post[index].classList.add("active");
+      single.classList.add("active");
 
       // build animation after setting active class
       tl.restart().clear();

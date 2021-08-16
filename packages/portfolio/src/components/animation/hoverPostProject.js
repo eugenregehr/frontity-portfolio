@@ -3,33 +3,39 @@ import gsap from "gsap";
 // subline hover animation
 const hoverPostProjects = ({ elProject }) => {
 
-  const subline = elProject.querySelector(".subline");
-  const title = elProject.querySelector("h2");
-
-  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2", duration: 0.25 } });
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power1", duration: 0.5 } });
   const post = elProject.previousSibling;
 
   post.addEventListener("mouseover", () => {
-    buildHoverAnimationProject({ tl, subline, title });
+    buildHoverAnimationProject({ tl, elProject });
   }, { once: true })
   post.addEventListener("mouseenter", () => {
     tl.play();
   })
   post.addEventListener("mouseleave", () => {
-    tl.reverse();
+    tl.timeScale(1.5).reverse();
   })
 
 }
 
 
-const buildHoverAnimationProject = ({ tl, subline, title }) => {
+const buildHoverAnimationProject = ({ tl, elProject }) => {
 
-  tl.set([title, subline], {
+  const subline = elProject.querySelector(".subline");
+  const title = elProject.querySelector("h2");
+  const bg = elProject.querySelector(".project-bg");
+
+  tl.set([title, subline, bg], {
     clearProps: "all"
   })
-    .to(subline, {
+    .to(bg, {
       opacity: 1
     })
+    .to(subline, {
+      opacity: 0.75,
+      x: 0,
+      duration: 0.5
+    }, "-=0.25")
 
 }
 

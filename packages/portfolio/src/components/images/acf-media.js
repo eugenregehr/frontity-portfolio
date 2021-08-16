@@ -2,7 +2,7 @@ import { connect, styled } from "frontity";
 
 import Image from "./image";
 
-const ACFMedia = ({ className, source, sizes }) => {
+const ACFMedia = ({ className, source, sizes, cinema }) => {
 
   if (!source) return null;
 
@@ -44,6 +44,7 @@ const ACFMedia = ({ className, source, sizes }) => {
         height={source.height}
         width={source.width}
         alt={source.alt}
+        cinema={cinema}
       />
     </Container>
 
