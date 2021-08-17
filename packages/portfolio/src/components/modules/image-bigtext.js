@@ -16,25 +16,40 @@ const ImageBigText = ({ acfData }) => {
 export default connect(ImageBigText);
 
 const Columns = styled.div`
-  display: flex;
-  align-items: center;
   margin-top: 0;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
+  ${mq("tablet")}{
+    display: flex;
+    align-items: center;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-bottom: 6rem;
+    margin-right: auto;
+    }
   ${mq("desktop")}{
       margin-bottom: 8rem;
     }
   h1{
     margin-bottom: 2rem;
-    position: absolute;
     z-index: ${zindex.moduleBigTextH1};
-    width: 78%;
+    ${mq("tablet")}{
+      margin-bottom: 0rem;
+      width: 70%;
+      position: absolute;
+    }
     ${mq("desktop")}{
       width: 60%;
     }
   }
   .image{
-    width: 60%;
+    width: 100%;
     margin-left: auto;
-    
+    margin-right: auto;
+    margin-top: 3rem;
+    ${mq("tablet")}{
+      margin-left: auto;
+      margin-right: 0;
+      width: 60%;
+    }
   }
 `

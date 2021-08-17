@@ -25,20 +25,13 @@ const Text = styled.div`
     ${mq("tablet")}{
       max-width: 25rem;
     }
+    ${mq("desktop")}{
+      max-width: 30rem;
+    }
     a{
       text-decoration: underline;
       position: relative;
       transition: color .3s ease;
-      /* display: inline-block;
-      &:after{
-        content: "";
-        position: absolute;
-        bottom: 0px;
-        left: 0;
-        height: 1px;
-        width: 100%;
-        background: ${colors.primary};
-      } */
       &:hover{
         color: ${colors.primary};
       }

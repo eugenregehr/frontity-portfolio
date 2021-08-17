@@ -66,7 +66,6 @@ const buildAnimation = ({ el, state }) => {
       duration: 1
     })
 
-
     tl.to(container, {
       background: "#000",
       color: "#fff",
@@ -86,7 +85,7 @@ const buildAnimation = ({ el, state }) => {
     }, "-=2")
 
     tl.to(title, {
-      fontSize: "1.4rem",
+      fontSize: "1.2rem",
     }, "-=2")
 
     tl.to(titleWrap, {

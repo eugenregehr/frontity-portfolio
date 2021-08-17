@@ -51,7 +51,7 @@ const PostsTitleEl = styled.div`
     right: auto;
     margin-right: -2rem;
     opacity: 0;
-    top: 1rem;
+    top: 0.8rem;
     height: auto;
     width: auto;
     display: none;

@@ -39,7 +39,7 @@ const Root = ({ state }) => {
     gsap.to(upIcon, {
       scrollTrigger: {
         trigger: "body",
-        start: "700px top",
+        start: "1000px top",
         toggleActions: "play none none reverse"
       },
       bottom: "2rem"
@@ -120,6 +120,6 @@ const Up = styled(Arrow)`
   /* transform: translateY(-100px); */
   ${mq("tablet")} {
     bottom: -3rem;
-    right: 2rem;
+    right: 1rem;
   }
 `
