@@ -1,6 +1,9 @@
 import { connect, styled } from 'frontity';
 import Link from "./link";
 import { Translator } from 'react-translated';
+import { rgba } from 'emotion-rgba';
+
+import colors from '../styles/colors';
 
 const Footer = () => {
   return (
@@ -18,18 +21,21 @@ const Footer = () => {
 }
 export default connect(Footer);
 
-const FooterEl = styled.div`
-  padding: 1.5rem 0;
+const FooterEl = styled.footer`
+  text-align: center;
   > div{
     margin: auto;
-    border-top: 1px solid #000;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
+    /* background: ${colors.primary}; */
+    padding-bottom: 1rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
     a,p{
       font-size: 0.9rem;
       display: inline-block;
-       margin-top: 1rem;
+      margin-top: 0.5rem;
+      /* color: #fff; */
       margin-right: 0.25rem;
     }
   }

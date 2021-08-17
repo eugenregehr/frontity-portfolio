@@ -95,8 +95,8 @@ const Container = styled.div`
     nav .icon img{
       filter: invert(1);
     }
-    footer > div {
-      border-color: #ffffff4d;
+    footer {
+      opacity: 0.5;
     }
   }
 `

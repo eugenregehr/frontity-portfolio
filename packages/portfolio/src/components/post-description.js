@@ -37,11 +37,11 @@ const TitleLinkProject = styled.div`
     padding: 0 1rem;
     pointer-events: none;
     ${mq("tablet")}{
-        padding: 0 2rem;
+        padding: 0 2rem; 
       }
     .project-bg{
       background: rgb(255,255,255);
-      background: linear-gradient(-30deg, rgba(176, 32, 246, 1) 0%, ${rgba(colors.primary, 1)} 100%);
+      background: linear-gradient(-30deg, ${rgba(colors.secondary, 1)} 0%, ${rgba(colors.primary, 1)} 100%);
       width: 100%;
       height: 100%;
       position: absolute;

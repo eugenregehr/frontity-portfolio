@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { connect, styled, css } from 'frontity';
 import Cookies from 'universal-cookie';
+import { rgba } from 'emotion-rgba';
 
 import { mq } from '../../styles/breakpoints';
 import colors from '../../styles/colors';
@@ -48,7 +49,7 @@ export default connect(Logo);
 const lh = "5px";
 
 const LogoWrap = styled.div`
-  background: ${colors.primary};
+  background: linear-gradient(-30deg, ${rgba(colors.secondary, 1)} 0%, ${rgba(colors.primary, 1)} 75%);
   width: 64px;
   height: 94px;
   display: flex;

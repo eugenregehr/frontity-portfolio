@@ -82,8 +82,8 @@ const Navigation = styled.nav`
       left: 0;
       width: 0%;
       height: 2px;
-      background: ${colors.primary};
-      transition: bottom 0.3s ease, width 0.3s ease;
+      background-color: ${colors.primary};
+      transition: background-color 0.3s ease, width 0.3s ease;
     }
     ${mq("tablet")}{
       margin-left: 1rem;
@@ -96,29 +96,31 @@ const Navigation = styled.nav`
     }
     &:hover{
       &:before{
-        bottom: -0.25rem;
+        background-color: ${colors.secondary};
       }
     }
   }
   a:not(a[aria-current=page]):not(.icon){
     &:hover{
       &:before{
-        /* bottom: -0.25rem; */
         width: 100%;
-        /* background: ${colors.text}; */
       }
     }
   }
   div:last-of-type{
-    background: ${colors.primary};
+    background-color: ${colors.primary};
     position: fixed;
     right: -0.5rem;
     z-index: ${zindex.language};
+    transition: background-color .2s ease;
     ${mq("tablet")}{
       top: 5rem;
     }
     ${mq("desktop")}{
       top: 2.1rem;
+    }
+    &:hover{
+      background-color: ${colors.secondary};
     }
     a{
       color: #fff;
