@@ -6,6 +6,7 @@ import { Translate } from 'react-translated';
 import { mq } from "../styles/breakpoints";
 import hoverPostProjects from "./animation/hoverPostProject";
 import colors from "../styles/colors";
+import config from "../styles/config";
 
 const PostDescription = ({ state, title, excerpt }) => {
 
@@ -41,7 +42,7 @@ const TitleLinkProject = styled.div`
       }
     .project-bg{
       background: rgb(255,255,255);
-      background: linear-gradient(-30deg, ${rgba(colors.secondary, 1)} 0%, ${rgba(colors.primary, 1)} 100%);
+      background: ${config.gradient};
       width: 100%;
       height: 100%;
       position: absolute;
@@ -66,7 +67,7 @@ const TitleLinkProject = styled.div`
       line-height: 1.4;
       font-size: clamp(1em, 1.3vw, 1.5em);
       transform: translateX(-20px);
-      max-width: 20rem;
+      max-width: 60%;
       color: #fff;
       display: none;
       position: relative;

@@ -2,7 +2,7 @@ import { connect, styled } from "frontity";
 import { useEffect, useRef, useState } from 'react';
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
-import { Translate } from 'react-translated';
+import { Translate, Translator } from 'react-translated';
 gsap.registerPlugin(ScrollToPlugin);
 
 import Loader from "../loader";
@@ -77,7 +77,11 @@ const Contact = () => {
           <label><Translate text="Nachricht" />*</label>
           <textarea name="message" />
         </div>
-        <input type="submit" value="Send" />
+        <Translator>
+          {({ translate }) => (
+            <input type="submit" value={translate({ text: "send" })} />
+          )}
+        </Translator>
       </Form>
     </>
   );
@@ -86,12 +90,12 @@ const Contact = () => {
 export default connect(Contact);
 
 const Form = styled.form`
-      margin-top: 4rem;
-      label{
-        display: block;
-        color: #fff;
-        margin-bottom: 0.5rem;
-        text-align: left;
+  margin-top: 4rem;
+  label{
+    display: block;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-align: left;
   }
   > div{
       margin-bottom: 2rem;
@@ -131,27 +135,30 @@ const Form = styled.form`
 
 const Success = styled.div`
     display: none;
-      strong{
-        font-size: 1.2em;
-        line-height: 1.6;
-        color: #fff;
-        display:block;
-        margin-top: 2rem;
+    max-width: 25rem;
+    margin-left: auto;
+    margin-right: auto;
+    strong{
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #fff;
+      display:block;
+      margin-top: 2rem;
     }
     button{
       margin-top: 2rem;
       padding: 1rem 3rem;
-        border-radius: ${config.lineHeight};
-        color: #fff;
-        border: 2px solid #fff;
-        background: ${colors.primary};
-        font-size: 1.2em;
-        cursor: pointer;
-        transition: border .15s ease;
-        appearance: none;
-        &:hover{
-          border: 5px solid #fff;
-        }
+      border-radius: ${config.lineHeight};
+      color: #fff;
+      border: 2px solid #fff;
+      background: ${colors.primary};
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: border .15s ease;
+      appearance: none;
+      &:hover{
+        border: 5px solid #fff;
+      }
     }
     img{
       margin-top: 4rem;

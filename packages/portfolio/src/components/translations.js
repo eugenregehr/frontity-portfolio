@@ -47,4 +47,12 @@ export default {
     en: 'view project',
     de: 'zum Projekt',
   },
+  'send': {
+    en: 'send',
+    de: 'Senden',
+  },
+  '404': {
+    en: '404 - Site not found',
+    de: '404 - Seite nicht gefunden',
+  },
 }

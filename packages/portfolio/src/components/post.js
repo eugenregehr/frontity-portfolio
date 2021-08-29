@@ -50,6 +50,6 @@ const H1 = styled.h1`
 const SinglePost = styled.div`
   padding-top: 3rem;
   ${mq("tablet")}{
-    padding-top: 6rem;
+    padding-top: 4.5rem;
   }
 `

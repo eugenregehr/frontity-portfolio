@@ -26,6 +26,7 @@ const buildAnimation = ({ el, state }) => {
   const postActiveH2 = el.querySelector(".post.active h2");
   const postActiveTitleLink = el.querySelector(".post.active .title-link");
   const container = document.querySelector(".container");
+  const main = document.querySelector(".main");
   const isTablet = window.outerWidth > bp.tablet;
 
 
@@ -42,7 +43,6 @@ const buildAnimation = ({ el, state }) => {
   })
     .to(postsInActive, {
       height: 0,
-      marginBottom: 0,
       display: "none",
       duration: 1,
     })
@@ -73,6 +73,8 @@ const buildAnimation = ({ el, state }) => {
         container.classList.add("inverted");
       }
     }, "-=1")
+
+    tl.to(main, { maxWidth: "1000px" }, "-=1")
 
     tl.to(postActiveTitleLink, {
       opacity: 0,

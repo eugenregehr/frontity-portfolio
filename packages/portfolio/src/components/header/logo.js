@@ -1,12 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { connect, styled, css } from 'frontity';
 import Cookies from 'universal-cookie';
-import { rgba } from 'emotion-rgba';
 
 import { mq } from '../../styles/breakpoints';
 import colors from '../../styles/colors';
 import zindex from '../../styles/zindex';
 import Intro from '../animation/intro';
+import config from '../../styles/config';
 
 const Logo = ({ state }) => {
   const root = useRef(null);
@@ -49,7 +49,7 @@ export default connect(Logo);
 const lh = "5px";
 
 const LogoWrap = styled.div`
-  background: linear-gradient(-30deg, ${rgba(colors.secondary, 1)} 0%, ${rgba(colors.primary, 1)} 75%);
+  background: ${config.gradient};
   width: 64px;
   height: 94px;
   display: flex;
@@ -71,7 +71,7 @@ const LogoWrap = styled.div`
     left: -4rem;
     top: 0;
     content: "";
-    background: ${colors.primary};
+    background: ${config.gradient};
     z-index: 700;
   }
   

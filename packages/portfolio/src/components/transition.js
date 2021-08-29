@@ -10,6 +10,7 @@ import GifPizza from "../assest/images/turn-page4.gif";
 import zindex from "../styles/zindex";
 import { site } from "../config";
 import { mq } from "../styles/breakpoints";
+import config from "../styles/config";
 
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
@@ -74,7 +75,7 @@ const Container = styled.div`
     z-index: ${zindex.inActive};
     top: 0;
     left: 0;
-    background: ${colors.primary};
+    background: ${config.gradient};
     height: 0%;
     width: 100%;
     display: none;

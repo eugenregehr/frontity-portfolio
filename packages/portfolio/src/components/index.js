@@ -13,6 +13,7 @@ import Posts from "./posts";
 import Post from "./post";
 import Page from "./page";
 import Footer from "./footer";
+import Error from "./error";
 import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import TransitionLayer from "./transition";
@@ -65,6 +66,7 @@ const Root = ({ state }) => {
             <Posts />
             <Post />
             <Page />
+            {data.isError && <Error />}
           </Main>
           <Footer />
         </Container>

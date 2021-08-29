@@ -1,7 +1,6 @@
 import { connect, styled } from 'frontity';
 import Link from "./link";
 import { Translator } from 'react-translated';
-import { rgba } from 'emotion-rgba';
 
 import colors from '../styles/colors';
 

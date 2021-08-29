@@ -79,7 +79,7 @@ export const GlobalStyles = css`
   body, html{
     font-family: 'Body Text';
     color: ${colors.text};
-    background: ${colors.primary};
+    /* background: ${colors.primary}; */
     height: 100%;
     -webkit-font-smoothing: antialiased;
   }

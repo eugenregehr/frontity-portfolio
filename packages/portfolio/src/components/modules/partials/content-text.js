@@ -32,8 +32,9 @@ const Text = styled.div`
       text-decoration: underline;
       position: relative;
       transition: color .3s ease;
+      color: ${colors.primary};
       &:hover{
-        color: ${colors.primary};
+        color: ${colors.secondary};
       }
     }
   }

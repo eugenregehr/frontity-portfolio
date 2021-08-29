@@ -49,7 +49,7 @@ const Posts = ({ state }) => {
           start: "top top",
           scrub: 3,
         },
-        y: 25
+        y: 30,
       })
       gsap.to(even, {
         scrollTrigger: {
@@ -57,7 +57,7 @@ const Posts = ({ state }) => {
           start: "top top",
           scrub: 1,
         },
-        y: -40
+        y: -15
       })
     }
 
