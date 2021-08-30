@@ -65,6 +65,8 @@ const LogoWrap = styled.div`
     }
   
   &.spacer:before{
+    min-height: -webkit-fill-available;
+    min-width: -webkit-fill-available;
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -79,7 +81,6 @@ const LogoWrap = styled.div`
     height: 40px;
     width: 36px;
     position: relative;
-    /* margin-top: 1.25rem; */
     transform: translate3d(0, 0, 0);
     > div{
       background: #fff;

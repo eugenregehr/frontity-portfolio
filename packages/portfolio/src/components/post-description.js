@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
-import { rgba } from 'emotion-rgba';
 import { Translate } from 'react-translated';
 
 import { mq } from "../styles/breakpoints";
-import hoverPostProjects from "./animation/hoverPostProject";
-import colors from "../styles/colors";
+import hoverPostProjects from "./animation/hover-post-project";
 import config from "../styles/config";
 
 const PostDescription = ({ state, title, excerpt }) => {

@@ -40,8 +40,8 @@ export default {
     de: 'Aktuelle Projekte',
   },
   'Projects': {
-    en: 'Projects',
-    de: 'Projekte',
+    en: 'Freelancer for designing and coding user experiences',
+    de: 'Freelancer for designing and coding user experiences',
   },
   'cta': {
     en: 'view project',

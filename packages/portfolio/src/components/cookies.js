@@ -68,14 +68,14 @@ const CookieEl = styled.div`
   right: 1.5rem;
   padding: 0.75rem;
   width: calc(100% - 3rem);
-  background: ${colors.primary};
+  background: ${config.gradient};
   color: #fff;
   z-index: ${zindex.cookie};
   ${mq("tablet")}{
     max-width: 15rem;
   }
   p{
-    display: inline-block;
+    display: inline-block; 
     margin: 1rem 0;
     line-height: 1.4;
     font-size: 0.9em;

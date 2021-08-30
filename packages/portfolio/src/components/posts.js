@@ -1,16 +1,15 @@
 import { useRef, useEffect } from "react";
 import { connect, styled } from "frontity";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
 
 import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
-import { mq, bp } from "../styles/breakpoints";
+import { mq } from "../styles/breakpoints";
 import Link from "./link";
 import PostDescription from "./post-description";
 import PostsTitle from "./posts-title";
 import PostMedia from "./post-media";
+import { BackIcon, PostIntro, PostShifting } from "./animation/posts-scroll-effects";
+import { projectsOverviewSlugs } from "../config";
 
 
 const Posts = ({ state }) => {
@@ -22,58 +21,23 @@ const Posts = ({ state }) => {
 
   useEffect(() => {
     const el = root.current;
-    const icon = el.querySelector(".fixed-icon")
-
-    ScrollTrigger.create({
-      trigger: "body",
-      start: "200px 0px",
-      onEnter: () => {
-        icon.classList.add("fixed")
-      },
-      onLeaveBack: () => {
-        icon.classList.remove("fixed")
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    const el = root.current;
-    const posts = el.querySelector(".posts");
-    const odd = [...el.querySelectorAll(".odd")];
-    const even = [...el.querySelectorAll(".post:not(.odd)")];
-
-    if (window.outerWidth > bp.tablet) {
-      gsap.to(odd, {
-        scrollTrigger: {
-          trigger: posts,
-          start: "top top",
-          scrub: 3,
-        },
-        y: 30,
-      })
-      gsap.to(even, {
-        scrollTrigger: {
-          trigger: posts,
-          start: "top top",
-          scrub: 1,
-        },
-        y: -15
-      })
-    }
-
-  }, []);
-
-  useEffect(() => {
-    const el = root.current;
     playPostsAnimation({ el, currLink, state })
+    if (projectsOverviewSlugs.includes(currLink) &&
+      !state.theme.postIntroPlayed &&
+      state.theme.introPlayed) {
+      // if (projectsOverviewSlugs.includes(currLink)) {
+      PostIntro(el);
+      state.theme.postIntroPlayed = true;
+    }
   }, [currLink])
 
   useEffect(() => {
     const el = root.current;
+    BackIcon(el);
+    PostShifting(el);
     addActiveClassOnClick({ el, currLink, state });
     addActiveClassOnReload({ el, currLink, state });
   }, [])
-
 
   return (
     <>

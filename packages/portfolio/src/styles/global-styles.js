@@ -89,7 +89,7 @@ export const GlobalStyles = css`
   }
 
   .title-1{
-    font-size: clamp(2.5em, 4.5vw, 3.5em);
+    font-size: clamp(2.3em, 4.5vw, 3.5em);
   }
 
   .title-2{

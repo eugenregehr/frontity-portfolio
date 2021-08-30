@@ -28,11 +28,11 @@ export default {
       isMenuOpen: false,
       transition: false,
       href: "",
-      // posts: { "projects": 2 },
       postCat: "projects",
       singlePostLoaded: false,
       introPlayed: false,
-      postVideo: null
+      postVideo: null,
+      postIntroPlayed: false
     },
   },
   actions: {

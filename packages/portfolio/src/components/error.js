@@ -3,7 +3,6 @@ import { Translate } from 'react-translated';
 
 const Error = ({ state }) => {
   const options = state.source.get("options");
-  console.log(options)
   return (
     <ErrorEl>
       <h1 className={"title-1"}><Translate text="404" /></h1>

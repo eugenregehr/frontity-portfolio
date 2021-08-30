@@ -19,7 +19,7 @@ const tl = gsap.timeline({
 const buildAnimation = ({ el, state }) => {
   const title = el.querySelector("h1");
   const titleWrap = el.querySelector(".title-wrap");
-  const arrowIcon = el.querySelector(".arrow-icon");
+  const backButton = el.querySelector(".back-button");
   const postsInActive = [...el.querySelectorAll(".post:not(.active)")];
   const postActive = el.querySelector(".post.active");
   const postActiveImage = el.querySelector(".post.active .post-media");
@@ -47,7 +47,7 @@ const buildAnimation = ({ el, state }) => {
       duration: 1,
     })
     .to(window, {
-      scrollTo: isTablet ? 130 : 90,
+      scrollTo: isTablet ? 120 : 0,
       duration: 0.5,
     }, "-=1")
 
@@ -63,7 +63,7 @@ const buildAnimation = ({ el, state }) => {
 
     tl.to(postActive, {
       width: "100%",
-      duration: 1
+      duration: 1,
     })
 
     tl.to(container, {
@@ -81,41 +81,29 @@ const buildAnimation = ({ el, state }) => {
       display: "none"
     }, "-=2")
 
-    // Title and Arrow Animation
+    // Title Animation
+
     tl.to(titleWrap, {
       marginBottom: "2rem"
     }, "-=2")
 
     tl.to(title, {
-      fontSize: "1.2rem",
+      opacity: 0,
+      height: 0,
+      y: -30,
+      display: "none",
     }, "-=2")
 
-    tl.to(titleWrap, {
-      width: "6rem",
-      paddingLeft: "1.5rem",
-      duration: 1.5
+    tl.to(backButton, {
+      opacity: 1,
+      display: "block"
     }, "-=1")
 
-    tl.to(arrowIcon, {
-      opacity: 1,
-      display: "block",
-    }, "-=0.5")
-
-
-    tl.fromTo(title, {
-      text:
-        state.theme.lang == "en" ? translate["Projects"].en : translate["Projects"].de,
-    }, {
-      duration: 0.25,
-      text: state.theme.lang == "en" ? translate["Back"].en : translate["Back"].de,
-      ease: "none",
-      onComplete: () => {
-        titleWrap.classList.add("back");
-      },
+    tl.set({}, {
       onReverseComplete: () => {
         gsap.to(window, { scrollTo: 130, duration: 0.25 })
       }
-    }, "-=1")
+    })
   }
 }
 
@@ -152,7 +140,7 @@ const addActiveClassOnClick = ({ el, state }) => {
 }
 
 // control animation depends on current slug
-const playPostsAnimation = ({ el, currLink, state }) => {
+const playPostsAnimation = ({ el, currLink }) => {
   const isProjectsPage = projectsOverviewSlugs.includes(currLink)
   const isProject = currLink.includes(site.project);
   const icon = el.querySelector(".fixed-icon")
@@ -183,7 +171,6 @@ const playPostsAnimation = ({ el, currLink, state }) => {
     gsap.set(el, { display: "block" })
     gsap.set(icon, { display: "block", delay: 1 })
     tl.timeScale(1).play();
-
   }
   else {
     // if all other pages

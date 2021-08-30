@@ -84,7 +84,8 @@ const Container = styled.div`
     &.loader{
       height: 100%;
       display: flex;
-      z-index: ${zindex.transitionLayerLoader};
+      /* z-index: ${zindex.transitionLayerLoader}; */
+      z-index: 800;
     }
     img{
       max-width: 15rem;

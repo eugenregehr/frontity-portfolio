@@ -6,6 +6,7 @@ import { mq } from "../../styles/breakpoints";
 import Github from "../../assest/icons/github.svg";
 import zindex from "../../styles/zindex";
 import { lang, site } from "../../config";
+import config from "../../styles/config";
 
 const Nav = ({ state }) => (
   <Navigation>
@@ -108,20 +109,20 @@ const Navigation = styled.nav`
     }
   }
   div:last-of-type{
-    background-color: ${colors.primary};
+    background: ${config.gradient};
     position: fixed;
     right: -0.5rem;
     z-index: ${zindex.language};
-    transition: background-color .2s ease;
+    /* transition: background-color .2s ease; */
     ${mq("tablet")}{
       top: 5rem;
     }
     ${mq("desktop")}{
       top: 2.1rem;
     }
-    &:hover{
+    /* &:hover{
       background-color: ${colors.secondary};
-    }
+    } */
     a{
       color: #fff;
       margin-left: 0;
