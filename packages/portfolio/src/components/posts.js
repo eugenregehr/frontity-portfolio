@@ -23,8 +23,7 @@ const Posts = ({ state }) => {
     const el = root.current;
     playPostsAnimation({ el, currLink, state })
     if (projectsOverviewSlugs.includes(currLink) &&
-      !state.theme.postIntroPlayed &&
-      state.theme.introPlayed) {
+      !state.theme.postIntroPlayed) {
       // if (projectsOverviewSlugs.includes(currLink)) {
       PostIntro(el);
       state.theme.postIntroPlayed = true;

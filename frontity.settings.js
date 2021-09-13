@@ -4,8 +4,8 @@ const settings = [
     "state": {
       "frontity": {
         "url": "https://test.frontity.org",
-        "title": "its-eugen.com",
-        "description": "Eugen Regehr | Interaktionsdesigner und Frontend-Entwickler "
+        "title": "eugenregehr.com",
+        "description": "Eugen Regehr | Interaktionsdesigner und Frontend-Entwickler"
       }
     },
     "packages": [
@@ -17,10 +17,9 @@ const settings = [
             "menu": [
               ["Projekte", "/"],
               ["Profil", "/about/"],
-              // ["Projekte", "/projects/"],
               ["Kontakt", "/contact/"],
               ["Github", "/github/"],
-              ["EN", "http://localhost:3000/en"],
+              ["EN", "https://www.eugenregehr.com/en"],
             ],
             "featured": {
               "showOnList": true,
@@ -48,7 +47,7 @@ const settings = [
     "state": {
       "frontity": {
         "url": "https://test.frontity.org",
-        "title": "its-eugen.com",
+        "title": "eugenregehr.com",
         "description": "Eugen Regehr | Interactiondesigner and Frontend Developer"
       }
     },
@@ -61,10 +60,9 @@ const settings = [
             "menu": [
               ["Projects", "/en/"],
               ["Profile", "/en/about/"],
-              // ["Projects", "/en/projects/"],
               ["Contact", "/en/contact/"],
               ["Github", "/github/"],
-              ["DE", "http://localhost:3000"],
+              ["DE", "https://www.eugenregehr.com/"],
             ],
             "featured": {
               "showOnList": true,
