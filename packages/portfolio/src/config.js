@@ -19,4 +19,3 @@ export const projectsOverviewSlugs = [
   site.projects,
   site.projectsLang,
 ]
-

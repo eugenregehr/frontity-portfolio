@@ -59,4 +59,4 @@ build
 .vercel
 
 # email config
-packages/portfolio/src/emailjs.js
+emailjs.js 
