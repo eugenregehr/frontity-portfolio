@@ -9,7 +9,7 @@ import zindex from '../styles/zindex';
 import gsap from 'gsap';
 import { mq } from '../styles/breakpoints';
 
-const Cookie = ({ state }) => {
+const Cookie = () => {
   const root = useRef(null);
   const newCookie = new Cookies();
   const isSetted = newCookie.get("cookieInfo") == "setted";

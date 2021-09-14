@@ -15,7 +15,6 @@ import { projectsOverviewSlugs } from "../config";
 const Posts = ({ state }) => {
 
   const postsPerCategory = getPostsGroupedByCategory(state.source, { "projects": 2 });
-  // console.log(postsPerCategory);
   const root = useRef(null);
   const currLink = state.router.link;
 
@@ -24,7 +23,6 @@ const Posts = ({ state }) => {
     playPostsAnimation({ el, currLink, state })
     if (projectsOverviewSlugs.includes(currLink) &&
       !state.theme.postIntroPlayed) {
-      // if (projectsOverviewSlugs.includes(currLink)) {
       PostIntro(el);
       state.theme.postIntroPlayed = true;
     }

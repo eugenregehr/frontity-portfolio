@@ -33,7 +33,6 @@ const settings = [
         "state": {
           "source": {
             "api": "https://wp.its-eugen.com/wp-json",
-            // "homepage": "index"
           }
         }
       },
@@ -77,7 +76,6 @@ const settings = [
           "source": {
             "api": "https://wp.its-eugen.com/en/wp-json",
             "subdirectory": "en",
-            // "homepage": "/en/index"
           }
         }
       },

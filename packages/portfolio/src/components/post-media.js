@@ -4,7 +4,6 @@ import gsap from "gsap";
 
 import ACFMedia from "./images/acf-media";
 import Video from "./modules/video";
-import { site } from "../config";
 import { mq } from "../styles/breakpoints";
 
 
@@ -18,8 +17,6 @@ const PostMedia = ({ state, post }) => {
   const isActive = post.link == currLink;
   const root = useRef(null);
 
-  // console.log(post.acf.award_image)
-
   useEffect(() => {
 
     if (preview.video_mp4) {
@@ -27,7 +24,6 @@ const PostMedia = ({ state, post }) => {
       const image = el.querySelector(".post-first");
 
       if (isActive) {
-        // console.log(preview);
         setVideoVisible(true)
         gsap.to(image, {
           opacity: 0,

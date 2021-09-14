@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollToPlugin);
 import Loader from "../loader";
 import emailjs from 'emailjs-com';
 import config from "../../styles/config";
+import emailConfig from "../../emailjs";
 import colors from "../../styles/colors";
 import Gif from "../../assest/images/email.gif"
 
@@ -26,7 +27,7 @@ const Contact = () => {
     e.preventDefault();
     setSend(true);
 
-    emailjs.sendForm('service_zcj5r1n', 'template_e4rboqa', e.target, 'user_vvIVBCUiNDNOKlWHxS32v')
+    emailjs.sendForm(emailConfig.service, emailConfig.template, e.target, emailConfig.user)
       .then((result) => {
         console.log(result);
         setSendSuccess(true);

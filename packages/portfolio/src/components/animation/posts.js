@@ -5,7 +5,6 @@ import TextPlugin from "gsap/TextPlugin";
 
 import { bp } from "../../styles/breakpoints";
 import { projectsOverviewSlugs, site } from "../../config";
-import translate from '../translations';
 
 
 gsap.registerPlugin(ScrollToPlugin, TextPlugin, ScrollTrigger);

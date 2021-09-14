@@ -17,10 +17,8 @@ export default connect(Video);
 
 const VideoWrapper = styled.div`
   video{
-    /* position: relative; */
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    /* display: block; */
   }
 `

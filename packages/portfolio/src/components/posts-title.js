@@ -8,7 +8,7 @@ import { Translate } from 'react-translated';
 
 
 const PostsTitle = ({ state, actions }) => {
-  // console.log(translate)
+
   const toProject = () => state.theme.lang == "en" ? actions.router.set(site.projectsLang) : actions.router.set(site.projects);
 
   return (

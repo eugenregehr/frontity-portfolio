@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { styled, connect } from "frontity";
 
-import colors from "../styles/colors";
 import { Loading, Transition } from "./animation/transition";
 import GifCat from "../assest/images/turn-page.gif";
 import GifHomer from "../assest/images/turn-page2.gif";
@@ -84,7 +83,6 @@ const Container = styled.div`
     &.loader{
       height: 100%;
       display: flex;
-      /* z-index: ${zindex.transitionLayerLoader}; */
       z-index: 800;
     }
     img{
