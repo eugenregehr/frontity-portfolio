@@ -8,7 +8,7 @@ const Header = ({ actions }) => {
 
   return (
     <Wrapper>
-      <LogoLink href={'/'} nav>
+      <LogoLink href={'/'}>
         <Logo />
       </LogoLink>
       <Nav />

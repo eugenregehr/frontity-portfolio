@@ -22,7 +22,6 @@
     "@frontity/head-tags": "^1.1.1",
     "@frontity/hooks": "^2.2.2",
     "@frontity/html2react": "^1.7.0",
-    "@frontity/mars-theme": "./packages/mars-theme",
     "@frontity/tiny-router": "^1.4.2",
     "@frontity/wp-source": "^1.11.5",
     "emailjs-com": "^3.2.0",

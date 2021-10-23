@@ -1,40 +1,55 @@
 import { useRef, useEffect } from "react";
 import { connect, styled } from "frontity";
+import gsap from "gsap";
 
-import { addActiveClassOnClick, playPostsAnimation, addActiveClassOnReload } from "./animation/posts";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import Link from "./link";
 import PostDescription from "./post-description";
 import PostsTitle from "./posts-title";
 import PostMedia from "./post-media";
-import { BackIcon, PostIntro, PostShifting } from "./animation/posts-scroll-effects";
-import { projectsOverviewSlugs } from "../config";
+import config from "../styles/config";
 
 
-const Posts = ({ state }) => {
+const Posts = ({ state, actions }) => {
 
   const postsPerCategory = getPostsGroupedByCategory(state.source, { "projects": 2 });
   const root = useRef(null);
-  const currLink = state.router.link;
 
   useEffect(() => {
     const el = root.current;
-    playPostsAnimation({ el, currLink, state })
-    if (projectsOverviewSlugs.includes(currLink) &&
-      !state.theme.postIntroPlayed) {
-      PostIntro(el);
-      state.theme.postIntroPlayed = true;
-    }
-  }, [currLink])
+  })
 
-  useEffect(() => {
-    const el = root.current;
-    BackIcon(el);
-    PostShifting(el);
-    addActiveClassOnClick({ el, currLink, state });
-    addActiveClassOnReload({ el, currLink, state });
-  }, [])
+  function postAnimate(e, link) {
+    const tl = gsap.timeline({
+      paused: true,
+      defaults: { duration: 0.5 },
+      onComplete: () => actions.router.set(link)
+    });
+    const clone = e.target.getBoundingClientRect();
+    const layer = ".transition-layer";
+
+    gsap.set(layer, {
+      left: clone.x,
+      top: clone.y,
+      width: clone.width,
+      height: clone.height,
+      background: config.gradient,
+      opacity: 0,
+      onComplete: () => {
+        tl.to(layer, { opacity: 1 })
+          .to(".main", { opacity: 0 }, "-=0.5")
+          .to(layer, {
+            delay: 0.5,
+            width: "100%",
+            height: "80vh",
+            top: 0,
+            left: 0
+          })
+        tl.play();
+      }
+    })
+  }
 
   return (
     <>
@@ -50,7 +65,10 @@ const Posts = ({ state }) => {
               <Link
                 key={index}
                 className={`post ${index % 2 && "odd"}`}
-                href={post.link}
+                onClick={e => {
+                  e.preventDefault();
+                  postAnimate(e, post.link)
+                }}
               >
                 <PostMedia post={post} />
                 <PostDescription

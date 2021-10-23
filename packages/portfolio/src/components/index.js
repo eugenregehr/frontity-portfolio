@@ -16,10 +16,8 @@ import Footer from "./footer";
 import Error from "./error";
 import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
-import TransitionLayer from "./transition";
 import Cookies from "./cookies";
 import colors from "../styles/colors";
-import Preview from "./preview";
 import Arrow from "./modules/partials/arrow";
 
 
@@ -27,25 +25,7 @@ const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const setLang = state.theme.lang == "en" ? "en" : "de";
   const root = useRef(null);
-
-  useEffect(() => {
-    const el = root.current;
-    const upIcon = el.querySelector(".up-icon");
-
-    gsap.to(window, { scrollTo: 0, duration: 0.2 })
-    // prevent default browser scrolling position
-    if (history.scrollRestoration) {
-      history.scrollRestoration = 'manual';
-    }
-    gsap.to(upIcon, {
-      scrollTrigger: {
-        trigger: "body",
-        start: "1000px top",
-        toggleActions: "play none none reverse"
-      },
-      bottom: "2rem"
-    })
-  }, [])
+  console.log(data);
 
   return (
     <div ref={root}>
@@ -59,34 +39,34 @@ const Root = ({ state }) => {
       <Provider language={setLang} translation={Translation}>
         <Cookies />
         <Container className={"container"}>
-          <TransitionLayer node={root} loading={data.isFetching} />
-          <Preview node={root} />
           <Header />
           <Main className={"main"}>
-            <Posts />
-            <Post />
+            {data.isArchive && <Posts />}
             <Page />
             {data.isError && <Error />}
           </Main>
-          <Footer />
         </Container>
+        {data.isPostType && <Post />}
+        <TransitionLayer className={"transition-layer"} />
+        <Footer />
       </Provider>
-      <Up
-        className={"up-icon"}
-        rotate={"-90"}
-        onClick={() => gsap.to(window, { scrollTo: 0 })} circle />
     </div>
   );
 };
 
 export default connect(Root);
 
+const TransitionLayer = styled.div`
+  position: absolute;
+`
+
 const Container = styled.div`
+  position: relative;
   padding: 0 1.5rem;
   background: #fff;
   color: ${colors.text};
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  /* min-height: 100vh;
+  min-height: -webkit-fill-available; */
   ${mq("tablet")} {
       padding: 0 2rem;
     }
@@ -108,7 +88,7 @@ const Main = styled.main`
   max-width: ${config.containerWidth};
   margin-left: auto;
   margin-right: auto;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   position: relative;
   ${mq("tablet")} {
       padding: 4rem 0;

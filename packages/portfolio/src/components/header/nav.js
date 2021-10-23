@@ -32,11 +32,10 @@ const Nav = ({ state }) => (
           ) :
             <Link
               href={isLastLink ? setLangLink : link}
-              current={isCurrentPage ? "page" : undefined}
-              hardLink={name == "EN" || name == "DE"}
-              nav>
+              current={isCurrentPage ? "page" : undefined}>
               {name}
-            </Link>}
+            </Link>
+          }
         </div>
       );
     })}
