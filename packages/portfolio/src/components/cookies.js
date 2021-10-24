@@ -17,8 +17,8 @@ const Cookie = () => {
 
   useEffect(() => {
     const el = root.current;
-    if (isSetted) {
-      gsap.set(el, { display: "none" })
+    if (!isSetted) {
+      gsap.set(el, { display: "block" })
     }
   }, [])
 
@@ -71,6 +71,7 @@ const CookieEl = styled.div`
   background: ${config.gradient};
   color: #fff;
   z-index: ${zindex.cookie};
+  display: none;
   ${mq("tablet")}{
     max-width: 15rem;
   }

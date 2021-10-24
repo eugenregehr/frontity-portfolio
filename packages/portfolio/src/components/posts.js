@@ -4,12 +4,12 @@ import gsap from "gsap";
 
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
-import Link from "./link";
 import PostDescription from "./posts-description";
 import PostsTitle from "./posts-title";
 import PostMedia from "./posts-media";
 import config from "../styles/config";
 import { Transition, transitionInit } from "./animation/transition";
+import { PostIntro } from "./animation/posts-scroll-effects";
 
 
 const Posts = ({ state, actions }) => {
@@ -19,14 +19,21 @@ const Posts = ({ state, actions }) => {
   const layer = ".transition-layer";
 
   useEffect(() => {
+    const el = root.current;
+    const delay = state.theme.introPlayed ? 0.5 : 2;
+    gsap.to(".posts", { delay: delay, duration: 1, opacity: 1 })
+
+    PostIntro(el);
+
     gsap.set(layer, { clearProps: "all" })
-    Transition(".posts");
+    const container = document.querySelector(".container");
+    container.classList.remove("inverted");
   }, [])
 
   function postAnimate(e, link) {
     const tl = gsap.timeline({
       paused: true,
-      defaults: { duration: 0.5 },
+      defaults: { duration: 0.5, ease: "power1" },
       onComplete: () => actions.router.set(link)
     });
     const clone = e.target.getBoundingClientRect();
@@ -43,12 +50,13 @@ const Posts = ({ state, actions }) => {
         tl.to(layer, { opacity: 1 })
           .to(".posts", { opacity: 0 }, "-=0.5")
           .to(layer, {
-            delay: 0.5,
+            delay: 0.25,
             width: "100%",
             height: "100%",
             top: 0,
             left: 0,
-            background: "#000"
+            background: "#000",
+            duration: 1
           })
         tl.play();
       }
@@ -87,7 +95,7 @@ const Posts = ({ state, actions }) => {
 export default connect(Posts);
 
 const PostWrap = styled.div`
-  ${transitionInit};
+  opacity: 0;
   .post-wrap{
     display: flex;
     flex-flow: wrap;  

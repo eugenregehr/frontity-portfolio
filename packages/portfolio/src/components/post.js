@@ -17,7 +17,9 @@ const Post = ({ state }) => {
 
   useEffect(() => {
     Transition(".single-post-content");
-    gsap.to(window, { scrollTo: 0 })
+    gsap.to(window, { scrollTo: 0 });
+    const container = document.querySelector(".container");
+    container.classList.add("inverted");
   }, [])
 
   return (

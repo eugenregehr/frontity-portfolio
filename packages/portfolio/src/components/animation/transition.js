@@ -1,7 +1,7 @@
 import gsap from "gsap";
 
-const Transition = (el) => {
-  gsap.to(el, { delay: 0.5, duration: 1, opacity: 1, y: 0 })
+const Transition = (el, delay = 0.5) => {
+  gsap.to(el, { delay: delay, duration: 1, opacity: 1, y: 0 })
 }
 
 const transitionInit = `

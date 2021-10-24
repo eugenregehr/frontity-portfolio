@@ -24,7 +24,6 @@ const Logo = ({ state }) => {
 
   return (
     <LogoWrap
-      className={`background ${!state.theme.introPlayed ? 'spacer' : ''}`}
       ref={root}
       css={css`z-index: ${state.theme.introPlayed ? zindex.logoWrapperAfterIntro : zindex.logoWrapper}`}
     >
@@ -63,19 +62,6 @@ const LogoWrap = styled.div`
   ${mq("tablet")} {
       transform: scale(1);
     }
-  
-  &.spacer:before{
-    min-height: -webkit-fill-available;
-    min-width: -webkit-fill-available;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    left: -4rem;
-    top: 0;
-    content: "";
-    background: ${config.gradient};
-    z-index: 700;
-  }
   
   .holder{
     height: 40px;

@@ -57,7 +57,7 @@ const Intro = ({ el, state }) => {
     onComplete: () => {
       state.theme.introPlayed = true
     }
-  })
+  }).timeScale(1.5)
 
 
   function LA({ el, y, x, v }) {

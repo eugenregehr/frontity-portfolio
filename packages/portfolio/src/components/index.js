@@ -25,7 +25,6 @@ const Root = ({ state }) => {
   const data = state.source.get(state.router.link);
   const setLang = state.theme.lang == "en" ? "en" : "de";
   const root = useRef(null);
-  console.log(data);
 
   return (
     <div ref={root}>
@@ -81,6 +80,9 @@ const Container = styled.div`
   &.inverted{
     nav .icon img{
       filter: invert(1);
+    }
+    nav a {
+      color: #fff;
     }
     footer {
       opacity: 0.5;

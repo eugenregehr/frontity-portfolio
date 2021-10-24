@@ -59,7 +59,6 @@ const PostIntro = (el) => {
     }
   })
 
-
   gsap.fromTo(postWrap, {
     y: -200,
   }, {
@@ -71,8 +70,6 @@ const PostIntro = (el) => {
       gsap.set(postWrap, { clearProps: "all" })
     }
   })
-
-
 
 }
 
