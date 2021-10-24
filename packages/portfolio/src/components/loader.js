@@ -1,4 +1,5 @@
 import { styled, connect } from "frontity";
+import colors from "../styles/colors";
 import zindex from "../styles/zindex";
 
 const Loading = () => {
@@ -19,10 +20,12 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 100%;
-  height: 100%;
-  margin-top: 4rem;
- 
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
   .loader {
     display: inline-block;
     position: relative;
@@ -35,7 +38,7 @@ const Container = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #fff;
+    background: ${colors.primary};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .loader div:nth-of-type(1) {

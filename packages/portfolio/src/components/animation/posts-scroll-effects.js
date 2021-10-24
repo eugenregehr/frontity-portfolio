@@ -28,22 +28,6 @@ const PostShifting = (el) => {
   }
 }
 
-const BackIcon = (el) => {
-  const icon = el.querySelector(".fixed-icon")
-
-  ScrollTrigger.create({
-    trigger: "body",
-    start: "200px 0px",
-    onEnter: () => {
-      icon.classList.add("fixed")
-    },
-    onLeaveBack: () => {
-      icon.classList.remove("fixed")
-    }
-  })
-}
-
-
 const PostIntro = (el) => {
   const postWrap = el.querySelector(".post-wrap");
   const title = el.querySelector("h1");
@@ -93,4 +77,4 @@ const PostIntro = (el) => {
 }
 
 
-export { PostShifting, BackIcon, PostIntro }
+export { PostShifting, PostIntro }

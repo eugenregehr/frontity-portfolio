@@ -24,7 +24,7 @@ const Logo = ({ state }) => {
 
   return (
     <LogoWrap
-      className={`background ${state.theme.introPlayed ? '' : 'spacer'}`}
+      className={`background ${!state.theme.introPlayed ? 'spacer' : ''}`}
       ref={root}
       css={css`z-index: ${state.theme.introPlayed ? zindex.logoWrapperAfterIntro : zindex.logoWrapper}`}
     >

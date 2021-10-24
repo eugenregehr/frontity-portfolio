@@ -5,20 +5,23 @@ import gsap from "gsap";
 import { getPostsGroupedByCategory } from "../helpers";
 import { mq } from "../styles/breakpoints";
 import Link from "./link";
-import PostDescription from "./post-description";
+import PostDescription from "./posts-description";
 import PostsTitle from "./posts-title";
-import PostMedia from "./post-media";
+import PostMedia from "./posts-media";
 import config from "../styles/config";
+import { Transition, transitionInit } from "./animation/transition";
 
 
 const Posts = ({ state, actions }) => {
 
   const postsPerCategory = getPostsGroupedByCategory(state.source, { "projects": 2 });
   const root = useRef(null);
+  const layer = ".transition-layer";
 
   useEffect(() => {
-    const el = root.current;
-  })
+    gsap.set(layer, { clearProps: "all" })
+    Transition(".posts");
+  }, [])
 
   function postAnimate(e, link) {
     const tl = gsap.timeline({
@@ -27,7 +30,6 @@ const Posts = ({ state, actions }) => {
       onComplete: () => actions.router.set(link)
     });
     const clone = e.target.getBoundingClientRect();
-    const layer = ".transition-layer";
 
     gsap.set(layer, {
       left: clone.x,
@@ -35,16 +37,18 @@ const Posts = ({ state, actions }) => {
       width: clone.width,
       height: clone.height,
       background: config.gradient,
+      position: "fixed",
       opacity: 0,
       onComplete: () => {
         tl.to(layer, { opacity: 1 })
-          .to(".main", { opacity: 0 }, "-=0.5")
+          .to(".posts", { opacity: 0 }, "-=0.5")
           .to(layer, {
             delay: 0.5,
             width: "100%",
-            height: "80vh",
+            height: "100%",
             top: 0,
-            left: 0
+            left: 0,
+            background: "#000"
           })
         tl.play();
       }
@@ -52,43 +56,41 @@ const Posts = ({ state, actions }) => {
   }
 
   return (
-    <>
-      <PostWrap ref={root}
-        className={"posts"}>
-        <PostsTitle />
+    <PostWrap ref={root}
+      className={"posts"}>
+      <PostsTitle />
 
-        {postsPerCategory.map(({ posts }, index) => (
-          <div
-            className={'post-wrap'}
-            key={index}>
-            {posts.map((post, index) => (
-              <Link
-                key={index}
-                className={`post ${index % 2 && "odd"}`}
-                onClick={e => {
-                  e.preventDefault();
-                  postAnimate(e, post.link)
-                }}
-              >
-                <PostMedia post={post} />
-                <PostDescription
-                  title={post.title.rendered}
-                  excerpt={post.excerpt.rendered} />
-              </Link>
-            ))}
-          </div>
-        ))}
-      </PostWrap>
-    </>
+      {postsPerCategory.map(({ posts }, index) => (
+        <div
+          className={'post-wrap'}
+          key={index}>
+          {posts.map((post, index) => (
+            <div
+              key={index}
+              className={`post ${index % 2 && "odd"}`}
+              onClick={e => {
+                postAnimate(e, post.link)
+              }}
+            >
+              <PostMedia post={post} />
+              <PostDescription
+                title={post.title.rendered}
+                excerpt={post.excerpt.rendered} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </PostWrap>
   )
 }
 
 export default connect(Posts);
 
 const PostWrap = styled.div`
+  ${transitionInit};
   .post-wrap{
     display: flex;
-    flex-flow: wrap;
+    flex-flow: wrap;  
     .post{
       cursor: pointer;
       display: block;

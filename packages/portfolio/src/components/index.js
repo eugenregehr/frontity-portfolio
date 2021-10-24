@@ -18,7 +18,7 @@ import { mq } from "../styles/breakpoints";
 import config from "../styles/config";
 import Cookies from "./cookies";
 import colors from "../styles/colors";
-import Arrow from "./modules/partials/arrow";
+import Loader from "./loader";
 
 
 const Root = ({ state }) => {
@@ -42,13 +42,16 @@ const Root = ({ state }) => {
           <Header />
           <Main className={"main"}>
             {data.isArchive && <Posts />}
-            <Page />
+            {data.isPage && <Page />}
             {data.isError && <Error />}
+            {data.isFetching && <Loader />}
+            {/* <Loader /> */}
           </Main>
         </Container>
-        {data.isPostType && <Post />}
         <TransitionLayer className={"transition-layer"} />
+        {data.isPost && <Post />}
         <Footer />
+
       </Provider>
     </div>
   );
@@ -57,7 +60,11 @@ const Root = ({ state }) => {
 export default connect(Root);
 
 const TransitionLayer = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow-y: scroll;
 `
 
 const Container = styled.div`
@@ -65,8 +72,6 @@ const Container = styled.div`
   padding: 0 1.5rem;
   background: #fff;
   color: ${colors.text};
-  /* min-height: 100vh;
-  min-height: -webkit-fill-available; */
   ${mq("tablet")} {
       padding: 0 2rem;
     }
@@ -88,20 +93,9 @@ const Main = styled.main`
   max-width: ${config.containerWidth};
   margin-left: auto;
   margin-right: auto;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   position: relative;
   ${mq("tablet")} {
       padding: 4rem 0;
     }
-`
-
-const Up = styled(Arrow)`
-  position: fixed;
-  bottom: -3rem;
-  right: 1rem;
-  /* transform: translateY(-100px); */
-  ${mq("tablet")} {
-    bottom: -3rem;
-    right: 1rem;
-  }
 `

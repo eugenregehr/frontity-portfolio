@@ -1,12 +1,12 @@
 import { connect, styled } from "frontity";
 import FLink from "@frontity/components/link";
 
-const Link = ({ className, href, children, onClick }) => {
+const Link = ({ className, href, current, children, onClick }) => {
   return (
     <>
-      <a href={href ?? ''} className={className} onClick={onClick}>
+      <FLink link={href} aria-current={current} className={className} onClick={onClick}>
         {children}
-      </a>
+      </FLink>
     </>
   )
 }
