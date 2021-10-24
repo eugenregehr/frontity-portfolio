@@ -56,7 +56,7 @@ const Posts = ({ state, actions }) => {
             top: 0,
             left: 0,
             background: "#000",
-            duration: 1
+            duration: 0.5
           })
         tl.play();
       }

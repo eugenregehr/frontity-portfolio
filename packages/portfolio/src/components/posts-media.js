@@ -4,6 +4,7 @@ import { connect, styled } from 'frontity';
 import ACFMedia from "./images/acf-media";
 import Video from "./modules/video";
 import { mq } from "../styles/breakpoints";
+import config from "../styles/config";
 
 
 const PostsMedia = ({ post }) => {
@@ -35,8 +36,8 @@ const PostsMedia = ({ post }) => {
 export default connect(PostsMedia);
 
 const PostsMediaEl = styled.div`
-  .post-video{
-    position: absolute;
+  > div {
+    background: ${config.gradient};
   }
 `
 
