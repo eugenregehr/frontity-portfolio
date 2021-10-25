@@ -1,7 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { connect, loadable, styled } from "frontity";
 
 import { Transition, transitionInit } from "./animation/transition";
+import RemoveInverted from "./animation/remove-inverted";
 
 
 const Component = loadable(props => import(`./modules/${props.page}`), { ssr: false })
@@ -12,6 +13,7 @@ const Post = ({ state }) => {
 
   useEffect(() => {
     Transition(".single-page");
+    RemoveInverted();
   }, [])
 
   return (

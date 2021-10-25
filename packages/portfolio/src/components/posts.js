@@ -7,16 +7,15 @@ import { mq } from "../styles/breakpoints";
 import PostDescription from "./posts-description";
 import PostsTitle from "./posts-title";
 import PostMedia from "./posts-media";
-import config from "../styles/config";
-import { Transition, transitionInit } from "./animation/transition";
 import { PostIntro } from "./animation/posts-scroll-effects";
+import PostTransition from "./animation/post-transition";
+import RemoveInverted from "./animation/remove-inverted";
 
 
 const Posts = ({ state, actions }) => {
 
   const postsPerCategory = getPostsGroupedByCategory(state.source, { "projects": 2 });
   const root = useRef(null);
-  const layer = ".transition-layer";
 
   useEffect(() => {
     const el = root.current;
@@ -24,44 +23,8 @@ const Posts = ({ state, actions }) => {
     gsap.to(".posts", { delay: delay, duration: 1, opacity: 1 })
 
     PostIntro(el);
-
-    gsap.set(layer, { clearProps: "all" })
-    const container = document.querySelector(".container");
-    container.classList.remove("inverted");
+    RemoveInverted();
   }, [])
-
-  function postAnimate(e, link) {
-    const tl = gsap.timeline({
-      paused: true,
-      defaults: { duration: 0.5, ease: "power1" },
-      onComplete: () => actions.router.set(link)
-    });
-    const clone = e.target.getBoundingClientRect();
-
-    gsap.set(layer, {
-      left: clone.x,
-      top: clone.y,
-      width: clone.width,
-      height: clone.height,
-      background: config.gradient,
-      position: "fixed",
-      opacity: 0,
-      onComplete: () => {
-        tl.to(layer, { opacity: 1 })
-          .to(".posts", { opacity: 0 }, "-=0.5")
-          .to(layer, {
-            delay: 0.25,
-            width: "100%",
-            height: "100%",
-            top: 0,
-            left: 0,
-            background: "#000",
-            duration: 0.5
-          })
-        tl.play();
-      }
-    })
-  }
 
   return (
     <PostWrap ref={root}
@@ -77,7 +40,7 @@ const Posts = ({ state, actions }) => {
               key={index}
               className={`post ${index % 2 && "odd"}`}
               onClick={e => {
-                postAnimate(e, post.link)
+                PostTransition(e, post.link, actions)
               }}
             >
               <PostMedia post={post} />

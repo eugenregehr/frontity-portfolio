@@ -45,18 +45,17 @@ const Nav = ({ state }) => (
 export default connect(Nav);
 
 const GithubIcon = styled.img`
-    display: none;
-    max-width: 1.25rem;
-    position: relative;
-    top: -3px;
-    ${mq("tablet")}{
-      max-width: 1.5rem;
-      top: 0;
-    }
-    ${mq("desktop")}{
-      display: block;
-    }
-
+  display: none;
+  max-width: 1.25rem;
+  position: relative;
+  top: -3px;
+  ${mq("tablet")}{
+    max-width: 1.5rem;
+    top: 0;
+  }
+  ${mq("desktop")}{
+    display: block;
+  }
 `
 const Navigation = styled.nav`
   display: flex;
@@ -112,16 +111,12 @@ const Navigation = styled.nav`
     position: fixed;
     right: -0.5rem;
     z-index: ${zindex.language};
-    /* transition: background-color .2s ease; */
     ${mq("tablet")}{
       top: 5rem;
     }
     ${mq("desktop")}{
       top: 2.1rem;
     }
-    /* &:hover{
-      background-color: ${colors.secondary};
-    } */
     a{
       color: #fff;
       margin-left: 0;
